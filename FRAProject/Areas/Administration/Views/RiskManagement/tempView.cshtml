@@ -1,0 +1,466 @@
+﻿<div class="accordionBody">
+    <div class="accordion w-100">
+        <div class="accordion-item">
+            <a>Section 100 - Employee Screening</a>
+            <div class="content">
+                <!--Table-->
+                
+                <!--End Table-->
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>Section 200 - Employment Policies & Procedures</a>
+            <div class="content">
+
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>Section 300 - Employee Onboarding</a>
+            <div class="content">
+
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>Section 400 - Employee Compensation and Employee Relations</a>
+            <div class="content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="rTable">
+    <div class="rTableRow">
+        <div class="rTableHead w25 h60">
+            <strong>#</strong>
+        </div>
+        <div class="rTableHead w300 h60">
+            <strong>Questions</strong>
+        </div>
+        <div class="rTableHead w300 h60">
+            <strong>Control Guidelines</strong>
+        </div>
+        <div class="rTableHead w74 h60">
+            <strong>Impact</strong>
+        </div>
+        <div class="rTableHead w80 h60">
+            <strong>Maturity Earned</strong>
+        </div>
+        <div class="rTableHead w75 h60">
+            <strong>P1 (1~5)</strong>
+        </div>
+        <div class="rTableHead w75 h60">
+            <strong>P2 (1~5)</strong>
+        </div>
+        <div class="rTableHead w75 h60">
+            <strong>P3 (1~5)</strong>
+        </div>
+        <div class="rTableHead w300 h60">
+            <strong>Comments</strong>
+        </div>
+    </div>
+    <div class="rTableRow">
+        <div class="rTableCell w25 h90">1</div>
+        <div class="rTableCell w300 h90">Does the company conduct pre-employment criminal background checks?</div>
+        <div class="rTableCell w300 h90 blackBorderRight">Potential access to valued company assets by persons with criminal background.  Potential for fraud, abuse, theft, loss.</div>
+        <div class="rTableCell w74 h90 grey pad1BorderRight">
+            <div class="select-style">
+                <label>
+                    <select id="impactsection1" onchange="calculateMaturityOnly('section1_p1_3')">
+                        <option value="5" selected="selected">5</option>
+                        <option value="3">3</option>
+                        <option value="1">1</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="rTableCell w80 h90 centerCell red" id="maturityScore1section1">0.5</div>
+        <div class="rTableCell w75 h90 pad1BorderRight red" id="divsection1p1">
+            <div class="select-style">
+                <label>
+                    <select id="section1p1" onchange="calculateImpact('section1_p1_3')">
+                        <option value="0.5" selected="selected">0.5</option>
+                        <option value="1.0">1.0</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2.0">2.0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3.0">3.0</option>
+                        <option value="3.5">3.5</option>
+                        <option value="4.5">4.5</option>
+                        <option value="5.0">5.0</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="rTableCell w75 h90 pad1BorderRight red" id="divsection1p2">
+            <div class="select-style">
+                <label>
+                    <select id="section1p2" onchange="calculateImpact('section1_p2_3')">
+                        <option value="0.5" selected="selected">0.5</option>
+                        <option value="1.0">1.0</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2.0">2.0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3.0">3.0</option>
+                        <option value="3.5">3.5</option>
+                        <option value="4.5">4.5</option>
+                        <option value="5.0">5.0</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="rTableCell w75 h90 pad1BorderRight red" id="divsection1p3">
+            <div class="select-style">
+                <label>
+                    <select id="section1p3" onchange="calculateImpact('section1_p3_3')">
+                        <option value="0.5" selected="selected">0.5</option>
+                        <option value="1.0">1.0</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2.0">2.0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3.0">3.0</option>
+                        <option value="3.5">3.5</option>
+                        <option value="4.0">4.0</option>
+                        <option value="5.0">5.0</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="rTableCell w300 h90 pad1">
+            <textarea class="form-control" style="height: 85px"></textarea>
+        </div>
+    </div>
+    <div class="rTableRow">
+        <div class="rTableCell w25 h90">2</div>
+        <div class="rTableCell w300 h90">What type(s) of criminal database(s) is/are searched (national, state, county)?</div>
+        <div class="rTableCell w300 h90 blackBorderRight">Limited scope of criminal background search may drive incomplete background screen results.  Potential for ineffective background screen results.</div>
+        <div class="rTableCell w74 h90 grey pad1BorderRight">
+            <div class="select-style">
+                <label>
+                    <select id="impactsection2" onchange="calculateMaturityOnly('section2_p1_3')">
+                        <option value="5" selected="selected">5</option>
+                        <option value="3">3</option>
+                        <option value="1">1</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="rTableCell w80 h90 centerCell red" id="maturityScore1section2">0.5</div>
+        <div class="rTableCell w75 h90 red pad1BorderRight" id="divsection2p1">
+            <div class="select-style">
+                <label>
+                    <select id="section2p1" onchange="calculateImpact('section2_p1_3')">
+                        <option value="0.5">0.5</option>
+                        <option value="1.0">1.0</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2.0">2.0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3.0">3.0</option>
+                        <option value="3.5">3.5</option>
+                        <option value="4.0">4.0</option>
+                        <option value="4.5">4.5</option>
+                        <option value="5.0">5.0</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="rTableCell w75 h90 red pad1BorderRight" id="divsection2p2">
+            <div class="select-style">
+                <label>
+                    <select id="section2p2" onchange="calculateImpact('section2_p2_3')">
+                        <option value="0.5">0.5</option>
+                        <option value="1.0">1.0</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2.0">2.0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3.0">3.0</option>
+                        <option value="3.5">3.5</option>
+                        <option value="4.0">4.0</option>
+                        <option value="4.5">4.5</option>
+                        <option value="5.0">5.0</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="rTableCell w75 h90 pad1BorderRight red" id="divsection2p3">
+            <div class="select-style">
+                <label>
+                    <select id="section2p3" onchange="calculateImpact('section2_p3_3')">
+                        <option value="0.5">0.5</option>
+                        <option value="1.0">1.0</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2.0">2.0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3.0">3.0</option>
+                        <option value="3.5">3.5</option>
+                        <option value="4.0">4.0</option>
+                        <option value="4.5">4.5</option>
+                        <option value="5.0">5.0</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="rTableCell w300 h90 pad1">
+            <textarea class="form-control" style="height: 85px"></textarea>
+        </div>
+    </div>
+</div>
+
+
+@*@if (item.ListRiskDetailScoreViews.Any())
+{
+    foreach (var scoreView in item.ListRiskDetailScoreViews)
+    {
+        <div class="card" style="width: 980px">
+        <h5 class="card-header">
+            <a class="collapsed d-block" data-toggle="collapse" href="#collapse-collapsed" aria-expanded="true" aria-controls="collapse-collapsed" id="heading-collapsed">
+                <i class="fa fa-chevron-down fa-pull-right"></i>
+                @scoreView.CategoryName
+            </a>
+        </h5>
+        <div id="collapse-collapsed" class="collapse" aria-labelledby="heading-collapsed">
+        <div class="card-body">
+        <div class="row">
+            <div class="displayInline">
+                <div class="float-left">
+                    <h5 style="margin-left: 15px"> Number of Participant(s): <span class="badge badge-secondary badgePaticipant">@scoreView.ParticipantsNo</span></h5>
+                </div>
+                <div class="float-right">
+                    @{
+                        var paramEdit = scoreView.RiskAssessmentID + "_" + scoreView.RiskDetailsID;
+                        var id = scoreView.RiskAssessmentID + "_" + scoreView.RiskDetailsID;
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-riskGuideLine" data-backdrop="static" data-keyboard="false" onclick="EditRiskDetial('@paramEdit')"><i class="far fa-edit f25"></i> Edit</button>
+                        <button type="button" class="btn btn-danger"><i class="far fa-trash-alt f25"></i> Delete</button>
+
+                        var hiddenTotalSectionRecord = "SectionTotalRecord_" + id;
+                        var hiddenRiskDetailsId = "RiskDetailsID_" + id;
+                        <div class="hideDiv" id="@hiddenTotalSectionRecord">@scoreView.SectionDataCount</div>
+                        <div class="hideDiv" id="@hiddenRiskDetailsId">@scoreView.RiskDetailsID</div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--Maturity-->
+            <div class="card-marginleft">
+                <div class="card card-width150">
+                    <div class="card-content">
+                        @{
+                            var maturityId = "Maturity" + id;
+                            var divmaturityId = "divMaturity" + id;
+
+                            var riskMaturity = scoreView.Maturity;
+                            var cssClassRiskMaturity = "red";
+
+                            if (riskMaturity >= 0 && riskMaturity <= 1)
+                            {
+                                cssClassRiskMaturity = "red";
+                            }
+                            else if (riskMaturity > 1 && riskMaturity <= 2)
+                            {
+                                cssClassRiskMaturity = "orange";
+                            }
+                            else if (riskMaturity > 2 && riskMaturity <= 3)
+                            {
+                                cssClassRiskMaturity = "yellow";
+                            }
+                            else if (riskMaturity > 3 && riskMaturity <= 3.8)
+                            {
+                                cssClassRiskMaturity = "green lighten-2";
+                            }
+                            else if (riskMaturity > 3.8 && riskMaturity <= 5)
+                            {
+                                cssClassRiskMaturity = "green";
+                            }
+
+                            <div id="@divmaturityId" class="card-title white-text card-box150x150 @cssClassRiskMaturity">
+                                <h5 id="@maturityId" class="card-score">@scoreView.Maturity</h5>
+                            </div>
+                        }
+                        <div class="card-textDesc">
+                            Maturity
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Maturity-->
+            <!--Efficiency-->
+            <div class="card-marginleft">
+                <div class="card card-width150">
+                    <div class="card-content">
+                        @{
+                            var efficiencyId = "Efficiency" + id;
+                            var divefficiencyId = "divEfficiency" + id;
+
+                            var riskEfficiency = scoreView.Efficiency;
+                            var cssClassRiskEfficiency = "red";
+                            if (riskEfficiency >= 0 && riskEfficiency <= 20)
+                            {
+                                cssClassRiskEfficiency = "red";
+                            }
+                            else if (riskEfficiency > 20 && riskEfficiency <= 40)
+                            {
+                                cssClassRiskEfficiency = "orange";
+                            }
+                            else if (riskEfficiency > 40 && riskEfficiency <= 60)
+                            {
+                                cssClassRiskEfficiency = "yellow";
+                            }
+                            else if (riskEfficiency > 60 && riskEfficiency <= 80)
+                            {
+                                cssClassRiskEfficiency = "green lighten-2";
+                            }
+                            else if (riskEfficiency > 80 && riskEfficiency <= 100)
+                            {
+                                cssClassRiskEfficiency = "green";
+                            }
+
+                            var percentEfficiency = scoreView.Efficiency + "%";
+                            <div id="@divefficiencyId" class="card-title white-text card-box150x150 @cssClassRiskEfficiency">
+                                <h5 id="@efficiencyId" class="card-score">@percentEfficiency</h5>
+                            </div>
+                        }
+                        <div class="card-textDesc">
+                            Efficiency
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Efficiency-->
+            <!--Risk Level-->
+            <div class="card-marginleft">
+                <div class="card card-width200">
+                    <div class="card-content">
+                        @{
+                            var riskLevelId = "RiskLevel" + id;
+                            var divriskLevelId = "divRiskLevel" + id;
+
+                            var cssClassRiskDetailLevel = "red";
+                            if (scoreView.RiskLevel == "HIGH")
+                            {
+                                cssClassRiskDetailLevel = "red";
+                            }
+                            else if (scoreView.RiskLevel == "MEDIUM")
+                            {
+                                cssClassRiskDetailLevel = "yellow";
+                            }
+                            else if (scoreView.RiskLevel == "LOW")
+                            {
+                                cssClassRiskDetailLevel = "green";
+                            }
+
+                            <div id="@divriskLevelId" class="card-title white-text card-box150x200 @cssClassRiskDetailLevel">
+                                <h5 id="@riskLevelId" class="card-score">@scoreView.RiskLevel</h5>
+                            </div>
+                        }
+                        <div class="card-textDesc">
+                            Risk Level
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Risk Level-->
+        </div>
+        <div class="row">
+            <!--Table-->
+            <div class="rTable">
+                <div class="rTableRow">
+                    <div class="rTableHead rTableHeadWith">
+                        <strong>Assessment sections</strong>
+                    </div>
+                    <div class="rTableHead centerCell">
+                        <strong>Maturity</strong>
+                    </div>
+                    <div class="rTableHead centerCell">
+                        <strong>Efficiency</strong>
+                    </div>
+                    <div class="rTableHead centerCell">
+                        <strong>Risk Level</strong>
+                    </div>
+                </div>
+                @foreach (var iSectionItem in scoreView.ListRiskSectionScore)
+                {
+                    var sectionMaturityId = "sectionMaturity_" + id + "_" + iSectionItem.RiskSectionScoreID;
+                    var sectionEfficiencyId = "sectionEfficiency_" + id + "_" + iSectionItem.RiskSectionScoreID;
+                    var sectionRiskLevelId = "sectionRiskLevel_" + id + "_" + iSectionItem.RiskSectionScoreID;
+
+                    var scoreMaturity = iSectionItem.Maturity;
+                    var cssClass = "red";
+
+                    if (scoreMaturity >= 0 && scoreMaturity <= 1)
+                    {
+                        cssClass = "red";
+                    }
+                    else if (scoreMaturity > 1 && scoreMaturity <= 2)
+                    {
+                        cssClass = "orange";
+                    }
+                    else if (scoreMaturity > 2 && scoreMaturity <= 3)
+                    {
+                        cssClass = "yellow";
+                    }
+                    else if (scoreMaturity > 3 && scoreMaturity <= 3.8)
+                    {
+                        cssClass = "green lighten-2";
+                    }
+                    else if (scoreMaturity > 3.8 && scoreMaturity <= 5)
+                    {
+                        cssClass = "green";
+                    }
+
+                    var scoreEfficiency = 0;
+                    var outscoreEfficiency = 0;
+                    scoreEfficiency = int.TryParse(iSectionItem.Efficiency, out outscoreEfficiency) ? int.Parse(iSectionItem.Efficiency) : 0;
+
+                    var cssClassEfficiency = "red";
+                    if (scoreEfficiency >= 0 && scoreEfficiency <= 20)
+                    {
+                        cssClassEfficiency = "red";
+                    }
+                    else if (scoreEfficiency > 20 && scoreEfficiency <= 40)
+                    {
+                        cssClassEfficiency = "orange";
+                    }
+                    else if (scoreEfficiency > 40 && scoreEfficiency <= 60)
+                    {
+                        cssClassEfficiency = "yellow";
+                    }
+                    else if (scoreEfficiency > 60 && scoreEfficiency <= 80)
+                    {
+                        cssClassEfficiency = "green lighten-2";
+                    }
+                    else if (scoreEfficiency > 80 && scoreEfficiency <= 100)
+                    {
+                        cssClassEfficiency = "green";
+                    }
+
+                    var cssClassRiskLevel = "red";
+                    if (iSectionItem.RiskLevel == "HIGH")
+                    {
+                        cssClassRiskLevel = "red";
+                    }
+                    else if (iSectionItem.RiskLevel == "MEDIUM")
+                    {
+                        cssClassRiskLevel = "yellow";
+                    }
+                    else if (iSectionItem.RiskLevel == "LOW")
+                    {
+                        cssClassRiskLevel = "green";
+                    }
+
+                    var percent = iSectionItem.Efficiency + "%";
+                    <div class="rTableRow">
+                        <div class="rTableCell rTableHeadWith">@iSectionItem.SectionName</div>
+                        <div id="@sectionMaturityId" class="rTableCell centerCell @cssClass">@iSectionItem.Maturity</div>
+                        <div id="@sectionEfficiencyId" class="rTableCell centerCell @cssClassEfficiency">@percent</div>
+                        <div id="@sectionRiskLevelId" class="rTableCell centerCell @cssClassRiskLevel">@iSectionItem.RiskLevel</div>
+                    </div>
+                }
+            </div>
+            <!--End Table-->
+        </div>
+        </div>
+        </div>
+        </div>
+    }
+}*@

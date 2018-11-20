@@ -1,0 +1,15 @@
+﻿@using FRA.Web.Models
+
+<form role="form">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Edit Risk Assessment" })
+
+<div class="modal-body userRiskAssessmentForm">
+
+</div>
+
+</form>
+
+<div class="modal-footer">
+    <button data-dismiss="modal" id="Cancel" class="btn btn-secondary" type="button">Cancel</button>
+    <button class="btn btn-success" id="editMDCategory" onclick="EditCategory()">Submit</button>
+</div>

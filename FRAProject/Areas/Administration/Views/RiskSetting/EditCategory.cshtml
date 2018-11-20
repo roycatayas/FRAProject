@@ -1,0 +1,26 @@
+﻿@using FRA.Web.Models
+@model FRA.Data.Models.Catergory
+
+<form role="form">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Edit Category" })
+
+    <div class="modal-body form-horizontal userModalForm">
+        <input type="hidden" asp-for="CategoryID" />
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group userModalForm">
+                    <label asp-for="CategoryName" class="col-lg-3 col-sm-3 control-label">Name</label>
+                    <div class="col-lg-6">
+                        <input asp-for="CategoryName" class="form-control" />
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div class="modal-footer">
+    <button data-dismiss="modal" id="Cancel" class="btn btn-default" type="button">Cancel</button>
+    <button class="btn btn-success" id="editMDCategory" onclick="EditCategory()">Submit</button>
+</div>

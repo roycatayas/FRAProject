@@ -1,0 +1,61 @@
+﻿@using FRA.Web.Areas.Administration.Models
+@using FRA.Web.Models
+@model FRA.Web.Areas.Administration.Models.EditUserViewModel
+
+<form asp-area="administration" asp-controller="Users" asp-action="EditUser" method="POST" name="form" class="form-horizontal">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Edit User" })
+    <div class="modal-body form-horizontal userModalForm">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Email" />
+        @if (ViewBag.Response != null)
+        {
+            var response = (EditUserResponseViewModel)ViewBag.Response;
+
+            <div class="@(response.Succeeded ? "text-success" : "text-danger") wrapper text-center">
+                @response.Description
+            </div>
+        }
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group userModalForm">
+                    <label asp-for="FirstName" class="col-lg-3 col-sm-3 control-label">First Name</label>
+                    <div class="col-lg-6">
+                        <input asp-for="FirstName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group userModalForm">
+                    <label asp-for="LastName" class="col-lg-3 col-sm-3 control-label">Last Name</label>
+                    <div class="col-lg-6">
+                        <input asp-for="LastName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group userModalForm">
+                    <label asp-for="PhoneNumber" class="col-lg-3 col-sm-3 control-label">Phone Number</label>
+                    <div class="col-lg-6">
+                        <input asp-for="PhoneNumber" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group userModalForm">
+                    <label asp-for="Address" class="col-lg-3 col-sm-3 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="Address" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group userModalForm">
+                    <label asp-for="LockoutEnabled" class="col-lg-3 col-sm-3 control-label">Lockout Enabled</label>
+                    <div class="col-lg-6">
+                        <input asp-for="LockoutEnabled" class="form-control" style="width: 20px;" type="checkbox" /><i></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="modal-footer">
+        <button data-dismiss="modal" id="EditCancel" class="btn btn-default" type="button">Cancel</button>
+        <button class="btn btn-success" id="Submit" type="submit">Submit</button>
+    </div>*@
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+</form>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }    
+}

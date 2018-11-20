@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Settings Risk Assessment";
+}
+
+@section Css {
+    @{ await Html.RenderPartialAsync("_DataTablesStylesPartial"); }
+}
+
+<div class="ImgLogoLogin"></div>
+<div class="ImgTopLogin"></div>
+<div>
+    <div class="ImgBodyMain"></div>
+
+    <div class="containerMenu">
+        <div id="sidebar" style="z-index: 1;">
+            <ul>
+                <li><a href="~/home/index">Home</a></li>
+                <li><a asp-area="administration" asp-controller="RiskSetting" asp-action="Index">Risk Settings</a></li>
+                <li><a asp-area="administration" asp-controller="Users" asp-action="Index">User Settings</a></li>
+                <li><a asp-controller="" asp-action="">Risk Management</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <a href="#" data-toggle=".containerMenu" id="sidebar-toggle" style="color: white">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span id="buttonHome" style="position: absolute; top: 2px; left: 30px; font-size: x-large;">Open</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="centeredBG Opacity70">
+        <div class="row relativeFromBoxTop">
+            <div class="topUserDiv alignLeftTopDiv fontUser">
+                Risk Assement Configuration
+            </div>
+            <div class="topUserDiv alignRightTopDiv">
+                <a id="category" class="btn btn-lg btn-default" onclick="getAllCategory()"><i class="glyphicon glyphicon-file"></i> Category</a>
+                <a id="section" class="btn btn-lg btn-default" onclick="getAllSection()"><i class="glyphicon glyphicon-file"></i> Section</a>
+                <a id="riskTemplate" class="btn btn-lg btn-default" onclick="getAllRiskTemplate()"><i class="glyphicon glyphicon-file"></i> Template</a>
+            </div>
+        </div>
+
+        <div class="row relativeFromBoxMid">
+            <div id="Setting-container">
+
+            </div>
+        </div>
+    </div>
+
+    <div tabindex="-1" class="modal fade" id="modal-category" role="dialog" aria-hidden="true" aria-labelledby="modal-action-category-label">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modal-content-Category">
+
+            </div>
+        </div>
+    </div>
+
+    <div tabindex="-1" class="modal fade" id="modal-section" role="dialog" aria-hidden="true" aria-labelledby="modal-action-section-label">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modal-content-Section">
+
+            </div>
+        </div>
+    </div>
+
+    <div tabindex="-1" class="modal fade" id="modal-riskTemplate" role="dialog" aria-hidden="true" aria-labelledby="modal-action-riskTemplate-label">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modal-content-riskTemplate" style="width: 650px">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_DataTablesScriptsPartial"); }
+    
+    <script type="text/javascript" src="~/js/Category.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/RiskTemplate.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/Section.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/MainPage.js" asp-append-version="true"></script>
+}
+
+
+

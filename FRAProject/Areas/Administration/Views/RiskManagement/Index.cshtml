@@ -1,0 +1,200 @@
+﻿@{
+    ViewData["Title"] = "Settings Risk Assessment";
+}
+
+@section Css {
+
+    <link rel="stylesheet" type="text/css" href="~/css/jquery.mCustomScrollbar.min.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/All.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/custom.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/custom-themes.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/UserSetting.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/RiskManagement.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap-table-expandable.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/materialize.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/Main.css" asp-append-version="true" />
+
+    @*@{ await Html.RenderPartialAsync("_DataTablesStylesPartial"); }*@
+}
+
+<div class="ImgLogoLogin"></div>
+<div class="ImgTopLogin"></div>
+<div>
+
+    <div class="page-wrapper cool-theme sidebar-bg bg1 toggled" style="height: 0;">
+        <a id="show-sidebar" class="btn btn-lg btn-dark" href="#">
+            <i class="fas fa-bars font30"></i>
+        </a>
+        <nav id="sidebar" class="sidebar-wrapper font18">
+            <div class="sidebar-content">
+                <div class="sidebar-brand">
+                    <a href="#">Menu</a>
+                    <div id="close-sidebar">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="sidebar-header">
+                    <div class="user-pic">
+                        <img class="img-responsive img-rounded" src="~/images/user.jpg" alt="User picture">
+                    </div>
+                    <div class="user-info">
+                        <span>
+                            <strong>Roy Catayas</strong>
+                        </span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-menu">
+                    <ul>
+                        <li class="header-menu">
+                            <span>General</span>
+                        </li>
+                        <li class="sidebar-dropdown active">
+                            <a href="#">
+                                <i class="fa fa-book"></i>
+                                <span>Management</span>
+                            </a>
+                            <div class="sidebar-submenu" style="display: block;">
+                                <ul>
+                                    <li>
+                                        <a href="#">Risk Assessment</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">History</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fal fa-file-spreadsheet" style="font-size: 28px"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Dashboard 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Dashboard 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-chart-line"></i>
+                                <span>Charts</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Pie chart</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Line chart</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Bar chart</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Histogram</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="header-menu">
+                            <span>System Settings</span>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-book"></i>
+                                <span>Templates</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Category</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Section</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Risk</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span>Users</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Manage User</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- sidebar-menu  -->
+            </div>
+            <!-- sidebar-content  -->
+        </nav>
+        <!-- sidebar-wrapper  -->
+        <main class="page-content">
+            <div id="pagecontent" style="overflow-y: hidden">
+                <div class="riskContent Opacity70">
+                    <div class="row relativeFromBoxTop" style="display: inline;">
+                        <div class="topUserDiv alignLeftTopDiv fontUser">
+                            Risk Management
+                        </div>
+                        <div class="topUserDiv alignRightTopDiv" style="margin-right: 38px;">
+                            <button id="btnNewsRisk" data-toggle="modal" data-target="#modal-riskManagement" data-backdrop="static" data-keyboard="false" class="btn btn-lg btn-light" onclick="getViewForAddRisk()"><i class="fal fa-tasks newRiskButton"></i> New Risk</button>
+                        </div>
+                    </div>
+
+                    <div class="row relativeFromBoxMid">
+                        <div id="risk-content" style="width: calc(100% - 5px)">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+        <!-- page-content" -->
+    </div>
+
+    <div tabindex="-1" class="modal fade" id="modal-riskManagement" role="dialog" aria-hidden="true" aria-labelledby="modal-action-riskManagement-label">
+        <div class="modal-dialog riskCenter" role="document">
+            <div class="modal-content" id="modal-content-riskManagement" style="width: 955px">
+
+            </div>
+        </div>
+    </div>
+
+    <div tabindex="-1" class="modal fade" id="modal-riskGuideLine" role="dialog" aria-hidden="true" aria-labelledby="modal-action-riskManagement-label">
+        <div class="modal-dialog Center2" role="document">
+            <div class="modal-content" id="modal-content-riskGuideLine" style="width: 1450px">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/custom.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/jquery.mCustomScrollbar.concat.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/MainPage.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/RiskManagement.js" asp-append-version="true"></script>
+    @*<script type="text/javascript" src="~/js/bootstrap-table-expandable.js" asp-append-version="true"></script>*@
+    @*<script type="text/javascript" src="~/js/accordion.js" asp-append-version="true"></script>*@
+    @*@{ await Html.RenderPartialAsync("_DataTablesScriptsPartial"); }*@
+}

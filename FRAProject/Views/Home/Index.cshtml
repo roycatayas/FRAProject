@@ -1,0 +1,162 @@
+﻿@{
+    Layout = "_MainLayout";
+}
+
+@section Css {
+    <link rel="stylesheet" href="~/lib/bootstrap-V4/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/jquery.mCustomScrollbar.min.css" />
+    <link rel="stylesheet" href="~/css/All.css" />
+    <link rel="stylesheet" href="~/css/custom.css" />
+    <link rel="stylesheet" href="~/css/custom-themes.css" />  
+}
+
+<div class="ImgLogoLogin"></div>
+<div class="ImgTopLogin"></div>
+<div>
+    
+    <div class="page-wrapper cool-theme sidebar-bg bg1 toggled" style="height: 0;">
+        <a id="show-sidebar" class="btn btn-lg btn-dark" href="#">
+            <i class="fas fa-bars font30"></i>
+        </a>
+        <nav id="sidebar" class="sidebar-wrapper font18">
+            <div class="sidebar-content">
+                <div class="sidebar-brand">
+                    <a href="#">Menu</a>
+                    <div id="close-sidebar">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="sidebar-header">
+                    <div class="user-pic">
+                        <img class="img-responsive img-rounded" src="~/images/user.jpg" alt="User picture">
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">
+                            Admin
+                            <strong>Admin</strong>
+                        </span>
+                        <span class="user-role">Administrator</span>                        
+                    </div>
+                </div>
+                
+                <div class="sidebar-menu">
+                    <ul>
+                        <li class="header-menu">
+                            <span>General</span>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-book"></i>
+                                <span>Management</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a asp-area="administration" asp-controller="RiskManagement" asp-action="Index">Risk Assessment</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">History</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fal fa-file-spreadsheet" style="font-size: 28px"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Dashboard 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Dashboard 2</a>
+                                    </li>
+                                </ul> 
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-chart-line"></i>
+                                <span>Charts</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Pie chart</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Line chart</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Bar chart</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Histogram</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="header-menu">
+                            <span>System Settings</span>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-book"></i>
+                                <span>Templates</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Category</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Section</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Risk</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span>Users</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Manage User</a>
+                                    </li>                                    
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- sidebar-menu  -->
+            </div>
+            <!-- sidebar-content  -->            
+        </nav>
+        <!-- sidebar-wrapper  -->
+        <main class="page-content">
+            @*<div class="container-fluid">
+            </div>*@
+
+        </main>
+        <!-- page-content" -->
+    </div>
+
+
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript" src="~/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/MainPage.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/custom.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/jquery.mCustomScrollbar.concat.min.js" asp-append-version="true"></script>
+    
+}

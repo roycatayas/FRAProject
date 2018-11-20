@@ -1,0 +1,128 @@
+﻿.riskContent {
+    width: calc(100% - 120px);
+    height: calc(100% - 82px);
+    position: relative;
+    top: 10px;
+    left: 10px;
+    padding-bottom: 11px;
+ }
+
+.userRiskAssessmentForm {
+    width: 1152px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.risGuideLineForm {
+    width: 1450px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+
+.newRiskButton {
+    font-size: 27px;
+    display: flex;
+    float: left;
+    margin-top: 2px;
+    margin-right: 3px;
+}
+
+.riskModalForm {
+    width: 950px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.riskCenter {
+    margin-left: calc(100% - 1310px);
+}
+
+.Center2 {
+    margin-left: 220px;
+}
+
+.inlineForm {
+    display: flex;
+    margin-left: 10px;
+    width: 930px;
+}
+
+.minusMargin10 {
+    margin-top: -10px;
+}
+
+.textWith100 {
+    width: calc(100% - 100px);
+}
+
+.textWith130 {
+    width: calc(100% - 130px);
+}
+
+.labelHR {
+    width: 930px;
+    margin-left: 10px;
+    padding: 0;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: transparent transparent #bbb transparent;
+    color: #bbbbbb
+}
+
+.textFWith50 {
+    width: 50px;
+}
+
+.textFWith100 {
+    width: 100px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+.textFWith110 {
+    width: 110px;
+    text-align: right;
+    margin-right: 5px;
+    font-weight: 600;
+}
+
+.textFWith130 {
+    width: 130px;
+    text-align: right;
+    margin-right: 5px;
+    font-weight: 600;
+}
+
+.textFWith120 {
+    width: 120px;
+}
+
+.textFWith220 {
+    width: 220px;
+}
+
+.textFWith300 {
+    width: 300px;
+}
+
+.textFWith380 {
+    width: 380px;
+    margin-right: 5px;
+}
+
+.textFWith419 {
+    width: 419px;
+    margin-right: 5px;
+}
+
+.textFWith400 {
+    width: 400px;
+    margin-right: 24px;
+}
+
+.topPadding10 {
+    padding-top: 10px;
+}
+

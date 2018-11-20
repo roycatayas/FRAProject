@@ -1,0 +1,194 @@
+﻿@using FRA.Data.View
+@using FRA.Web.Models
+@model RiskDetailSectionScoreListView
+
+<form role="form">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Edit Risk Assessment" })
+
+    <div class="modal-body risGuideLineForm">
+        <div class="accordionBody">
+            <div class="accordion w-100">
+                @foreach (RiskSectionScoreView iSection in Model.ListRiskSectionScoreViews)
+                {                    
+                <div class="accordion-item">
+                    @{
+                        var hiddenTotalRecord = "totalRecord_" + iSection.RiskSectionScoreID;
+                        var hiddenRecord = "hiddenID_" + iSection.RiskSectionScoreID;
+                        var hiddenMinRecord = "MinRecord_" + iSection.RiskSectionScoreID;
+                        var hiddenMaxRecord = "MaxRecord_" + iSection.RiskSectionScoreID;
+                        var hiddenIDvalue = iSection.RiskAssessmentID + "_" + iSection.RiskDetailsID + "_" + iSection.RiskSectionScoreID;
+
+                        <div class="hideDiv" id="@hiddenTotalRecord">@iSection.TotalRecordNo</div>
+                        <div class="hideDiv" id="@hiddenRecord">@hiddenIDvalue</div>
+                        <div class="hideDiv" id="@hiddenMinRecord">@iSection.MinRecordNo</div>
+                        <div class="hideDiv" id="@hiddenMaxRecord">@iSection.MaxRecordNo</div>
+                    }
+                    <a>@iSection.SectionName</a>
+                    <div class="content">
+                        <!--Table-->
+                        <div class="rTable">
+                            <div class="rTableRow">
+                                <div class="rTableHead w25 h60">
+                                    <strong>#</strong>
+                                </div>
+                                <div class="rTableHead w280 h60">
+                                    <strong>Questions</strong>
+                                </div>
+                                <div class="rTableHead w280 h60">
+                                    <strong>Control Guidelines</strong>
+                                </div>
+                                <div class="rTableHead w74 h60">
+                                    <strong>Impact</strong>
+                                </div>
+                                <div class="rTableHead w80 h60">
+                                    <strong>Maturity Earned</strong>
+                                </div>
+                                @{
+                                    int number = Model.ParticipantsNo;
+                                    int counter = 1;
+                                    while (counter <= number)
+                                    {
+                                        var r = "R" + counter;
+                                        <div class="rTableHead w75 h60">
+                                            <strong>@r (1~5)</strong>
+                                        </div>
+                                        counter += 1;
+                                    }
+                                }
+                                <div class="rTableHead w300 h60">
+                                    <strong>Comments</strong>
+                                </div>
+                            </div>
+                            @foreach (RiskGuidelinesScoreView iGuideScore in iSection.ListRiskGuidelinesScore)
+                            {
+                            <div class="rTableRow">
+                                <div class="rTableCell w25 h90">@iGuideScore.GuidelinesNo</div>
+                                <div class="rTableCell w280 h90">@iGuideScore.Questions</div>
+                                <div class="rTableCell w280 h90 blackBorderRight">@iGuideScore.ControlGuidelines</div>
+                                @{
+                                    var idAndGuideNo = "_" + iSection.RiskSectionScoreID + "_" + iGuideScore.RiskGuidelinesScoreID + "_" + iGuideScore.GuidelinesNo;
+                                    var sectionId = "section" + idAndGuideNo + "_p" + iGuideScore.GuidelinesNo + "_" + Model.ParticipantsNo;
+                                    var impactId = "impactsection" + idAndGuideNo;
+
+                                    <div class="rTableCell w74 h90 grey pad1BorderRight">
+                                        <div class="select-style">
+                                            <label>                                                
+                                                <select id="@impactId" onchange="calculateMaturityOnly('@sectionId')">
+                                                    <option value="@iGuideScore.Impact" selected="selected">@iGuideScore.Impact</option>
+                                                    <option value="3">5</option>
+                                                    <option value="3">3</option>
+                                                    <option value="1">1</option>
+                                                </select>
+
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    var maturityScore1 = "maturityScore1section" + idAndGuideNo;
+                                    var hiddenMaturityScoreId = "hiddenMaturityScoreId" + idAndGuideNo;
+
+                                    var scoreMaturityEarned = iGuideScore.MaturityEarned;
+                                    var cssClassMaturityEarned = "red";
+
+                                    if (scoreMaturityEarned >= 0 && scoreMaturityEarned <= 1)
+                                    {
+                                        cssClassMaturityEarned = "red";
+                                    }
+                                    else if (scoreMaturityEarned > 1 && scoreMaturityEarned <= 2)
+                                    {
+                                        cssClassMaturityEarned = "orange";
+                                    }
+                                    else if (scoreMaturityEarned > 2 && scoreMaturityEarned <= 3)
+                                    {
+                                        cssClassMaturityEarned = "yellow";
+                                    }
+                                    else if (scoreMaturityEarned > 3 && scoreMaturityEarned <= 3.8)
+                                    {
+                                        cssClassMaturityEarned = "green lighten-2";
+                                    }
+                                    else if (scoreMaturityEarned > 3.8 && scoreMaturityEarned <= 5)
+                                    {
+                                        cssClassMaturityEarned = "green";
+                                    }
+
+                                    <div class="hideDiv" id="@hiddenMaturityScoreId">@iGuideScore.RiskGuidelinesScoreID</div>
+                                    <div class="rTableCell w80 h90 centerCell @cssClassMaturityEarned" id="@maturityScore1">@iGuideScore.MaturityEarned</div>
+                                }
+                                @{
+                                    foreach (RiskParticipantsScoreView participantsScoreView in iGuideScore.ListRiskParticipantsScore)
+                                    {
+                                        var sectectParticipantId = "section" + idAndGuideNo + "_p" + participantsScoreView.ParticipantNo + "_" + Model.ParticipantsNo;
+                                        var divParticipantId = "divsection" + idAndGuideNo + "_p" + participantsScoreView.ParticipantNo;
+                                        var selectOptionId = "section" + idAndGuideNo + "_p" + participantsScoreView.ParticipantNo;
+
+                                        var hiddenParticipantIdIDvalue = "hiddenParticipant" + idAndGuideNo + "_p" + participantsScoreView.ParticipantNo;
+                                        <div class="hideDiv" id="@hiddenParticipantIdIDvalue">@participantsScoreView.RiskParticipantsID</div>
+
+                                        var scorePaticipant = participantsScoreView.ParticipantScore;
+                                        var cssClass = "red";
+
+                                        if (scorePaticipant >= 0 && scorePaticipant <= 1)
+                                        {
+                                            cssClass = "red";
+                                        }
+                                        else if (scorePaticipant > 1 && scorePaticipant <= 2)
+                                        {
+                                            cssClass = "orange";
+                                        }
+                                        else if (scorePaticipant > 2 && scorePaticipant <= 3)
+                                        {
+                                            cssClass = "yellow";
+                                        }
+                                        else if (scorePaticipant > 3 && scorePaticipant <= 3.8)
+                                        {
+                                            cssClass = "green lighten-2";
+                                        }
+                                        else if (scorePaticipant > 3.8 && scorePaticipant <= 5)
+                                        {
+                                            cssClass = "green";
+                                        }
+
+                                        <div class="rTableCell w75 h90 pad1BorderRight @cssClass" id="@divParticipantId">
+                                            <div class="select-style">
+                                                <label>
+                                                    <select id="@selectOptionId" onchange="calculateImpact('@sectectParticipantId')">
+                                                        <option value="@participantsScoreView.ParticipantScore" selected="selected">@participantsScoreView.ParticipantScore</option>
+                                                        <option value="0.5">0.5</option>
+                                                        <option value="1.0">1.0</option>
+                                                        <option value="1.5">1.5</option>
+                                                        <option value="2.0">2.0</option>
+                                                        <option value="2.5">2.5</option>
+                                                        <option value="3.0">3.0</option>
+                                                        <option value="3.5">3.5</option>
+                                                        <option value="4.5">4.5</option>
+                                                        <option value="5.0">5.0</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    var commentsId = "commentSection" + idAndGuideNo;
+                                    <div class="rTableCell w300 h90 pad1">
+                                        <textarea id="@commentsId" class="form-control" style="height: 85px" onfocusout="UpdateRiskGuidelinesComment('@commentsId')">@iGuideScore.Comments</textarea>
+                                    </div>
+                                }
+                                
+                            </div>
+                            }
+
+                        </div>
+                        <!--End Table-->
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div class="modal-footer">
+    <button data-dismiss="modal" class="btn btn-success" id="editRiskGuidelines" onclick="ClearRiskGuideLineDOM()">Save</button>
+    <button data-dismiss="modal" id="Cancel" class="btn btn-secondary" type="button" onclick="ClearRiskGuideLineDOM()">Cancel</button>    
+</div>

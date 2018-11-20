@@ -1,0 +1,99 @@
+﻿@using FRA.Web.Models
+@model FRA.Data.View.RiskTemplateView
+
+
+<form name="form">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Edit Template" })
+    <div class="modal-body form-horizontal userModalForm">
+        <input type="hidden" asp-for="CategoryIndex" />
+        <input type="hidden" asp-for="SectionIndex" />
+        <input type="hidden" asp-for="DataId" />
+
+        <div class="row">
+            <div class="form-group userModalForm">
+                <label asp-for="CategoryList" class="col-lg-3 col-sm-3 control-label">Select Category</label>
+                <div class="col-lg-6">
+                    <!-- Category list -->
+                    <select class="old-select-category" id="oldSelectionCategory">
+                        @foreach (var item in Model.CategoryList)
+                        {
+                            <option value="@item.Key">@item.Value</option>
+                        }
+                    </select>
+
+                    <!-- Bouton Select -->
+                    <div class="new-select-category RiskComboBoxCustom" id="newSelectCategory">
+                        <div class="selection" onclick="onSelectionCategory()" id="selectionBoxCategory">
+                            <p style="margin: 0">
+                                <span id="selectionBoxSpanCategory"></span>
+                                <i></i>
+                            </p>
+                            <span></span>
+                        </div>
+                    </div>
+                    <!-- End Category list -->
+                </div>
+            </div>
+            <div class="form-group userModalForm">
+                <label asp-for="SectionList" class="col-lg-3 col-sm-3 control-label">Select Section</label>
+                <div class="col-lg-6">
+                    <!-- Section list -->
+                    <div id="sectionList">
+                        <select class="old-select-section" id="oldSelectionSection">
+                            @foreach (var item in Model.SectionList)
+                            {
+                                <option value="@item.Key">@item.Value</option>
+                            }
+                        </select>
+
+                        <!-- Bouton Select -->
+                        <div class="new-select-section RiskComboBoxCustom" id="newSelectSection">
+                            <div class="selection" onclick="onSelectionSection()" id="selectionBoxSection">
+                                <p style="margin: 0; white-space: nowrap">
+                                    <span id="selectionBoxSpanSection"></span>
+                                    <i></i>
+                                </p>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Section list -->
+                </div>
+            </div>
+            <div class="form-group userModalForm">
+                <label asp-for="TempNumber" class="col-lg-3 col-sm-3 control-label">Number</label>
+                <div class="col-lg-2">
+                    <input asp-for="TempNumber" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group userModalForm">
+                <label asp-for="Impact" class="col-lg-3 col-sm-3 control-label"></label>
+                <div class="col-lg-2">
+                    <input asp-for="Impact" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group userModalForm">
+                <label asp-for="Questions" class="col-lg-3 col-sm-3 control-label"></label>
+                <div class="col-lg-9">
+                    <textarea asp-for="Questions" class="form-control" style="height: 110px"></textarea>
+                </div>
+            </div>
+            <div class="form-group userModalForm">
+                <label asp-for="ControlGuidelines" class="col-lg-3 col-sm-3 control-label">Guidelines</label>
+                <div class="col-lg-9">
+                    <textarea asp-for="ControlGuidelines" class="form-control" style="height: 110px"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<div class="modal-footer">
+    <button data-dismiss="modal" id="Cancel" class="btn btn-default" type="button">Cancel</button>
+    <button class="btn btn-success" id="AddTemplate" onclick="EditRiskTemplate()">Submit</button>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

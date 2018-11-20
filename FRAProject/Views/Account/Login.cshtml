@@ -1,0 +1,34 @@
+﻿@using FRA.Web.Models.Account
+@model FRA.Web.Models.Account.AccountViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<form asp-controller="account" asp-action="login" name="form" class="form-validation" method="post">
+    <div class="ImgLogoLogin"></div>
+    <div class="ImgTopLogin"></div>
+    <div>
+        <div class="ImgBodyLogin"></div>
+        <div class="centeredBox Opacity60">
+            <div class="textbox_center">
+                <div class="row">
+                    <div>
+                        <input asp-for="Email" type="text" placeholder="Enter user name" class="form-control MaxWitdh" required />
+                        <span asp-validation-for="Email" class="help-block m-b-none"></span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div>
+                        <input asp-for="Password" type="password" placeholder="Enter password" class="form-control MaxWitdh" required />
+                        <span asp-validation-for="Password" class="help-block m-b-none"></span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <input type="submit" value="ENTER" class="btn btn-Black" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

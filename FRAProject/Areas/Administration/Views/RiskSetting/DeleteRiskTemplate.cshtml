@@ -1,0 +1,20 @@
+﻿@using FRA.Web.Models
+@model FRA.Data.Models.RiskTemplate
+
+<form role="form">
+    <input type="hidden" asp-for="TemplateID" />
+    
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Delete Category" })
+
+    <div class="modal-body form-horizontal">
+        Are you sure you want to delete <b>@Model.Questions</b>?
+        <br/>
+        with Guidelines <b>@Model.ControlGuidelines</b>?
+    </div>
+
+</form>
+
+<div class="modal-footer">
+    <button data-dismiss="modal" id="Cancel" class="btn btn-default" type="button">Cancel</button>
+    <button class="btn btn-success" id="deleteMDSection" onclick="DeleteRiskTemplate()">Submit</button>
+</div>

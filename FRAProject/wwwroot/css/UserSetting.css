@@ -1,0 +1,85 @@
+﻿.centeredBG {
+    width: 99%;
+    height: 84%;
+    position: absolute;
+    top: 140px;
+    left: 0.6%;
+    overflow-y: auto;
+}
+
+.Opacity70 {
+    border-radius: 10px;
+    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.Padding5 {
+    padding-right: 5px;
+}
+
+.CommandColWidth {
+    width: 200px;
+}
+
+.relativeFromBoxTop {
+    position: relative;
+    left: 25px;
+    top: 15px;
+    /*border-bottom: 1px solid #bc8b0a;*/
+    /*border-bottom: 1px solid #bfbfca;*/
+    width: 99%;
+}
+
+.fontUser {
+    font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.42857143;
+    /*color: #58666e;*/
+    color: #bc8b0a;
+    background-color: transparent;
+}
+
+.relativeFromBoxMid {
+    position: relative;
+    left: 25px;
+    top: 15px;
+    border-bottom: 1px solid #bfbfca;
+    width: calc(100% - 25px);
+}
+
+.relativeFromBox2Buttom {
+    position: relative;
+    left: 25px;
+    top: 15px;
+    width: 99%;
+}
+
+.topUserDiv {
+    display: inline;
+}
+
+.alignLeftTopDiv {
+    float: left;
+}
+
+.alignRightTopDiv {
+    float: right;
+    padding-bottom: 10px;
+}
+
+.alignRightButtomDiv {
+    float: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.OverridePannelButtomMargin {
+    margin-bottom: 0;
+}
+
+.userModalForm {
+    width: 650px;
+    margin-left: 0;
+    margin-right: 0;
+}

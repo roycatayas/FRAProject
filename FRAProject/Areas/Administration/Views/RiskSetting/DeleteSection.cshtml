@@ -1,0 +1,20 @@
+﻿@using FRA.Web.Models
+@model FRA.Data.Models.Section
+
+<form role="form">
+    <input type="hidden" asp-for="SectionID" />
+    <input type="hidden" asp-for="CategoryID" />
+    <input type="hidden" asp-for="SectionName" />
+
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Delete Section" })
+
+    <div class="modal-body form-horizontal">
+        Are you sure you want to delete <b>@Model.SectionName</b>?
+    </div>
+
+</form>
+
+<div class="modal-footer">
+    <button data-dismiss="modal" id="Cancel" class="btn btn-default" type="button">Cancel</button>
+    <button class="btn btn-success" id="deleteMDCategory" onclick="DeleteSection()">Submit</button>
+</div>

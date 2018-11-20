@@ -1,0 +1,60 @@
+﻿@using FRA.Web.Models
+@model FRA.Web.Areas.Administration.Models.AddUserViewModel
+
+<form asp-controller="Users" asp-action="AddUser" name="form" class="form-validation" method="post">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Add User" })
+    <div class="modal-body form-horizontal userModalForm" >
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group userModalForm">
+                    <label asp-for="FirstName" class="col-lg-3 col-sm-3 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="FirstName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group userModalForm">
+                    <label asp-for="LastName" class="col-lg-3 col-sm-3 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="LastName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group userModalForm">
+                    <label asp-for="Email" class="col-lg-3 col-sm-3 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="Email" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group userModalForm">
+                    <label asp-for="Password" class="col-lg-3 col-sm-3 control-label"></label>
+                    <div class="col-lg-6">
+                        <input type="password" asp-for="Password" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group userModalForm">
+                    <label asp-for="Address" class="col-lg-3 col-sm-3 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="Address" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group userModalForm">
+                    <label asp-for="PhoneNumber" class="col-lg-3 col-sm-3 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="PhoneNumber" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group userModalForm">
+                    <label asp-for="Orginization" class="col-lg-3 col-sm-3 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="Orginization" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
