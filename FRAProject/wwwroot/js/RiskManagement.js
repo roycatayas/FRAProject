@@ -3,6 +3,13 @@
     $.ajaxSetup({ cache: false });
     getAllRiskAssessment();
 
+    $("#date-container1 .input-group.date").datepicker({
+        autoclose: true
+    });
+
+    $("#date-container2 .input-group.date").datepicker({
+        autoclose: true
+    });
 });
 
 function getViewForAddRisk() {
@@ -13,6 +20,14 @@ function getViewForAddRisk() {
             $("#modal-content-riskManagement").empty().html(data);
             $("#SurveyDate").val("");
             $("#EntryDate").val("");
+
+            $("#date-container1 .input-group.date").datepicker({
+                autoclose: true
+            });
+
+            $("#date-container2 .input-group.date").datepicker({
+                autoclose: true
+            });
         },
         error: function () {
             alert("error");

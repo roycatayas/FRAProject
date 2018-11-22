@@ -15,6 +15,7 @@ namespace FRA.Data.View
         public int SectionDataCount { get; set; }
         public int MinRecordNo { get; set; }
         public int MaxRecordNo { get; set; }
+        public List<string> CurrentCategory { get; set; }
         public IEnumerable<RiskSectionScoreView> ListRiskSectionScore { get; set; }        
     }
 }

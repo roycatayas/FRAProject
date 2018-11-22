@@ -54,14 +54,15 @@ namespace FRA.Web.Areas.Administration.Controllers
             foreach (RiskAssessmentView riskListView in riskListViews)
             {
                 RiskDetailScoreView[] riskDetailScore = (await _riskAssessmentRepository.GetRiskDetailScoreRecordsByRiskId(riskListView.RiskAssessmentID)).ToArray();
-                
+                List<string> currentCategory = new List<string>();
+
                 foreach (var iDetailScore in riskDetailScore)
                 {
                     List<int> ids = new List<int>();
-
+                    
                     RiskSectionScoreView[] riskSectionScore = (await _riskAssessmentRepository.GetRiskSectionScoreRecordsByRiskId(riskListView.RiskAssessmentID, iDetailScore.RiskDetailsID)).ToArray();
                     iDetailScore.ListRiskSectionScore = riskSectionScore;
-                    iDetailScore.SectionDataCount = riskSectionScore.Length;
+                    iDetailScore.SectionDataCount = riskSectionScore.Length;                    
 
                     iDetailScore.MinRecordNo = 0;
                     iDetailScore.MaxRecordNo = 0;
@@ -75,6 +76,7 @@ namespace FRA.Web.Areas.Administration.Controllers
                     }
                 }
 
+                currentCategory.AddRange(riskDetailScore.Select(iData => iData.CategoryName));
                 riskListView.ListRiskDetailScoreViews = riskDetailScore;
             }            
 

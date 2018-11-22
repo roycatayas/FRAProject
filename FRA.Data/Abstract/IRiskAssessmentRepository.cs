@@ -13,8 +13,7 @@ namespace FRA.Data.Abstract
         Task<IEnumerable<RiskAssessmentView>> GetAllRecords();
         Task<OperationResult> AddRiskAsync(RiskAssessmentView data);
         Task<OperationResult> AddRiskDetailScoreAsync(RiskDetailScoreView data);
-        Task<IEnumerable<RiskDetailScoreView>> GetRiskDetailScoreRecordsByRiskId(int riskAssessmentId);
-        //Task<IEnumerable<RiskDetailScoreView>> GetRiskDetailScoreRecordsByRiskId(int riskAssessmentId, int riskDetailId);
+        Task<IEnumerable<RiskDetailScoreView>> GetRiskDetailScoreRecordsByRiskId(int riskAssessmentId);        
         Task<IEnumerable<RiskSectionScoreView>> GetRiskSectionScoreRecordsByRiskId(int riskAssessmentId, int riskDetailId);
         Task<IEnumerable<RiskGuidelinesScoreView>> GetRiskGuidelinesScoreViewByRiskId(int riskAssessmentId, int riskDetailsId, int riskSectionScoreId);
         Task<IEnumerable<RiskParticipantsScoreView>> GetRiskParticipantsScoreRecordsById(int riskGuidelinesScoreId, int riskSectionScoreId, int riskDetailsId);
