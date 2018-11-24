@@ -1,4 +1,16 @@
-﻿.riskContent {
+﻿table.table-expandable > tbody > tr:nth-child(odd) {
+    cursor: pointer;
+}
+
+table.table-expandable.table-hover > tbody > tr:nth-child(even):hover td {
+    background-color: white;
+}
+
+.table th, .table td {
+    padding: 6px;
+}
+
+.riskContent {
     width: calc(100% - 120px);
     height: calc(100% - 82px);
     position: relative;
@@ -95,12 +107,41 @@
     font-weight: 600;
 }
 
+.textFWith10 {
+    width: 10px;
+}
+
+.textFWith30 {
+    width: 30px;
+}
+
+.textFWith100a {
+    width: 100px;
+    text-align: right;
+}
+
+.textFWith110a {
+    width: 110px;
+}
+
 .textFWith120 {
     width: 120px;
 }
 
+.textFWith150 {
+    width: 150px;
+}
+
+.textFWith200 {
+    width: 200px;
+}
+
 .textFWith220 {
     width: 220px;
+}
+
+.textFWith250 {
+    width: 250px;
 }
 
 .textFWith300 {
@@ -133,4 +174,16 @@
     min-width: 16px;
     line-height: 1.42857143;
     margin-left: -30px;    
+}
+
+.buttonWhite {
+    color: white;
+}
+
+.pr3 {
+    padding-right: 3px;
+}
+
+.cBlack {
+    color: black;
 }

@@ -24,7 +24,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json.Serialization;
 
-namespace FRAProject
+namespace FRA.Web
 {
     public class Startup
     {

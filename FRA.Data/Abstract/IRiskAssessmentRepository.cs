@@ -9,9 +9,10 @@ namespace FRA.Data.Abstract
     {
         Task<IEnumerable<RiskAssessmentView>> GetRiskAssessmentAsync(int pageNumber, int pageSize, int sortExpression, SortDirection sortDirection, string searchPhrase);
         int GetTotalNumberOfAssemment();
-        Task<RiskAssessment> FindByIdAsync(string dataId);
+        Task<RiskAssessmentView> FindByIdAsync(string riskAssessmentId);
         Task<IEnumerable<RiskAssessmentView>> GetAllRecords();
         Task<OperationResult> AddRiskAsync(RiskAssessmentView data);
+        Task<OperationResult> EditRiskAsync(RiskAssessmentView data);
         Task<OperationResult> AddRiskDetailScoreAsync(RiskDetailScoreView data);
         Task<IEnumerable<RiskDetailScoreView>> GetRiskDetailScoreRecordsByRiskId(int riskAssessmentId);        
         Task<IEnumerable<RiskSectionScoreView>> GetRiskSectionScoreRecordsByRiskId(int riskAssessmentId, int riskDetailId);

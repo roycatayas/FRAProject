@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FRA.Data.View
 {
@@ -7,7 +8,8 @@ namespace FRA.Data.View
     {
         public int RiskAssessmentID { get; set; }
         public string SubjectTitle { get; set; }
-        public string Organization { get; set; }
+        public string Organization { get; set; }        
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime EntryDate { get; set; }
         public string Owner { get; set; }
         public string DocumentNo { get; set; }
@@ -16,6 +18,7 @@ namespace FRA.Data.View
         public string SurveyorName { get; set; }
         public string SurveyorTelephone { get; set; }
         public string SurveyorEmail { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime SurveyDate { get; set; }
         public string SiteName { get; set; }
         public string SiteCountry { get; set; }
@@ -26,6 +29,15 @@ namespace FRA.Data.View
         public string ContactPersonTelephone { get; set; }
         public string ContactPersonFaxNumber { get; set; }
         public string ContactPersonWebsiteUrl { get; set; }
+        public string Country { get; set; }
+        public string Address { get; set; }
+        public string ProvinceState { get; set; }
+        public string SurveyorNumber { get; set; }
+        public string PrimaryContactName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string FaxNumber { get; set; }
+        public string EmailAdress { get; set; }
+        public string URLAdress { get; set; }
         public IEnumerable<RiskDetailScoreView> ListRiskDetailScoreViews { get; set; }
     }
 }

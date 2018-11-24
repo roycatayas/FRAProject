@@ -77,6 +77,30 @@ function AddRiskAssessment() {
     });
 };
 
+function GetToEditRiskAssessment(dataId) {
+    $.ajax({
+        url: "/administration/riskmanagement/EditRisk",
+        type: "GET",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        data: { RiskAssessmentID: dataId },
+        success: function (data) {
+            $("#modal-content-riskManagement").empty().html(data);                           
+
+            $("#date-container1 .input-group.date").datepicker({
+                autoclose: true
+            });
+
+            $("#date-container2 .input-group.date").datepicker({
+                autoclose: true
+            });
+        },
+        error: function (e) {
+            alert("error " + e.message);
+        }
+    });
+}
+
 function getAllRiskAssessment() {
     $.ajax({
         url: "/administration/riskmanagement/GetRiskAssessment",
@@ -84,19 +108,13 @@ function getAllRiskAssessment() {
         success: function (data) {
             $("#risk-content").empty().html(data);
 
-            $('.table-expandable').each(function () {
-                var table = $(this);
-                table.children('thead').children('tr').append('<th></th>');
-                table.children('tbody').children('tr').filter(':odd').hide();
-                table.children('tbody').children('tr').filter(':even').click(function () {
-                    var element = $(this);
-                    element.next('tr').toggle('slow');
-                    element.find(".table-expandable-arrow").toggleClass("up");
-                });
-                table.children('tbody').children('tr').filter(':even').each(function () {
-                    var element = $(this);
-                    element.append('<td><div class="table-expandable-arrow"></div></td>');
-                });
+            $(".itemdetail").on("hidden.bs.collapse", function (event) {
+                event.stopPropagation();                 
+                $(".fas").addClass("fa-caret-up").removeClass("fa-caret-down");
+            });
+            $(".itemdetail").on("show.bs.collapse", function (event) {               
+                event.stopPropagation();
+                $(".fas").addClass("fa-caret-down").removeClass("fa-caret-up");
             });
 
             const items = document.querySelectorAll(".accordion a");

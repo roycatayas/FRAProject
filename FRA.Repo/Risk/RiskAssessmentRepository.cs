@@ -39,9 +39,12 @@ namespace FRA.Repo.Risk
             throw new NotImplementedException();
         }
 
-        public Task<RiskAssessment> FindByIdAsync(string dataId)
+        public Task<RiskAssessmentView> FindByIdAsync(string dataId)
         {
-            throw new NotImplementedException();
+            DynamicParameters param = new DynamicParameters();
+            param.Add("RiskAssessmentID", dataId);            
+
+            return _sqlConnection.QuerySingleOrDefaultAsync<RiskAssessmentView>("FindByIdRiskAssessment", param, commandType: CommandType.StoredProcedure);
         }
 
         public Task<IEnumerable<RiskAssessmentView>> GetAllRecords()
@@ -79,13 +82,49 @@ namespace FRA.Repo.Risk
             _sqlConnection.Execute("InsertRiskAssessment", param, commandType: CommandType.StoredProcedure);
             int rowsAdded = param.Get<int>("RetVal");
 
-            return Task.FromResult(rowsAdded.Equals(1)
-                ? OperationResult.Success
-                : OperationResult.Failed(new OperationResultError
+            return Task.FromResult(rowsAdded.Equals(1) ? OperationResult.Success : OperationResult.Failed(new OperationResultError
                 {
                     Code = string.Empty,
                     Description = $"The data your trying to save have an error please try again."
                 }));
+        }
+
+        public Task<OperationResult> EditRiskAsync(RiskAssessmentView data)
+        {
+            #region parameters
+            DynamicParameters param = new DynamicParameters();
+            param.Add("RiskAssessmentID", data.RiskAssessmentID);
+            param.Add("SubjectTitle", data.SubjectTitle);
+            param.Add("Organization", data.Organization);
+            param.Add("DocumentNo", data.DocumentNo);
+            param.Add("Owner", data.Owner);
+            param.Add("ApproveBy", data.ApprovedBy);
+            param.Add("EntryDate", data.EntryDate);
+            param.Add("RevisionNo", data.RevisionNo);
+            param.Add("SurveyorName", data.SurveyorName);
+            param.Add("SurveyorNumber", data.SurveyorTelephone);
+            param.Add("SurveyorEmail", data.SurveyorEmail);
+            param.Add("SurveyDate", data.SurveyDate);
+            param.Add("SiteName", data.SiteName);
+            param.Add("Country", data.SiteCountry);
+            param.Add("Address", data.SiteAdress);
+            param.Add("ProvinceState", data.SiteStateProvince);
+            param.Add("PrimaryContactName", data.ContactPersonName);
+            param.Add("PhoneNumber", data.ContactPersonTelephone);
+            param.Add("FaxNumber", data.ContactPersonFaxNumber);
+            param.Add("EmailAdress", data.ContactPersonEmail);
+            param.Add("URLAdress", data.ContactPersonWebsiteUrl);
+            param.Add("RetVal", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
+            #endregion
+
+            _sqlConnection.Execute("EditRiskAssessment", param, commandType: CommandType.StoredProcedure);
+            int rowsAdded = param.Get<int>("RetVal");
+
+            return Task.FromResult(rowsAdded.Equals(1) ? OperationResult.Success : OperationResult.Failed(new OperationResultError
+            {
+                Code = string.Empty,
+                Description = $"The data your trying to update have an error please try again."
+            }));
         }
 
         public Task<OperationResult> AddRiskDetailScoreAsync(RiskDetailScoreView data)

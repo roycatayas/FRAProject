@@ -42,6 +42,37 @@ namespace FRA.Web.Areas.Administration.Controllers
             return Json("success");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditRisk(string RiskAssessmentID)
+        {
+            if (string.IsNullOrEmpty(RiskAssessmentID)) return PartialView("GetRiskAssessment");
+
+            RiskAssessmentView riskAssessment = await _riskAssessmentRepository.FindByIdAsync(RiskAssessmentID);
+            if (riskAssessment != null)
+            {                
+                riskAssessment.SiteCountry = riskAssessment.Country;
+                riskAssessment.SiteAdress = riskAssessment.Address;
+                riskAssessment.SiteStateProvince = riskAssessment.ProvinceState;
+                riskAssessment.SurveyorTelephone = riskAssessment.SurveyorNumber;
+                riskAssessment.ContactPersonName = riskAssessment.PrimaryContactName;
+                riskAssessment.ContactPersonTelephone = riskAssessment.PhoneNumber;
+                riskAssessment.ContactPersonFaxNumber = riskAssessment.FaxNumber;
+                riskAssessment.ContactPersonEmail = riskAssessment.EmailAdress;
+                riskAssessment.ContactPersonWebsiteUrl = riskAssessment.URLAdress;
+                return PartialView("EditRisk", riskAssessment);
+            }
+            return PartialView("GetRiskAssessment");
+        }
+
+        [HttpPost]
+        public JsonResult EditRisk([FromBody]RiskAssessmentView model)
+        {
+            if (string.IsNullOrEmpty(model.RiskAssessmentID.ToString())) return Json("Fail");
+
+            _riskAssessmentRepository.EditRiskAsync(model);
+            return Json("success");
+        }
+
         [HttpPost]
         [ActionName("GetRiskAssessment")]
         public async Task<ActionResult> GetAllRiskAssessmentList()
