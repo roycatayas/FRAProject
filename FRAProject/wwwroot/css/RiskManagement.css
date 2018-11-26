@@ -1,13 +1,13 @@
-﻿table.table-expandable > tbody > tr:nth-child(odd) {
-    cursor: pointer;
-}
-
-table.table-expandable.table-hover > tbody > tr:nth-child(even):hover td {
+﻿table.table-expandable.table-hover > tbody > tr:nth-child(even):hover td {
     background-color: white;
 }
 
 .table th, .table td {
     padding: 6px;
+}
+
+.hiddenRow {
+    padding: 0 !important;
 }
 
 .riskContent {

@@ -7,20 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
 
-    <environment include="Development">
-
-        <link rel="stylesheet" href="~/lib/bootstrap-V4/css/bootstrap.css" />
-        @*<link rel="stylesheet" href="~/css/ComboBox.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-V4/css/bootstrap.css" asp-append-version="true"/>
+    @*<link rel="stylesheet" href="~/css/ComboBox.css" />
         <link rel="stylesheet" href="~/css/ComboBoxSection.css" />
         <link rel="stylesheet" href="~/css/ComboBoxCategory.css" />*@
 
-        @*<link rel="stylesheet" href="~/css/site.css" />*@
-        <link rel="stylesheet" href="~/css/Login.css" />
-        <link rel="stylesheet" href="~/css/Main.css" />
-        <link rel="stylesheet" type="text/css" href="~/css/accordion.css" asp-append-version="true" />
-        <link rel="stylesheet" type="text/css" href="~/css/bootstrap-datepicker3.css" asp-append-version="true" />
-
-    </environment>
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/Main.css" asp-append-version="true"/>
+    <link rel="stylesheet" type="text/css" href="~/css/accordion.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap-datepicker3.css" asp-append-version="true" />
 
 </head>
 <body class="ImgBodyMain">
@@ -34,13 +30,11 @@
 </div>
 
 
-<environment include="Development">
-    <script type="text/javascript" src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="~/js/popper.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="~/lib/bootstrap-V4/js/bootstrap.min.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="~/js/decimalAdjust.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="~/js/bootstrap-datepicker.js" asp-append-version="true"></script>
-</environment>
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/popper.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/lib/bootstrap-V4/js/bootstrap.min.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/decimalAdjust.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/bootstrap-datepicker.js" asp-append-version="true"></script>
 
 @RenderSection("Scripts", required: false)
 @RenderSection("Css", required: false)

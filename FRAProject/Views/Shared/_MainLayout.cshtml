@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Risk Assessment</title>
 
-    <environment include="Development">
-       
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/css/Login.css" />
-        <link rel="stylesheet" href="~/css/Main.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/Login.css" />
+    <link rel="stylesheet" href="~/css/Main.css" />
         
-        @*<link rel="stylesheet" href="~/css/Menu.css" />*@    
-    </environment>
+    @*<link rel="stylesheet" href="~/css/Menu.css" />*@    
     
 </head>
 <body class="ImgBodyMain">
@@ -24,10 +21,7 @@
         @RenderBody()
     </div>
     
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        
-    </environment>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
 
     @RenderSection("Scripts", required: false)
     @RenderSection("Css", required: false)
