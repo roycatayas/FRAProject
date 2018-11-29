@@ -31,36 +31,42 @@ namespace FRA.Web.Areas.Administration.Controllers
             return View();
         }
 
-        [HttpGet]
-        [ActionName("get-all")]
-        public ViewResult GetAllUsers()
+        //[HttpGet]
+        //[ActionName("get-all")]
+        //public ViewResult GetAllUsers()
+        //{
+        //    return View();
+        //}
+
+        [HttpPost]        
+        public async Task<ActionResult> GetUserList()
         {
-            return View();
-        }
+            UserListView model = new UserListView();
 
-        [HttpPost]
-        [ActionName("get-all-json")]
-        public async Task<JsonResult> GetAllUsersJson(DataTable dataTable)
-        {
-            int pageNumber = dataTable.Start / dataTable.Length + 1;
-            Order order = dataTable.Order.FirstOrDefault();
+            //int pageNumber = dataTable.Start / dataTable.Length + 1;
+            //Order order = dataTable.Order.FirstOrDefault();
 
-            SortDirection sortDirection = order != null
-                ? (order.Direction == "asc" ? SortDirection.Ascending : SortDirection.Descending)
-                : SortDirection.Ascending;
+            //SortDirection sortDirection = order != null
+            //    ? (order.Direction == "asc" ? SortDirection.Ascending : SortDirection.Descending)
+            //    : SortDirection.Ascending;
 
-            User[] users = (await _userRepository.GetUsersAsync(pageNumber, dataTable.Length, order?.Column ?? 0, sortDirection,
-                string.IsNullOrEmpty(dataTable.Search.Value) ? string.Empty : dataTable.Search.Value)).ToArray();
+            //User[] users = (await _userRepository.GetUsersAsync(pageNumber, dataTable.Length, order?.Column ?? 0, sortDirection,
+            //    string.IsNullOrEmpty(dataTable.Search.Value) ? string.Empty : dataTable.Search.Value)).ToArray();
 
-            int totalNumberOfUsers = _userRepository.GetTotalNumberOfUsers();            
+            //int totalNumberOfUsers = _userRepository.GetTotalNumberOfUsers();            
 
-            return Json(new DataTableResponse<User>
-            {
-                Data = users,
-                RecordsFiltered = string.IsNullOrEmpty(dataTable.Search.Value) ? totalNumberOfUsers : users.Length,
-                Draw = dataTable.Draw,
-                RecordsTotal = totalNumberOfUsers
-            });
+            //return Json(new DataTableResponse<User>
+            //{
+            //    Data = users,
+            //    RecordsFiltered = string.IsNullOrEmpty(dataTable.Search.Value) ? totalNumberOfUsers : users.Length,
+            //    Draw = dataTable.Draw,
+            //    RecordsTotal = totalNumberOfUsers
+            //});
+
+            User[] users = (await _userRepository.GetUsersAsync(1, 100, 0, SortDirection.Ascending, string.Empty)).ToArray();
+            model.ListUser = users;
+
+            return PartialView("GetUser", model);
         }
 
         [HttpGet]
@@ -71,9 +77,8 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<ViewResult> AddUser(AddUserViewModel model)
+        public async Task<JsonResult> AddUser([FromBody]AddUserViewModel model)
         {
-
             ApplicationUser user = new ApplicationUser();
 
             user.UserName = model.Email;
@@ -90,12 +95,11 @@ namespace FRA.Web.Areas.Administration.Controllers
             user.RegistrationDate = DateTime.Now;
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);
 
-            return View("Index");
+            return Json("success");
         }
 
-        [HttpGet]
-        [ActionName("EditUser")]
-        public async Task<PartialViewResult> EditUser(string id)
+        [HttpGet]       
+        public async Task<IActionResult> EditUser(string id)
         {
             ApplicationUser user = await _userManager.FindByIdAsync(id);
             EditUserViewModel editUserViewModel = user != null ? new EditUserViewModel
@@ -120,30 +124,8 @@ namespace FRA.Web.Areas.Administration.Controllers
         [HttpPost]
         [ActionName("EditUser")]
         public async Task<IActionResult> EditUser(EditUserViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Response = new EditUserResponseViewModel
-                {
-                    Succeeded = false,
-                    Description = "Request does not contain the required information to update the user."
-                };
-
-                return View("Index");
-            }
-
-            ApplicationUser user = await _userManager.FindByIdAsync(model.Id.ToString());
-
-            if (user == null)
-            {
-                ViewBag.Response = new EditUserResponseViewModel
-                {
-                    Succeeded = false,
-                    Description = $"User with id: {model.Id} could not be found."
-                };
-
-                return View("Index");
-            }
+        {            
+            ApplicationUser user = await _userManager.FindByIdAsync(model.Id.ToString());            
 
             user.Address = model.Address;
             user.EmailConfirmed = model.EmailConfirmed;

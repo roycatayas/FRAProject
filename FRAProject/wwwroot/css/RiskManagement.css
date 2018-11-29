@@ -73,6 +73,14 @@
     width: calc(100% - 130px);
 }
 
+.textWith150 {
+    width: calc(100% - 150px);
+}
+
+.textWith230 {
+    width: calc(100% - 230px);
+}
+
 .labelHR {
     width: 930px;
     margin-left: 10px;
@@ -95,6 +103,13 @@
 
 .textFWith110 {
     width: 110px;
+    text-align: right;
+    margin-right: 5px;
+    font-weight: 600;
+}
+
+.textFWith120 {
+    width: 120px;
     text-align: right;
     margin-right: 5px;
     font-weight: 600;

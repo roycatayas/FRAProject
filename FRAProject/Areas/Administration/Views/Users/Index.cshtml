@@ -156,39 +156,13 @@
                             System Users
                         </div>
                         <div class="topUserDiv alignRightTopDiv" style="margin-right: 38px;">
-                            <button id="btnNewsUser" data-toggle="modal" data-target="#modal-user" data-backdrop="static" data-keyboard="false" class="btn btn-lg btn-light" onclick=""><i class="fal fa-user-alt newRiskButton"></i> Create New User</button>
-                            @*<a id="createEditUserModal1" data-toggle="modal" asp-action="AddUser" data-target="#modal-action-user" data-backdrop="static" data-keyboard="false" class="btn btn-lg btn-default"><i class="glyphicon glyphicon-user"></i> Create New User</a>*@
+                            <button id="btnNewsUser" data-toggle="modal" data-target="#modal-user" data-backdrop="static" data-keyboard="false" class="btn btn-lg btn-light" onclick="getViewForAddUser()"><i class="fal fa-user-alt newRiskButton"></i> Create New User</button>                            
                         </div>
                     </div>
 
                     <div class="row relativeFromBoxMid">
-                        <div id="risk-content" class="wCal5 pb10">
-                            <div class="table-responsive">
-                                <table id="users-table" style="width: 100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Email</th>
-                                            <th>Full Name</th>
-                                            <th>Organization</th>
-                                            <th>Phone Number</th>
-                                            <th>Is Locked</th>
-                                            <th>Locked Until</th>
-                                            <th>Commands</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Email</th>
-                                            <th>Full Name</th>
-                                            <th>Organization</th>
-                                            <th>Phone Number</th>
-                                            <th>Is Locked</th>
-                                            <th>Locked Until</th>
-                                            <th>Commands</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
+                        <div id="user-content" class="wCal5 pb10">
+                            
                         </div>
                     </div>
 
@@ -196,19 +170,11 @@
             </div>
         </main>
         <!-- page-content" -->
-    </div>
-
-    <div tabindex="-1" class="modal fade" id="modal-action-user-edit" role="dialog" aria-hidden="true" aria-labelledby="modal-action-user-label">
-        <div class="modal-dialog ">
-            <div class="modal-content" id="modal-content-editUser">
-
-            </div>
-        </div>
-    </div>
+    </div>    
 
     <div tabindex="-1" class="modal fade" id="modal-user" role="dialog" aria-hidden="true" aria-labelledby="modal-action-user-label">
         <div class="modal-dialog ">
-            <div class="modal-content" id="modal-content-addUser">
+            <div class="modal-content" id="modal-content-user" style="width: 650px">
 
             </div>
         </div>
@@ -217,7 +183,8 @@
 </div>
 
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_DataTablesScriptsPartial"); }
+    <script type="text/javascript" src="~/lib/datatables/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/lib/datatables/js/dataTables.jqueryui.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/bootstrap.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/MainPage.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/custom.js" asp-append-version="true"></script>

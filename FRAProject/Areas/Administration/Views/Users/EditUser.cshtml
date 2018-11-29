@@ -2,60 +2,58 @@
 @using FRA.Web.Models
 @model FRA.Web.Areas.Administration.Models.EditUserViewModel
 
-<form asp-area="administration" asp-controller="Users" asp-action="EditUser" method="POST" name="form" class="form-horizontal">
+<form name="form">
     @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Edit User" })
-    <div class="modal-body form-horizontal userModalForm">
+
+    <div class="modal-body userModalForm">
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="Email" />
-        @if (ViewBag.Response != null)
-        {
-            var response = (EditUserResponseViewModel)ViewBag.Response;
+        
+        <div class="form">
 
-            <div class="@(response.Succeeded ? "text-success" : "text-danger") wrapper text-center">
-                @response.Description
-            </div>
-        }
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="form-group userModalForm">
-                    <label asp-for="FirstName" class="col-lg-3 col-sm-3 control-label">First Name</label>
-                    <div class="col-lg-6">
-                        <input asp-for="FirstName" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group userModalForm">
-                    <label asp-for="LastName" class="col-lg-3 col-sm-3 control-label">Last Name</label>
-                    <div class="col-lg-6">
-                        <input asp-for="LastName" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group userModalForm">
-                    <label asp-for="PhoneNumber" class="col-lg-3 col-sm-3 control-label">Phone Number</label>
-                    <div class="col-lg-6">
-                        <input asp-for="PhoneNumber" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group userModalForm">
-                    <label asp-for="Address" class="col-lg-3 col-sm-3 control-label"></label>
-                    <div class="col-lg-6">
-                        <input asp-for="Address" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group userModalForm">
-                    <label asp-for="LockoutEnabled" class="col-lg-3 col-sm-3 control-label">Lockout Enabled</label>
-                    <div class="col-lg-6">
-                        <input asp-for="LockoutEnabled" class="form-control" style="width: 20px;" type="checkbox" /><i></i>
-                    </div>
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <label asp-for="FirstName" class="textFWith120">First Name</label>
+                    <input id="idFirstName" asp-for="FirstName" class="form-control textWith150" />
                 </div>
             </div>
+
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <label asp-for="LastName" class="textFWith120">Last Name</label>
+                    <input id="idLastName" asp-for="LastName" class="form-control textWith150" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <label asp-for="PhoneNumber" class="textFWith120">Phone Number</label>
+                    <input id="idPhoneNumber" asp-for="PhoneNumber" class="form-control textWith150" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <label asp-for="Address" class="textFWith120">Address</label>
+                    <input id="idAddress" asp-for="Address" class="form-control textWith150" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <label asp-for="LockoutEnabled" class="textFWith120">Lockout </label>
+                    <input id="idLockoutEnabled" asp-for="LockoutEnabled" class="form-control textWith150" type="checkbox"/>
+                </div>
+            </div>
+            
         </div>
-    </div>
-    @*<div class="modal-footer">
-        <button data-dismiss="modal" id="EditCancel" class="btn btn-default" type="button">Cancel</button>
-        <button class="btn btn-success" id="Submit" type="submit">Submit</button>
-    </div>*@
-    @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+    </div>    
 </form>
+<div class="modal-footer">
+    <button class="btn btn-success" id="AddEdit" onclick="">Submit</button>
+    <button id="Cancel" class="btn btn-secondary" type="button" onclick="cancelUser()">Cancel</button>
+</div>
+
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }    
 }

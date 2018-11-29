@@ -1,0 +1,44 @@
+﻿@using FRA.Data.Models
+@using FRA.Web.Areas.Administration.Models
+@model UserListView
+
+<div class="table-responsive">
+    <table id="users-table" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Organization</th>
+                <th>Phone Number</th>
+                <th>Is Locked</th>                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (User iUser in Model.ListUser)
+        {            
+            <tr>
+                <td>@iUser.Email</td>
+                <td>@iUser.FullName</td>
+                <td>@iUser.Organization</td>
+                <td>@iUser.PhoneNumber</td>
+                <td>@iUser.LockoutEnabled</td>
+                <td>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-user" data-backdrop="static" data-keyboard="false" onclick="getUserToEdit('@iUser.Id')"><i class="fal fa-edit pr3"></i> Edit</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-" data-backdrop="static" data-keyboard="false" onclick=""><i class="fal fa-trash-alt pr3"></i> Delete</button>
+                </td>
+            </tr>
+        }            
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Organization</th>
+                <th>Phone Number</th>
+                <th>Is Locked</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
