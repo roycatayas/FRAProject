@@ -32,8 +32,7 @@ namespace FRA.IdentityProvider.Tables
 
         public Task RemoveFromRoleAsync(ApplicationUser user, Guid roleId)
         {
-            const string command = "DELETE " +
-                                   "FROM dbo.UsersRoles " +
+            const string command = "DELETE FROM dbo.UsersRoles " +
                                    "WHERE UserId = @UserId AND RoleId = @RoleId;";
 
             return _sqlConnection.ExecuteAsync(command, new
@@ -56,6 +55,22 @@ namespace FRA.IdentityProvider.Tables
             }), cancellationToken).Result;
 
             return Task.FromResult<IList<string>>(userRoles.ToList());
+        }
+
+        public Task<IList<ApplicationUser>> GetUsersInRoleAsync(string roleName)
+        {
+            const string command = "SELECT * " +
+                                   "FROM dbo.Users AS u " +
+                                   "INNER JOIN dbo.UserRoles AS ur ON u.Id = ur.UserId " +
+                                   "INNER JOIN dbo.Roles AS r ON ur.RoleId = r.Id " +
+                                   "WHERE r.Name = @RoleName;";
+
+            IEnumerable<ApplicationUser> userRoles = Task.Run(() => _sqlConnection.QueryAsync<ApplicationUser>(command, new
+            {
+                RoleName = roleName
+            })).Result;
+
+            return Task.FromResult<IList<ApplicationUser>>(userRoles.ToList());
         }
     }
 }

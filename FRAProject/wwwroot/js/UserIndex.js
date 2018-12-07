@@ -36,6 +36,41 @@ function getUserToEdit(userId) {
     });
 }
 
+function EditUser() {
+    var lockoutEnabled = false;
+    if ($('#idLockoutEnabled').prop('checked')) {
+        lockoutEnabled = true;
+    } else {
+        lockoutEnabled = false;
+    }
+
+    var dataModel = {
+        Id: $("#Id").val(),
+        FirstName: $("#idFirstName").val(),
+        LastName: $("#idLastName").val(),               
+        Address: $("#idAddress").val(),
+        PhoneNumber: $("#idPhoneNumber").val(),        
+        ApplicationRoleId: $("#ApplicationRoleIdi").val(),
+        LockoutEnabled: lockoutEnabled
+    };
+
+    $.ajax({
+        url: "/administration/Users/EditUser",
+        type: "POST",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(dataModel),
+        success: function (data) {
+            getAllUser();
+            $("#modal-user").modal("hide");
+            $("#modal-content-user").empty();
+        },
+        error: function (e) {
+            alert("error " + e.message);
+        }
+    });
+}
+
 function getViewForAddUser() {
     $.ajax({
         url: "/administration/Users/AddUser",
@@ -51,6 +86,7 @@ function getViewForAddUser() {
 }
 
 function AddUser() {
+
     var dataModel = {
         FirstName: $("#idFirstName").val(),
         LastName: $("#idLastName").val(),
@@ -58,7 +94,8 @@ function AddUser() {
         Password: $("#idPassword").val(),
         Address: $("#idAddress").val(),
         PhoneNumber: $("#idPhoneNumber").val(),
-        Orginization: $("#idOrginization").val()
+        Orginization: $("#idOrginization").val(),
+        ApplicationRoleId: $("#ApplicationRoleId").val()
     };
 
     $.ajax({

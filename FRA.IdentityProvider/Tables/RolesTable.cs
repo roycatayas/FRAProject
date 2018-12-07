@@ -100,8 +100,7 @@ namespace FRA.IdentityProvider.Tables
 
         public Task<IEnumerable<ApplicationRole>> GetAllRoles()
         {
-            const string command = "SELECT * " +
-                                   "FROM dbo.Roles;";
+            const string command = "SELECT * FROM dbo.Roles;";
 
             return _sqlConnection.QueryAsync<ApplicationRole>(command);
         }

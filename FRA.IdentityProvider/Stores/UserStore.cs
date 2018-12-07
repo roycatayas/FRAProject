@@ -598,7 +598,7 @@ namespace FRA.IdentityProvider.Stores
             }
 
             cancellationToken.ThrowIfCancellationRequested();
-            user.LockoutEnabled = enabled;
+            //user.LockoutEnabled = enabled;
             return Task.FromResult<object>(null);
         }
         #endregion IUserLockoutStore<ApplicationUser> implementation.
@@ -617,6 +617,8 @@ namespace FRA.IdentityProvider.Stores
             }
 
             ApplicationRole role = Task.Run(() => _rolesTable.GetAllRoles(), cancellationToken).Result.SingleOrDefault(e => e.NormalizedName == roleName);
+            ApplicationUser newAddedUserId = Task.Run(() => _usersTable.GetAllUsers(), cancellationToken).Result.SingleOrDefault(e => e.NormalizedEmail == user.NormalizedEmail);
+            if (newAddedUserId != null) user.Id = newAddedUserId.Id;
 
             return role != null
                 ? _usersRolesTable.AddToRoleAsync(user, role.Id)
@@ -660,12 +662,15 @@ namespace FRA.IdentityProvider.Stores
             }
 
             IList<string> userRoles = await GetRolesAsync(user, cancellationToken);
+            Task removeFromRole = RemoveFromRoleAsync(user, roleName, cancellationToken);
+            
             return userRoles.Contains(roleName);
         }
 
         public Task<IList<ApplicationUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            return _usersRolesTable.GetUsersInRoleAsync(roleName);
         }
         #endregion IUserRoleStore<ApplicationUser> implementation.
     }

@@ -1,12 +1,25 @@
 ﻿@using FRA.Web.Models
-@model FRA.Web.Areas.Administration.Models.AddUserViewModel
+@model FRA.Web.Areas.Administration.Models.UserViewModelBase
 
 <form name="form">
     @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Add User" })
     
     <div class="modal-body userModalForm">
         <!-- Begin User input -->
-        <div class="form">
+        <div class="form">            
+            
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <label class="textFWith120">Select Role</label>
+                    <select class="custom-select textWith150" id="ApplicationRoleId">
+                        @foreach (var iRole in Model.ApplicationRoles)
+                        {
+                            <option value="@iRole.Key">@iRole.Value</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
             <div class="form-group row">
                 <div class="inlineForm">
                     <label asp-for="FirstName" class="textFWith120">First Name</label>
