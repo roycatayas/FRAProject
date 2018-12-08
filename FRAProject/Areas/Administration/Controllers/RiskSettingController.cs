@@ -29,115 +29,70 @@ namespace FRA.Web.Areas.Administration.Controllers
         [HttpGet]
         public ViewResult Index() => View();
 
-        #region Category
-        [HttpGet]
-        public IActionResult GetCagetory() => PartialView("GetCategory");
-        
-        [HttpPost]
-        [ActionName("GetCategorys")]
-        public async Task<JsonResult> GetAllCatergoryJson(DataTable dataTable)
-        {
-            int pageNumber = dataTable.Start / dataTable.Length + 1;
-            Order order = dataTable.Order.FirstOrDefault();
+        #region Category        
 
-            SortDirection sortDirection = order != null
-                ? (order.Direction == "asc" ? SortDirection.Ascending : SortDirection.Descending)
-                : SortDirection.Ascending;
+        //[HttpGet]
+        //public async Task<IActionResult> DeleteCategory(string CategoryID)
+        //{
+        //    string CategoryName = string.Empty;
 
-            Catergory[] categorys = (await _categoryRepository.GetDataRocordsAsync(pageNumber, dataTable.Length, order?.Column ?? 0, sortDirection,
-                string.IsNullOrEmpty(dataTable.Search.Value) ? string.Empty : dataTable.Search.Value)).ToArray();
+        //    Catergory catergory = await _categoryRepository.FindByIdAsync(CategoryID);
+        //    if (!string.IsNullOrEmpty(CategoryID))
+        //    {
+        //        if (catergory != null)
+        //        {
+        //            CategoryName = catergory.CategoryName;
+        //        }
+        //    }
+        //    return PartialView("DeleteCategory", catergory);
+        //}
 
-            int totalNumberOfRecords = _categoryRepository.GetTotalNumberOfRecords();
+        //[HttpPost]
+        //public async Task<JsonResult> DeleteCategory([FromBody]Catergory model)
+        //{
+        //    if (!string.IsNullOrEmpty(model.CategoryID.ToString()))
+        //    {
+        //        Catergory catergory = await _categoryRepository.FindByIdAsync(model.CategoryID.ToString());
+        //        if (catergory != null)
+        //        {
+        //            OperationResult result = await _categoryRepository.DeleteRecordAsync(catergory);
+        //            if (result.Succeeded)
+        //            {
+        //                return Json(result.Succeeded);
+        //            }
+        //        }
+        //    }                        
+        //    return Json("Failed");
+        //}
 
-            return Json(new DataTableResponse<Catergory>
-            {
-                Data = categorys,
-                RecordsFiltered = string.IsNullOrEmpty(dataTable.Search.Value) ? totalNumberOfRecords : categorys.Length,
-                Draw = dataTable.Draw,
-                RecordsTotal = totalNumberOfRecords
-            });
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> EditCategory(string CategoryID)
+        //{
+        //    if (string.IsNullOrEmpty(CategoryID)) return PartialView("EditCategory");
 
-        [HttpGet]
-        public IActionResult AddCategory()
-        {
-            CategoryView model = new CategoryView();
-            return PartialView("AddCategory", model);
-        }
+        //    Catergory catergory = await _categoryRepository.FindByIdAsync(CategoryID);
+        //    if (catergory != null)
+        //    {
+        //        return PartialView("EditCategory", catergory);
+        //    }
+        //    return PartialView("EditCategory");
+        //}
 
-        [HttpPost]
-        public JsonResult AddCategory([FromBody]CategoryView model)
-        {
-            Catergory catergory = new Catergory {CategoryName = model.CategoryName};
+        //[HttpPost]
+        //public async Task<IActionResult> EditCategory([FromBody]Catergory model)
+        //{
+        //    if (string.IsNullOrEmpty(model.CategoryID.ToString())) return PartialView("GetCategory");
+        //    Catergory catergory = await _categoryRepository.FindByIdAsync(model.CategoryID.ToString());
 
-            _categoryRepository.AddRecordyAsync(catergory);
-       
-            //return PartialView("GetCategory");
-            return Json("success");
-        }
+        //    if (catergory != null)
+        //    {
+        //        catergory.CategoryName = model.CategoryName;
+        //    }
 
-        [HttpGet]
-        public async Task<IActionResult> DeleteCategory(string CategoryID)
-        {
-            string CategoryName = string.Empty;
+        //    OperationResult result = await _categoryRepository.EditRecordAsync(catergory);
 
-            Catergory catergory = await _categoryRepository.FindByIdAsync(CategoryID);
-            if (!string.IsNullOrEmpty(CategoryID))
-            {
-                if (catergory != null)
-                {
-                    CategoryName = catergory.CategoryName;
-                }
-            }
-            return PartialView("DeleteCategory", catergory);
-        }
-
-        [HttpPost]
-        public async Task<JsonResult> DeleteCategory([FromBody]Catergory model)
-        {
-            if (!string.IsNullOrEmpty(model.CategoryID.ToString()))
-            {
-                Catergory catergory = await _categoryRepository.FindByIdAsync(model.CategoryID.ToString());
-                if (catergory != null)
-                {
-                    OperationResult result = await _categoryRepository.DeleteRecordAsync(catergory);
-                    if (result.Succeeded)
-                    {
-                        return Json(result.Succeeded);
-                    }
-                }
-            }                        
-            return Json("Failed");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> EditCategory(string CategoryID)
-        {
-            if (string.IsNullOrEmpty(CategoryID)) return PartialView("EditCategory");
-
-            Catergory catergory = await _categoryRepository.FindByIdAsync(CategoryID);
-            if (catergory != null)
-            {
-                return PartialView("EditCategory", catergory);
-            }
-            return PartialView("EditCategory");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditCategory([FromBody]Catergory model)
-        {
-            if (string.IsNullOrEmpty(model.CategoryID.ToString())) return PartialView("GetCategory");
-            Catergory catergory = await _categoryRepository.FindByIdAsync(model.CategoryID.ToString());
-
-            if (catergory != null)
-            {
-                catergory.CategoryName = model.CategoryName;
-            }
-
-            OperationResult result = await _categoryRepository.EditRecordAsync(catergory);
-
-            return PartialView("GetCategory");
-        }
+        //    return PartialView("GetCategory");
+        //}
 
         #endregion
 

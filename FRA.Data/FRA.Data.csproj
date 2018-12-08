@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FRA.IdentityProvider\FRA.IdentityProvider.csproj" />
     <ProjectReference Include="..\FRA.Service\FRA.Service.csproj" />
   </ItemGroup>
 

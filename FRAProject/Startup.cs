@@ -3,6 +3,7 @@ using FRA.Data.Abstract;
 using FRA.Data.Models;
 using FRA.IdentityProvider.Entities;
 using FRA.IdentityProvider.Stores;
+using FRA.IdentityProvider.Tables;
 using FRA.Repo.Category;
 using FRA.Repo.Risk;
 using FRA.Repo.Section;
@@ -103,6 +104,7 @@ namespace FRA.Web
             services.AddSingleton<ICacheManagerService, CacheManagerService>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IRiskAssessmentRepository, RiskAssessmentRepository>();
+            services.AddTransient<IUserRoleRepository, UserRoleRepository>();
 
             services.AddTransient<IEmailService>(e => new EmailService(new SmtpSettings
             {

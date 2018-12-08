@@ -1,0 +1,18 @@
+﻿@using FRA.Web.Models
+@model FRA.Web.Areas.Administration.Models.DeleteUserViewModel
+
+<form role="form">
+    <input type="hidden" asp-for="Id" />    
+
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Delete User" })
+
+    <div class="modal-body">
+        Are you sure you want to delete <b>@Model.FullName</b>?
+    </div>
+
+</form>
+
+<div class="modal-footer">
+    <button class="btn btn-success" id="deleteUser" onclick="DeleteUser()">Submit</button>
+    <button id="Cancel" class="btn btn-secondary" type="button" onclick="cancelUser()">Cancel</button>
+</div>

@@ -1,0 +1,34 @@
+﻿@using FRA.Data.Models
+@model CatergoryListView
+
+<div class="table-responsive">
+    <table id="category-table" style="width: 100%">
+        <thead>
+            <tr>
+                <th class="textFWith80">ID</th>
+                <th>Name</th>
+                <th class="textFWith180"></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (Catergory iItem in Model.ListCatergories)
+        {            
+            <tr>
+                <td>@iItem.CategoryID</td>
+                <td>@iItem.CategoryName</td>                
+                <td>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-category" data-backdrop="static" data-keyboard="false" onclick="getCategoryToEdit('@iItem.CategoryID')"><i class="fal fa-edit pr3"></i> Edit</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-category" data-backdrop="static" data-keyboard="false" onclick="getCategoryToDelete('@iItem.CategoryID')"><i class="fal fa-trash-alt pr3"></i> Delete</button>
+                </td>
+            </tr>
+        }            
+        </tbody>
+        <tfoot>
+            <tr>
+                <th class="textFWith80">ID</th>
+                <th>Name</th>
+                <th class="textFWith180"></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

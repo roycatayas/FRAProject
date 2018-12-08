@@ -76,8 +76,7 @@ function getViewForAddUser() {
         url: "/administration/Users/AddUser",
         type: "GET",
         success: function (data) {
-            $("#modal-content-user").empty().html(data);
-            
+            $("#modal-content-user").empty().html(data);            
         },
         error: function () {
             alert("error");
@@ -115,6 +114,46 @@ function AddUser() {
         }
     });
 };
+
+function getUserToDelete(dataId) {
+    $.ajax({
+        url: "/administration/users/DeleteUser",
+        type: "GET",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        data: { id: dataId },
+        success: function (data) {
+            $("#modal-content-user").empty().html(data);
+
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function DeleteUser() {    
+
+    var dataModel = {
+        Id: $("#Id").val()
+    };
+
+    $.ajax({
+        url: "/administration/Users/DeleteUser",
+        type: "POST",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(dataModel),
+        success: function (data) {
+            getAllUser();
+            $("#modal-user").modal("hide");
+            $("#modal-content-user").empty();
+        },
+        error: function (e) {
+            alert("error " + e.message);
+        }
+    });
+}
 
 function cancelUser() {
     $("#modal-user").modal("hide");

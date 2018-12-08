@@ -5,7 +5,7 @@
 @section Css {
     <link rel="stylesheet" type="text/css" href="~/lib/Datatables/css/dataTables.jqueryui.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="~/lib/Jquery-UI-ThemeRoller/jquery-ui.css" asp-append-version="true" />
-    <link rel="stylesheet" type="text/css" href="~/css/TableDesign1.css" asp-append-version="true" />    
+    <link rel="stylesheet" type="text/css" href="~/css/TableDesign1.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="~/css/jquery.mCustomScrollbar.min.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="~/css/All.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="~/css/custom.css" asp-append-version="true" />
@@ -150,16 +150,16 @@
                 <div class="riskContent Opacity70">
                     <div class="row relativeFromBoxTop" style="display: inline;">
                         <div class="topUserDiv alignLeftTopDiv fontUser">
-                            System Users
+                            System management for Categories
                         </div>
-                        <div class="topUserDiv alignRightTopDiv" style="margin-right: 38px;">
-                            <button id="btnNewsUser" data-toggle="modal" data-target="#modal-user" data-backdrop="static" data-keyboard="false" class="btn btn-lg btn-light" onclick="getViewForAddUser()"><i class="fal fa-user-alt newRiskButton"></i> Create New User</button>                            
+                        <div class="topUserDiv alignRightTopDiv" style="margin-right: 45px;">
+                            <button id="btnNewsCategory" data-toggle="modal" data-target="#modal-category" data-backdrop="static" data-keyboard="false" class="btn btn-lg btn-light" onclick="getViewForAddCategory()"><i class="fal fa-list-alt newkButton"></i> Create New Category</button>
                         </div>
                     </div>
 
                     <div class="row relativeFromBoxMid">
-                        <div id="user-content" class="wCal5 pb10">
-                            
+                        <div id="category-content" class="wCal5 pb10">
+
                         </div>
                     </div>
 
@@ -167,11 +167,11 @@
             </div>
         </main>
         <!-- page-content" -->
-    </div>    
+    </div>
 
-    <div tabindex="-1" class="modal fade" id="modal-user" role="dialog" aria-hidden="true" aria-labelledby="modal-action-user-label">
+    <div tabindex="-1" class="modal fade" id="modal-category" role="dialog" aria-hidden="true" aria-labelledby="modal-action-category">
         <div class="modal-dialog ">
-            <div class="modal-content" id="modal-content-user" style="width: 650px">
+            <div class="modal-content" id="modal-content-category" style="width: 650px">
 
             </div>
         </div>
@@ -186,7 +186,7 @@
     <script type="text/javascript" src="~/js/MainPage.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/custom.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/jquery.mCustomScrollbar.concat.min.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="~/js/UserIndex.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/Category.js" asp-append-version="true"></script>
 }
 
 

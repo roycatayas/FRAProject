@@ -130,6 +130,10 @@
     width: 30px;
 }
 
+.textFWith80 {
+    width: 80px;
+}
+
 .textFWith100a {
     width: 100px;
     text-align: right;
@@ -145,6 +149,10 @@
 
 .textFWith150 {
     width: 150px;
+}
+
+.textFWith180 {
+    width: 180px;
 }
 
 .textFWith200 {

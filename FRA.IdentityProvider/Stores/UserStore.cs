@@ -661,8 +661,7 @@ namespace FRA.IdentityProvider.Stores
                 return false;
             }
 
-            IList<string> userRoles = await GetRolesAsync(user, cancellationToken);
-            Task removeFromRole = RemoveFromRoleAsync(user, roleName, cancellationToken);
+            IList<string> userRoles = await GetRolesAsync(user, cancellationToken);           
             
             return userRoles.Contains(roleName);
         }

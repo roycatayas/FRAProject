@@ -57,9 +57,7 @@ namespace FRA.IdentityProvider.Tables
 
         public Task<IdentityResult> DeleteAsync(ApplicationUser user, CancellationToken cancellationToken)
         {
-            const string command = "DELETE " +
-                                   "FROM dbo.Users " +
-                                   "WHERE Id = @Id;";
+            const string command = "DELETE FROM dbo.Users WHERE Id = @Id;";
 
             int rowsDeleted = Task.Run(() => _sqlConnection.ExecuteAsync(command, new
             {

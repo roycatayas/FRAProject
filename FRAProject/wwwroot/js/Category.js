@@ -1,26 +1,28 @@
-﻿function getViewForAddCategory() {
-    $.ajax({
-        url: "/administration/risksetting/AddCategory",
-        type: "GET",
-        success: function (data) {
-            $("#modal-content-Category").empty().html(data);
-            $("#modal-content-Section").empty();
-            $("#modal-content-riskTemplate").empty();
-            //alert(data);
-        },
-        error: function () {
-            alert("error");
-        }
-    });
-}
+﻿$(document).ready(function () {
+    getAllCategory();
+});
 
 function getAllCategory() {
     $.ajax({
-        url: "/administration/risksetting/GetCagetory",
+        url: "/administration/category/GetCagetoryList",
+        type: "POST",
+        success: function (data) {
+            $("#category-content").empty().html(data);
+
+            $("#category-table").DataTable();
+        },
+        error: function () {
+            alert("error");
+        }
+    });   
+}
+
+function getViewForAddCategory() {
+    $.ajax({
+        url: "/administration/category/AddCategory",
         type: "GET",
         success: function (data) {
-            $("#Setting-container").empty().html(data);
-            applyCatogoryTable();
+            $("#modal-content-category").empty().html(data);        
         },
         error: function () {
             alert("error");
@@ -28,13 +30,14 @@ function getAllCategory() {
     });
 }
 
-function AddCategory() {    
+
+function addCategory() {    
     var dataModel = {
-        CategoryName: $("#CategoryName").val()
+        CategoryName: $("#idCategoryName").val()
     };
 
     $.ajax({
-        url: "/administration/risksetting/AddCategory",
+        url: "/administration/category/AddCategory",
         type: "POST",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
@@ -46,29 +49,28 @@ function AddCategory() {
             $("#modal-content-Category").empty();
         },
         error: function (e) {
-            alert("error " + e.responseText + " -- " + e.message);
+            alert("error ");
         }
     });
 };
 
-function GetToDeleteCategory(dataId) {
+function getCategoryToDelete(dataId) {
     $.ajax({
-        url: "/administration/risksetting/DeleteCategory",
+        url: "/administration/category/DeleteCategory",
         type: "GET",
         dataType: "html",
         contentType: "application/json; charset=utf-8",
         data: { CategoryID: dataId },
         success: function (data) {
-            $("#modal-content-Category").empty().html(data);
-            //alert(data);
+            $("#modal-content-category").empty().html(data);            
         },
         error: function (e) {
-            alert("error " + e.message);
+            alert("error ");
         }
     });
 }
 
-function DeleteCategory() {
+function deleteCategory() {
  
     var dataModel = {
         CategoryName: $("#CategoryName").val(),
@@ -76,7 +78,7 @@ function DeleteCategory() {
     };
 
     $.ajax({
-        url: "/administration/risksetting/DeleteCategory",
+        url: "/administration/category/DeleteCategory",
         type: "POST",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
@@ -86,45 +88,44 @@ function DeleteCategory() {
             getAllCategory();
         },
         error: function (e) {
-            alert("error " + e.message);
+            alert("error ");
         }
     });
 }
 
-function GetToEditCategory(dataId) {
+function getCategoryToEdit(dataId) {
     $.ajax({
-        url: "/administration/risksetting/EditCategory",
+        url: "/administration/category/EditCategory",
         type: "GET",
         dataType: "html",
         contentType: "application/json; charset=utf-8",
         data: { CategoryID: dataId },
         success: function (data) {
-            $("#modal-content-Category").empty().html(data);
-            //alert(data);
+            $("#modal-content-category").empty().html(data);            
         },
         error: function (e) {
-            alert("error " + e.message);
+            alert("error ");
         }
     });
 }
 
-function EditCategory() {
+function editCategory() {
 
     var dataModel = {
-        CategoryName: $("#CategoryName").val(),
+        CategoryName: $("#idCategoryName").val(),
         CategoryID: $("#CategoryID").val()
     };
 
     $.ajax({
-        url: "/administration/risksetting/EditCategory",
+        url: "/administration/category/EditCategory",
         type: "POST",
         dataType: "html",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(dataModel),
         success: function (data) {
             $("#modal-category").modal("hide");
-            $("#Setting-container").empty().html(data);
-            applyCatogoryTable();
+            $("#modal-content-category").empty();
+            getAllCategory();
         },
         error: function (e) {
             alert("error " + e.message);
@@ -132,38 +133,8 @@ function EditCategory() {
     });
 }
 
-function applyCatogoryTable() {
-    
-    $('#category-table').DataTable({
-        "ajax": {
-            "url": "/administration/risksetting/GetCategorys",
-            "type": "POST"
-        },
-        processing: true,
-        serverSide: true,
-        lengthMenu: [10, 25, 50],
-        searchHighlight: true,
-        columns: [
-            {
-                data: "categoryID",
-                className: "text-center"
-            },
-            {
-                data: "categoryName",
-                className: "text-center"
-            },
-            {
-                render: function (data, type, row) {
-                    var htmlButtonEdit = '<a id="editCategory" data-toggle="modal" data-target="#modal-category" data-backdrop="static"data-keyboard="false" class="btn btn-sm btn-primary" onclick=GetToEditCategory("' + row.categoryID + '");><span class="glyphicon glyphicon-pencil Padding5"></span>Edit</a>';
-                    var spaceSpan = '<span class="Padding5"></span>';
-                    var htmlButtonDelete = '<a id="deleteCategory" data-toggle="modal" data-target="#modal-category" data-backdrop="static"data-keyboard="false" class="btn btn-sm btn-danger" onclick=GetToDeleteCategory("' + row.categoryID + '");><span class="glyphicon glyphicon-trash Padding5"></span>Delete</a>';
-                    if (type === 'display') {
-                        return htmlButtonEdit + spaceSpan + htmlButtonDelete;
-                    }
 
-                    return '';
-                },
-                className: "text-center CommandColWidth"
-            }]
-    });
+function cancelCategory() {
+    $("#modal-category").modal("hide");
+    $("#modal-content-category").empty();
 }

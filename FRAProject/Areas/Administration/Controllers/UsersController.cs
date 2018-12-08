@@ -20,12 +20,14 @@ namespace FRA.Web.Areas.Administration.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IUserRepository _userRepository;
+        private readonly IUserRoleRepository _userRoleRepository;
 
-        public UsersController(UserManager<ApplicationUser> userManager, IUserRepository userRepository, RoleManager<ApplicationRole> roleManager)
+        public UsersController(UserManager<ApplicationUser> userManager, IUserRepository userRepository, RoleManager<ApplicationRole> roleManager, IUserRoleRepository userRoleRepository)
         {
             _userManager = userManager;
             _userRepository = userRepository;
             _roleManager = roleManager;
+            _userRoleRepository = userRoleRepository;
         }
 
         [HttpGet]
@@ -46,6 +48,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public ActionResult AddUser()
         {
             AddUserViewModel model = new AddUserViewModel();           
@@ -54,22 +57,25 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<JsonResult> AddUser([FromBody]AddUserViewModel model)
         {
-            ApplicationUser user = new ApplicationUser();            
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                Address = model.Address,
+                PasswordHash = model.Password,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                FullName = model.FirstName + " " + model.LastName,
+                PhoneNumber = model.PhoneNumber,
+                LockoutEnabled = false,
+                EmailConfirmed = true,
+                Organization = model.Orginization,
+                RegistrationDate = DateTime.Now
+            };
 
-            user.UserName = model.Email;
-            user.Email = model.Email;
-            user.Address = model.Address;   
-            user.PasswordHash = model.Password;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.FullName = model.FirstName + " " + model.LastName;
-            user.PhoneNumber = model.PhoneNumber;
-            user.LockoutEnabled = false;
-            user.EmailConfirmed = true;
-            user.Organization = model.Orginization;
-            user.RegistrationDate = DateTime.Now;
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
@@ -88,11 +94,12 @@ namespace FRA.Web.Areas.Administration.Controllers
             return Json("success");
         }
 
-        [HttpGet]       
+        [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> EditUser(string id)
         {
             ApplicationUser user = await _userManager.FindByIdAsync(id);
-            EditUserViewModel editUserViewModel = new EditUserViewModel(); ;
+            EditUserViewModel editUserViewModel = new EditUserViewModel();
 
             if (user != null)
             {                
@@ -117,6 +124,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<JsonResult> EditUser([FromBody]EditUserViewModel model)
         {            
             ApplicationUser user = await _userManager.FindByIdAsync(model.Id.ToString());            
@@ -129,24 +137,27 @@ namespace FRA.Web.Areas.Administration.Controllers
             user.PhoneNumber = model.PhoneNumber;
             user.LockoutEnabled = model.LockoutEnabled;
             string existingRole = _userManager.GetRolesAsync(user).Result.Single();
-            string existingRoleId = _roleManager.Roles.Single(r => r.Name == existingRole).Id.ToString();
+            Guid existingRoleId = _roleManager.Roles.Single(r => r.Name == existingRole).Id;
             IdentityResult result = await _userManager.UpdateAsync(user);
 
             if (result.Succeeded)
             {
-                if (existingRoleId != model.ApplicationRoleId.ToString())
+                if (existingRoleId != model.ApplicationRoleId)
                 {
-                    IdentityResult roleResult = await _userManager.RemoveFromRoleAsync(user, existingRole);
-
-                    ApplicationRole applicationRole = await _roleManager.FindByIdAsync(model.ApplicationRoleId.ToString());
-                    if (applicationRole != null)
+                    //IdentityResult roleResult = await _userManager.RemoveFromRoleAsync(user, existingRole);
+                    OperationResult userRoleResult = await _userRoleRepository.RemoveFromRoleAsync(user, existingRoleId);
+                    if (userRoleResult.Succeeded)
                     {
-                        IdentityResult newRoleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
-                        if (newRoleResult.Succeeded)
+                        ApplicationRole applicationRole = await _roleManager.FindByIdAsync(model.ApplicationRoleId.ToString());
+                        if (applicationRole != null)
                         {
-                            return Json("success");
+                            IdentityResult newRoleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
+                            if (newRoleResult.Succeeded)
+                            {
+                                return Json("success");
+                            }
                         }
-                    }
+                    }                    
                 }
             }
 
@@ -167,6 +178,43 @@ namespace FRA.Web.Areas.Administration.Controllers
                 Description = "User information were updated successfully."
             };
 
+            return Json("success");
+        }
+
+        [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            DeleteUserViewModel deleteUserViewModel = new DeleteUserViewModel();
+            
+            if (!string.IsNullOrEmpty(id))
+            {
+                ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
+                if (applicationUser != null)
+                {
+                    deleteUserViewModel.FullName = applicationUser.FullName;
+                    deleteUserViewModel.Id = applicationUser.Id;
+                }
+            }
+            return PartialView("DeleteUser", deleteUserViewModel);
+        }
+
+        [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<JsonResult> DeleteUser([FromBody]DeleteUserViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.Id.ToString()))
+            {
+                ApplicationUser applicationUser = await _userManager.FindByIdAsync(model.Id.ToString());
+                if (applicationUser != null)
+                {
+                    IdentityResult result = await _userManager.DeleteAsync(applicationUser);
+                    if (result.Succeeded)
+                    {
+                        return Json("success");
+                    }
+                }
+            }
             return Json("success");
         }
     }
