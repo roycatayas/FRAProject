@@ -97,136 +97,136 @@ namespace FRA.Web.Areas.Administration.Controllers
         #endregion
 
         #region Section
-        [HttpGet]
-        public IActionResult GetSection() => PartialView("GetSection");
+        //[HttpGet]
+        //public IActionResult GetSection() => PartialView("GetSection");
 
-        [HttpPost]
-        [ActionName("GetSections")]
-        public async Task<JsonResult> GetAllSectionJson(DataTable dataTable)
-        {
-            int pageNumber = dataTable.Start / dataTable.Length + 1;
-            Order order = dataTable.Order.FirstOrDefault();
+        //[HttpPost]
+        //[ActionName("GetSections")]
+        //public async Task<JsonResult> GetAllSectionJson(DataTable dataTable)
+        //{
+        //    int pageNumber = dataTable.Start / dataTable.Length + 1;
+        //    Order order = dataTable.Order.FirstOrDefault();
 
-            SortDirection sortDirection = order != null
-                ? (order.Direction == "asc" ? SortDirection.Ascending : SortDirection.Descending)
-                : SortDirection.Ascending;
+        //    SortDirection sortDirection = order != null
+        //        ? (order.Direction == "asc" ? SortDirection.Ascending : SortDirection.Descending)
+        //        : SortDirection.Ascending;
 
-            Section[] sections = (await _sectionRepository.GetDataRocordsAsync(pageNumber, dataTable.Length, order?.Column ?? 0, sortDirection,
-                string.IsNullOrEmpty(dataTable.Search.Value) ? string.Empty : dataTable.Search.Value)).ToArray();
+        //    Section[] sections = (await _sectionRepository.GetDataRocordsAsync(pageNumber, dataTable.Length, order?.Column ?? 0, sortDirection,
+        //        string.IsNullOrEmpty(dataTable.Search.Value) ? string.Empty : dataTable.Search.Value)).ToArray();
 
-            int totalNumberOfRecords = _categoryRepository.GetTotalNumberOfRecords();
+        //    int totalNumberOfRecords = _categoryRepository.GetTotalNumberOfRecords();
 
-            return Json(new DataTableResponse<Section>
-            {
-                Data = sections,
-                RecordsFiltered = string.IsNullOrEmpty(dataTable.Search.Value) ? totalNumberOfRecords : sections.Length,
-                Draw = dataTable.Draw,
-                RecordsTotal = totalNumberOfRecords
-            });
-        }
+        //    return Json(new DataTableResponse<Section>
+        //    {
+        //        Data = sections,
+        //        RecordsFiltered = string.IsNullOrEmpty(dataTable.Search.Value) ? totalNumberOfRecords : sections.Length,
+        //        Draw = dataTable.Draw,
+        //        RecordsTotal = totalNumberOfRecords
+        //    });
+        //}
 
-        [HttpGet]
-        public async Task<IActionResult> AddSection()
-        {
-            SectionView sectionModel = new SectionView();
-            var category = await _categoryRepository.GetAllRecords();
+        //[HttpGet]
+        //public async Task<IActionResult> AddSection()
+        //{
+        //    SectionView sectionModel = new SectionView();
+        //    var category = await _categoryRepository.GetAllRecords();
 
-            Dictionary<int,string> categoryList = category.ToDictionary(items => items.CategoryID, items => items.CategoryName);
+        //    Dictionary<int,string> categoryList = category.ToDictionary(items => items.CategoryID, items => items.CategoryName);
 
-            sectionModel.CategoryList = categoryList;
+        //    sectionModel.CategoryList = categoryList;
 
-            return PartialView("AddSection", sectionModel);
-        }
+        //    return PartialView("AddSection", sectionModel);
+        //}
 
-        [HttpPost]
-        public async Task<JsonResult> AddSection([FromBody]Section model)
-        {
-            Section section = new Section
-            {
-                CategoryID = model.CategoryID,
-                SectionName = model.SectionName
-            };
+        //[HttpPost]
+        //public async Task<JsonResult> AddSection([FromBody]Section model)
+        //{
+        //    Section section = new Section
+        //    {
+        //        CategoryID = model.CategoryID,
+        //        SectionName = model.SectionName
+        //    };
 
-            if (!string.IsNullOrEmpty(model.CategoryID.ToString()))
-            {
-                OperationResult result = await _sectionRepository.AddRecordyAsync(section);
-                if (result.Succeeded)
-                {
-                    return Json(result.Succeeded);
-                }
-            }
+        //    if (!string.IsNullOrEmpty(model.CategoryID.ToString()))
+        //    {
+        //        OperationResult result = await _sectionRepository.AddRecordyAsync(section);
+        //        if (result.Succeeded)
+        //        {
+        //            return Json(result.Succeeded);
+        //        }
+        //    }
                         
-            return Json("Failed");
-        }
+        //    return Json("Failed");
+        //}
 
-        [HttpGet]
-        public async Task<IActionResult> DeleteSection(string SectionID)
-        {
-            Section section = await _sectionRepository.FindByIdAsync(SectionID);
-            if (!string.IsNullOrEmpty(SectionID))
-            {
-                if (section != null)
-                {
-                    return PartialView("DeleteSection", section);
-                }
-            }
-            return PartialView("DeleteSection");
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> DeleteSection(string SectionID)
+        //{
+        //    Section section = await _sectionRepository.FindByIdAsync(SectionID);
+        //    if (!string.IsNullOrEmpty(SectionID))
+        //    {
+        //        if (section != null)
+        //        {
+        //            return PartialView("DeleteSection", section);
+        //        }
+        //    }
+        //    return PartialView("DeleteSection");
+        //}
 
-        [HttpPost]
-        public async Task<JsonResult> DeleteSection([FromBody]Section model)
-        {
-            if (!string.IsNullOrEmpty(model.SectionID.ToString()))
-            {
-                Section section = await _sectionRepository.FindByIdAsync(model.SectionID.ToString());
-                if (section != null)
-                {
-                    OperationResult result = await _sectionRepository.DeleteRecordAsync(section);
-                    if (result.Succeeded)
-                    {
-                        return Json(result.Succeeded);
-                    }
-                }
-            }
-            return Json("Failed");
-        }
+        //[HttpPost]
+        //public async Task<JsonResult> DeleteSection([FromBody]Section model)
+        //{
+        //    if (!string.IsNullOrEmpty(model.SectionID.ToString()))
+        //    {
+        //        Section section = await _sectionRepository.FindByIdAsync(model.SectionID.ToString());
+        //        if (section != null)
+        //        {
+        //            OperationResult result = await _sectionRepository.DeleteRecordAsync(section);
+        //            if (result.Succeeded)
+        //            {
+        //                return Json(result.Succeeded);
+        //            }
+        //        }
+        //    }
+        //    return Json("Failed");
+        //}
 
-        [HttpGet]        
-        public async Task<IActionResult> EditSection(string SectionID)
-        {
-            if (string.IsNullOrEmpty(SectionID)) return PartialView("EditCategory");
+        //[HttpGet]        
+        //public async Task<IActionResult> EditSection(string SectionID)
+        //{
+        //    if (string.IsNullOrEmpty(SectionID)) return PartialView("EditCategory");
 
-            Section section = await _sectionRepository.FindByIdAsync(SectionID);
+        //    Section section = await _sectionRepository.FindByIdAsync(SectionID);
 
-            SectionView sectionViewModel = new SectionView();
-            IEnumerable<Catergory> category = await _categoryRepository.GetAllRecords();
+        //    SectionView sectionViewModel = new SectionView();
+        //    IEnumerable<Catergory> category = await _categoryRepository.GetAllRecords();
 
-            Dictionary<int, string> categoryList = category.ToDictionary(items => items.CategoryID, items => items.CategoryName);
+        //    Dictionary<string, string> categoryList = category.ToDictionary(items => items.CategoryID, items => items.CategoryName);
 
-            sectionViewModel.DataId = section.SectionID.ToString();
-            sectionViewModel.CategoryList = categoryList;
-            sectionViewModel.SelectedIndex = section.CategoryID.ToString();
-            sectionViewModel.SectionName = section.SectionName;
+        //    sectionViewModel.SectionID = section.SectionID;
+        //    sectionViewModel.CategoryList = categoryList;
+        //    sectionViewModel.SelectedIndex = section.CategoryID;
+        //    sectionViewModel.SectionName = section.SectionName;
             
-            return PartialView("EditSection", sectionViewModel);
-        }
+        //    return PartialView("EditSection", sectionViewModel);
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> EditSection([FromBody]Section model)
-        {
-            if (string.IsNullOrEmpty(model.SectionID.ToString())) return PartialView("GetSection");
-            Section section = await _sectionRepository.FindByIdAsync(model.SectionID.ToString());
+        //[HttpPost]
+        //public async Task<IActionResult> EditSection([FromBody]Section model)
+        //{
+        //    if (string.IsNullOrEmpty(model.SectionID.ToString())) return PartialView("GetSection");
+        //    Section section = await _sectionRepository.FindByIdAsync(model.SectionID.ToString());
 
-            if (section != null)
-            {
-                section.CategoryID = Convert.ToInt32(model.CategoryID);
-                section.SectionName = model.SectionName;
-            }
+        //    if (section != null)
+        //    {
+        //        section.CategoryID = model.CategoryID;
+        //        section.SectionName = model.SectionName;
+        //    }
 
-            OperationResult result = await _sectionRepository.EditRecordAsync(section);
+        //    OperationResult result = await _sectionRepository.EditRecordAsync(section);
 
-            return PartialView("GetSection");
-        }
+        //    return PartialView("GetSection");
+        //}
 
         #endregion
 
@@ -266,7 +266,7 @@ namespace FRA.Web.Areas.Administration.Controllers
             IEnumerable<Catergory> category = await _categoryRepository.GetAllRecords();
             //IEnumerable<Section> sections = await _sectionRepository.GetAllRecords();
 
-            Dictionary<int, string> categoryList = category.ToDictionary(items => items.CategoryID, items => items.CategoryName);            
+            Dictionary<string, string> categoryList = category.ToDictionary(items => items.CategoryID, items => items.CategoryName);            
             riskTemplateModel.CategoryList = categoryList;            
 
             return PartialView("AddRiskTemplate", riskTemplateModel);
@@ -341,8 +341,8 @@ namespace FRA.Web.Areas.Administration.Controllers
             IEnumerable<Catergory> category = await _categoryRepository.GetAllRecords();
             IEnumerable<Section> sections = await _sectionRepository.GetAllRecords();
 
-            Dictionary<int, string> categoryList = category.ToDictionary(items => items.CategoryID, items => items.CategoryName);
-            Dictionary<int, string> sectionList = sections.ToDictionary(items => items.SectionID, items => items.SectionName);
+            Dictionary<string, string> categoryList = category.ToDictionary(items => items.CategoryID, items => items.CategoryName);
+            Dictionary<string, string> sectionList = sections.ToDictionary(items => items.SectionID, items => items.SectionName);
 
             riskTemplateView.DataId = riskTemplate.TemplateID.ToString();
             riskTemplateView.CategoryList = categoryList;
@@ -384,9 +384,9 @@ namespace FRA.Web.Areas.Administration.Controllers
             RiskTemplateView riskTemplateModel = new RiskTemplateView();
             
             IEnumerable<Section> sections = await _sectionRepository.GetAllRecords();
-            IEnumerable<Section> newSections = sections.Where(data => data.CategoryID == Convert.ToInt32(CategoryID));
+            IEnumerable<Section> newSections = sections.Where(data => data.CategoryID == CategoryID);
 
-            Dictionary<int, string> sectionList = newSections.ToDictionary(items => items.SectionID, items => items.SectionName);
+            Dictionary<string, string> sectionList = newSections.ToDictionary(items => items.SectionID, items => items.SectionName);
 
             riskTemplateModel.SectionList = sectionList;
 

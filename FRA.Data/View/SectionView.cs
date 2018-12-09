@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 
 namespace FRA.Data.View
 {
     public class SectionView
     {        
-        public string DataId { get; set; }
+        public string SectionID { get; set; }
+        public string CategoryId { get; set; }        
         public string SectionName { get; set; }
         public string SelectedIndex { get; set; }
-        public Dictionary<int, string> CategoryList { get; set; }        
+        public Dictionary<string, string> CategoryList { get; set; }        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using FRA.Data.Models;
 
-namespace FRA.Data.Models
+namespace FRA.Data.View
 {
     public class CatergoryListView
     {

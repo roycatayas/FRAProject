@@ -41,6 +41,14 @@
     margin-right: 3px;
 }
 
+.newButton {
+    font-size: 27px;
+    display: flex;
+    float: left;
+    margin-top: 2px;
+    margin-right: 3px;
+}
+
 .riskModalForm {
     width: 950px;
     margin-left: 0;
@@ -144,6 +152,10 @@
 }
 
 .textFWith120 {
+    width: 120px;
+}
+
+.textFWith120a {
     width: 120px;
 }
 

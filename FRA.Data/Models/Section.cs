@@ -2,8 +2,8 @@
 {
     public class Section
     {
-        public int SectionID { get; set; }
-        public int CategoryID { get; set; }
+        public string SectionID { get; set; }
+        public string CategoryID { get; set; }
         public string SectionName { get; set; }
         public string CategoryName { get; set; }
     }

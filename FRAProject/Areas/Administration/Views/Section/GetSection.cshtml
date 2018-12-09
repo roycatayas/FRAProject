@@ -1,0 +1,38 @@
+﻿@using FRA.Data.Models
+@using FRA.Data.View
+@model SectionListView
+
+<div class="table-responsive">
+    <table id="section-table" style="width: 100%">
+        <thead>
+        <tr>
+            <th class="textFWith80">ID</th>
+            <th class="textFWith120a">Category</th>
+            <th>Section</th>
+            <th class="textFWith180"></th>
+        </tr>        
+        </thead>
+        <tbody>
+        @foreach (Section iItem in Model.ListSections)
+        {            
+            <tr>
+                <td>@iItem.SectionID</td>
+                <td>@iItem.CategoryName</td>
+                <td>@iItem.SectionName</td>
+                <td>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-section" data-backdrop="static" data-keyboard="false" onclick="getSectionToEdit('@iItem.SectionID')"><i class="fal fa-edit pr3"></i> Edit</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-section" data-backdrop="static" data-keyboard="false" onclick="getSectionToDelete('@iItem.SectionID')"><i class="fal fa-trash-alt pr3"></i> Delete</button>
+                </td>
+            </tr>
+        }            
+        </tbody>
+        <tfoot>
+            <tr>
+                <th class="textFWith80">ID</th>
+                <th class="textFWith120a">Category</th>
+                <th>Section</th>
+                <th class="textFWith180"></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

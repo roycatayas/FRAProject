@@ -18,6 +18,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         {
             _categoryRepository = categoryRepository;           
         }
+
         [HttpGet]
         public ViewResult Index() => View();
 
@@ -105,9 +106,9 @@ namespace FRA.Web.Areas.Administration.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<JsonResult> DeleteCategory([FromBody]Catergory model)
         {
-            if (!string.IsNullOrEmpty(model.CategoryID.ToString()))
+            if (!string.IsNullOrEmpty(model.CategoryID))
             {
-                Catergory catergory = await _categoryRepository.FindByIdAsync(model.CategoryID.ToString());
+                Catergory catergory = await _categoryRepository.FindByIdAsync(model.CategoryID);
                 if (catergory != null)
                 {
                     OperationResult result = await _categoryRepository.DeleteRecordAsync(catergory);
