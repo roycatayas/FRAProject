@@ -27,253 +27,39 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpGet]
-        public ViewResult Index() => View();
+        public ViewResult Index() => View();             
 
-        #region Category        
-
-        //[HttpGet]
-        //public async Task<IActionResult> DeleteCategory(string CategoryID)
-        //{
-        //    string CategoryName = string.Empty;
-
-        //    Catergory catergory = await _categoryRepository.FindByIdAsync(CategoryID);
-        //    if (!string.IsNullOrEmpty(CategoryID))
-        //    {
-        //        if (catergory != null)
-        //        {
-        //            CategoryName = catergory.CategoryName;
-        //        }
-        //    }
-        //    return PartialView("DeleteCategory", catergory);
-        //}
-
-        //[HttpPost]
-        //public async Task<JsonResult> DeleteCategory([FromBody]Catergory model)
-        //{
-        //    if (!string.IsNullOrEmpty(model.CategoryID.ToString()))
-        //    {
-        //        Catergory catergory = await _categoryRepository.FindByIdAsync(model.CategoryID.ToString());
-        //        if (catergory != null)
-        //        {
-        //            OperationResult result = await _categoryRepository.DeleteRecordAsync(catergory);
-        //            if (result.Succeeded)
-        //            {
-        //                return Json(result.Succeeded);
-        //            }
-        //        }
-        //    }                        
-        //    return Json("Failed");
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> EditCategory(string CategoryID)
-        //{
-        //    if (string.IsNullOrEmpty(CategoryID)) return PartialView("EditCategory");
-
-        //    Catergory catergory = await _categoryRepository.FindByIdAsync(CategoryID);
-        //    if (catergory != null)
-        //    {
-        //        return PartialView("EditCategory", catergory);
-        //    }
-        //    return PartialView("EditCategory");
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> EditCategory([FromBody]Catergory model)
-        //{
-        //    if (string.IsNullOrEmpty(model.CategoryID.ToString())) return PartialView("GetCategory");
-        //    Catergory catergory = await _categoryRepository.FindByIdAsync(model.CategoryID.ToString());
-
-        //    if (catergory != null)
-        //    {
-        //        catergory.CategoryName = model.CategoryName;
-        //    }
-
-        //    OperationResult result = await _categoryRepository.EditRecordAsync(catergory);
-
-        //    return PartialView("GetCategory");
-        //}
-
-        #endregion
-
-        #region Section
-        //[HttpGet]
-        //public IActionResult GetSection() => PartialView("GetSection");
-
-        //[HttpPost]
-        //[ActionName("GetSections")]
-        //public async Task<JsonResult> GetAllSectionJson(DataTable dataTable)
-        //{
-        //    int pageNumber = dataTable.Start / dataTable.Length + 1;
-        //    Order order = dataTable.Order.FirstOrDefault();
-
-        //    SortDirection sortDirection = order != null
-        //        ? (order.Direction == "asc" ? SortDirection.Ascending : SortDirection.Descending)
-        //        : SortDirection.Ascending;
-
-        //    Section[] sections = (await _sectionRepository.GetDataRocordsAsync(pageNumber, dataTable.Length, order?.Column ?? 0, sortDirection,
-        //        string.IsNullOrEmpty(dataTable.Search.Value) ? string.Empty : dataTable.Search.Value)).ToArray();
-
-        //    int totalNumberOfRecords = _categoryRepository.GetTotalNumberOfRecords();
-
-        //    return Json(new DataTableResponse<Section>
-        //    {
-        //        Data = sections,
-        //        RecordsFiltered = string.IsNullOrEmpty(dataTable.Search.Value) ? totalNumberOfRecords : sections.Length,
-        //        Draw = dataTable.Draw,
-        //        RecordsTotal = totalNumberOfRecords
-        //    });
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> AddSection()
-        //{
-        //    SectionView sectionModel = new SectionView();
-        //    var category = await _categoryRepository.GetAllRecords();
-
-        //    Dictionary<int,string> categoryList = category.ToDictionary(items => items.CategoryID, items => items.CategoryName);
-
-        //    sectionModel.CategoryList = categoryList;
-
-        //    return PartialView("AddSection", sectionModel);
-        //}
-
-        //[HttpPost]
-        //public async Task<JsonResult> AddSection([FromBody]Section model)
-        //{
-        //    Section section = new Section
-        //    {
-        //        CategoryID = model.CategoryID,
-        //        SectionName = model.SectionName
-        //    };
-
-        //    if (!string.IsNullOrEmpty(model.CategoryID.ToString()))
-        //    {
-        //        OperationResult result = await _sectionRepository.AddRecordyAsync(section);
-        //        if (result.Succeeded)
-        //        {
-        //            return Json(result.Succeeded);
-        //        }
-        //    }
-                        
-        //    return Json("Failed");
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> DeleteSection(string SectionID)
-        //{
-        //    Section section = await _sectionRepository.FindByIdAsync(SectionID);
-        //    if (!string.IsNullOrEmpty(SectionID))
-        //    {
-        //        if (section != null)
-        //        {
-        //            return PartialView("DeleteSection", section);
-        //        }
-        //    }
-        //    return PartialView("DeleteSection");
-        //}
-
-        //[HttpPost]
-        //public async Task<JsonResult> DeleteSection([FromBody]Section model)
-        //{
-        //    if (!string.IsNullOrEmpty(model.SectionID.ToString()))
-        //    {
-        //        Section section = await _sectionRepository.FindByIdAsync(model.SectionID.ToString());
-        //        if (section != null)
-        //        {
-        //            OperationResult result = await _sectionRepository.DeleteRecordAsync(section);
-        //            if (result.Succeeded)
-        //            {
-        //                return Json(result.Succeeded);
-        //            }
-        //        }
-        //    }
-        //    return Json("Failed");
-        //}
-
-        //[HttpGet]        
-        //public async Task<IActionResult> EditSection(string SectionID)
-        //{
-        //    if (string.IsNullOrEmpty(SectionID)) return PartialView("EditCategory");
-
-        //    Section section = await _sectionRepository.FindByIdAsync(SectionID);
-
-        //    SectionView sectionViewModel = new SectionView();
-        //    IEnumerable<Catergory> category = await _categoryRepository.GetAllRecords();
-
-        //    Dictionary<string, string> categoryList = category.ToDictionary(items => items.CategoryID, items => items.CategoryName);
-
-        //    sectionViewModel.SectionID = section.SectionID;
-        //    sectionViewModel.CategoryList = categoryList;
-        //    sectionViewModel.SelectedIndex = section.CategoryID;
-        //    sectionViewModel.SectionName = section.SectionName;
-            
-        //    return PartialView("EditSection", sectionViewModel);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> EditSection([FromBody]Section model)
-        //{
-        //    if (string.IsNullOrEmpty(model.SectionID.ToString())) return PartialView("GetSection");
-        //    Section section = await _sectionRepository.FindByIdAsync(model.SectionID.ToString());
-
-        //    if (section != null)
-        //    {
-        //        section.CategoryID = model.CategoryID;
-        //        section.SectionName = model.SectionName;
-        //    }
-
-        //    OperationResult result = await _sectionRepository.EditRecordAsync(section);
-
-        //    return PartialView("GetSection");
-        //}
-
-        #endregion
-
-        #region Risk Template
-        [HttpGet]
-        public IActionResult GetRiskTemplate() => PartialView("GetRiskTemplate");
+        #region Risk Template                   
 
         [HttpPost]
-        [ActionName("GetRiskTemplates")]
-        public async Task<JsonResult> GetAllRiskTemplateJson(DataTable dataTable)
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<ActionResult> GetRiskTemplateList()
         {
-            int pageNumber = dataTable.Start / dataTable.Length + 1;
-            Order order = dataTable.Order.FirstOrDefault();
+            RiskTemplateListView model = new RiskTemplateListView();
+            IEnumerable<RiskTemplate> totalRecords = await _riskTemplateRepository.GetAllRecords();
+            RiskTemplate[] riskTemplate = (await _riskTemplateRepository.GetDataRocordsAsync(1, totalRecords.Count(), 0, SortDirection.Ascending, string.Empty)).ToArray();
+            model.ListRiskTemplate = riskTemplate;
 
-            SortDirection sortDirection = order != null
-                ? (order.Direction == "asc" ? SortDirection.Ascending : SortDirection.Descending)
-                : SortDirection.Ascending;
-
-            RiskTemplate[] riskTemplate = (await _riskTemplateRepository.GetDataRocordsAsync(pageNumber, dataTable.Length, order?.Column ?? 0, sortDirection,
-                string.IsNullOrEmpty(dataTable.Search.Value) ? string.Empty : dataTable.Search.Value)).ToArray();
-
-            int totalNumberOfRecords = _categoryRepository.GetTotalNumberOfRecords();
-
-            return Json(new DataTableResponse<RiskTemplate>
-            {
-                Data = riskTemplate,
-                RecordsFiltered = string.IsNullOrEmpty(dataTable.Search.Value) ? totalNumberOfRecords : riskTemplate.Length,
-                Draw = dataTable.Draw,
-                RecordsTotal = totalNumberOfRecords
-            });
+            return PartialView("GetRiskTemplate", model); ;
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddRiskTemplate()
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<ActionResult> AddRiskTemplate()
         {
             RiskTemplateView riskTemplateModel = new RiskTemplateView();
             IEnumerable<Catergory> category = await _categoryRepository.GetAllRecords();
-            //IEnumerable<Section> sections = await _sectionRepository.GetAllRecords();
 
-            Dictionary<string, string> categoryList = category.ToDictionary(items => items.CategoryID, items => items.CategoryName);            
+            IEnumerable<Catergory> catergories = category as IList<Catergory> ?? category.ToList();
+            Dictionary<string, string> categoryList = catergories.ToDictionary(items => items.CategoryID, items => items.CategoryName);            
             riskTemplateModel.CategoryList = categoryList;            
-
+            riskTemplateModel.FirstCategoryRecordId = catergories.Select(d => d.CategoryID).FirstOrDefault();
             return PartialView("AddRiskTemplate", riskTemplateModel);
         }
 
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<JsonResult> AddRiskTemplate([FromBody]RiskTemplate model)
         {
             RiskTemplate riskTemplate = new RiskTemplate
@@ -299,6 +85,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> DeleteRiskTemplate(string TemplateID)
         {
             RiskTemplate riskTemplate = await _riskTemplateRepository.FindByIdAsync(TemplateID);
@@ -313,6 +100,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<JsonResult> DeleteRiskTemplate([FromBody]RiskTemplate model)
         {
             if (!string.IsNullOrEmpty(model.TemplateID.ToString()))
@@ -331,6 +119,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> EditRiskTemplate(string TemplateID)
         {
             if (string.IsNullOrEmpty(TemplateID)) return PartialView("EditRiskTemplate");
@@ -358,9 +147,10 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditRiskTemplate([FromBody]RiskTemplate model)
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<JsonResult> EditRiskTemplate([FromBody]RiskTemplate model)
         {
-            if (string.IsNullOrEmpty(model.TemplateID.ToString())) return PartialView("GetRiskTemplate");
+            if (string.IsNullOrEmpty(model.TemplateID.ToString())) return Json("Failed");
             RiskTemplate riskTemplate = await _riskTemplateRepository.FindByIdAsync(model.TemplateID.ToString());
 
             if (riskTemplate != null)
@@ -374,11 +164,16 @@ namespace FRA.Web.Areas.Administration.Controllers
             }
 
             OperationResult result = await _riskTemplateRepository.EditRecordAsync(riskTemplate);
+            if (result.Succeeded)
+            {
+                return Json("Success");
+            }
 
-            return PartialView("GetRiskTemplate");
+            return Json("Failed");
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> GetSectiocForComboboxRiskTemplate(string CategoryID)
         {
             RiskTemplateView riskTemplateModel = new RiskTemplateView();
@@ -389,7 +184,7 @@ namespace FRA.Web.Areas.Administration.Controllers
             Dictionary<string, string> sectionList = newSections.ToDictionary(items => items.SectionID, items => items.SectionName);
 
             riskTemplateModel.SectionList = sectionList;
-
+            riskTemplateModel.FirstSectionRecordId = sectionList.Select(d => d.Key).FirstOrDefault();
 
             return PartialView("ComboBoxSection", riskTemplateModel);
         }

@@ -1,41 +1,50 @@
-﻿<div class="row relativeFromBoxMid">
-    <div class="wrapper-md">
-        <div class="panel panel-default OverridePannelButtomMargin">
-            <div class="table-responsive">
-                <table id="riskTemplate-table" style="width: 100%">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Category</th>
-                            <th>Section</th>
-                            <th>Number</th>
-                            <th>Questions</th>
-                            <th>Guidelines</th>
-                            <th>Impact</th>
-                            <th>Commands</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>Category</th>
-                            <th>Section</th>
-                            <th>Number</th>
-                            <th>Questions</th>
-                            <th>Guidelines</th>
-                            <th>Impact</th>
-                            <th>Commands</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+﻿@using FRA.Data.Models
+@using FRA.Data.View
+@model RiskTemplateListView
 
-<div class="row relativeFromBox2Buttom">
-    <div class="topUserDiv alignRightButtomDiv">
-        <a id="addRiskTemplate" data-toggle="modal" data-target="#modal-riskTemplate" data-backdrop="static" data-keyboard="false" class="btn btn-lg btn-default" onclick="getViewForAddRiskTemplate()"><i class="glyphicon glyphicon-user"></i> New Record</a>
-    </div>
+<div class="table-responsive">
+    <table id="riskTemplate-table" style="width: 100%">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Section</th>
+            <th>Number</th>
+            <th>Questions</th>
+            <th>Guidelines</th>
+            <th>Impact</th>
+            <th class="textFWith170"></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (RiskTemplate iItem in Model.ListRiskTemplate)
+        {            
+            <tr>
+                <td>@iItem.TemplateID</td>
+                <td>@iItem.CategoryName</td>
+                <td>@iItem.SectionName</td>
+                <td>@iItem.TempNumber</td>
+                <td>@iItem.Questions</td>
+                <td>@iItem.ControlGuidelines</td>
+                <td>@iItem.Impact</td>
+                <td>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-risktemplate" data-backdrop="static" data-keyboard="false" onclick="getToEditRiskTemplate('@iItem.TemplateID')"><i class="fal fa-edit pr3"></i> Edit</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-risktemplate" data-backdrop="static" data-keyboard="false" onclick="getToDeleteRiskTemplate('@iItem.TemplateID')"><i class="fal fa-trash-alt pr3"></i> Delete</button>
+                </td>
+            </tr>
+        }            
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Section</th>
+                <th>Number</th>
+                <th>Questions</th>
+                <th>Guidelines</th>
+                <th>Impact</th>
+                <th class="textFWith170"></th>
+            </tr>
+        </tfoot>
+    </table>
 </div>
-<br/>

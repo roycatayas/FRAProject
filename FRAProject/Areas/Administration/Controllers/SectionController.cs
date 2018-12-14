@@ -29,8 +29,8 @@ namespace FRA.Web.Areas.Administration.Controllers
         public async Task<ActionResult> GetSectionList()
         {
             SectionListView model = new SectionListView();
-
-            Section[] section = (await _sectionRepository.GetDataRocordsAsync(1, 100, 0, SortDirection.Ascending, string.Empty)).ToArray();
+            IEnumerable<Section> sections = await _sectionRepository.GetAllRecords();
+            Section[] section = (await _sectionRepository.GetDataRocordsAsync(1, sections.Count(), 0, SortDirection.Ascending, string.Empty)).ToArray();
             model.ListSections = section;
 
             return PartialView("GetSection", model);

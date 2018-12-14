@@ -1,74 +1,177 @@
 ﻿@{
-    ViewData["Title"] = "Settings Risk Assessment";
+    ViewData["Title"] = "Settings Templates";
 }
 
 @section Css {
-    @{ await Html.RenderPartialAsync("_DataTablesStylesPartial"); }
+    <link rel="stylesheet" type="text/css" href="~/lib/Datatables/css/dataTables.jqueryui.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/lib/Jquery-UI-ThemeRoller/jquery-ui.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/TableDesign1.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/jquery.mCustomScrollbar.min.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/All.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/custom.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/custom-themes.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/UserSetting.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/RiskManagement.css" asp-append-version="true" />
 }
+
 
 <div class="ImgLogoLogin"></div>
 <div class="ImgTopLogin"></div>
 <div>
-    <div class="ImgBodyMain"></div>
 
-    <div class="containerMenu">
-        <div id="sidebar" style="z-index: 1;">
-            <ul>
-                <li><a href="~/home/index">Home</a></li>
-                <li><a asp-area="administration" asp-controller="RiskSetting" asp-action="Index">Risk Settings</a></li>
-                <li><a asp-area="administration" asp-controller="Users" asp-action="Index">User Settings</a></li>
-                <li><a asp-controller="" asp-action="">Risk Management</a></li>
-            </ul>
-        </div>
-        <div class="main-content">
-            <a href="#" data-toggle=".containerMenu" id="sidebar-toggle" style="color: white">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span id="buttonHome" style="position: absolute; top: 2px; left: 30px; font-size: x-large;">Open</span>
-            </a>
-        </div>
+    <div class="page-wrapper cool-theme sidebar-bg bg1 toggled" style="height: 0;">
+        <a id="show-sidebar" class="btn btn-lg btn-dark" href="#">
+            <i class="fas fa-bars font30"></i>
+        </a>
+        <nav id="sidebar" class="sidebar-wrapper font18">
+            <div class="sidebar-content">
+                <div class="sidebar-brand">
+                    <a href="#">Menu</a>
+                    <div id="close-sidebar">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="sidebar-header">
+                    <div class="user-pic">
+                        <img class="img-responsive img-rounded" src="~/images/user.jpg" alt="User picture">
+                    </div>
+                    <div class="user-info">
+                        <span>
+                            <strong>Roy Catayas</strong>
+                        </span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-menu">
+                    <ul>
+                        <li class="header-menu">
+                            <span>General</span>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-book"></i>
+                                <span>Management</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a asp-area="administration" asp-controller="RiskManagement" asp-action="Index">Risk Assessment</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">History</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fal fa-file-spreadsheet" style="font-size: 28px"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Dashboard 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Dashboard 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-chart-line"></i>
+                                <span>Charts</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">Pie chart</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Line chart</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Bar chart</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Histogram</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="header-menu">
+                            <span>System Settings</span>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-book"></i>
+                                <span>Templates</span>
+                            </a>
+                            <div class="sidebar-submenu" style="display: block;">
+                                <ul>
+                                    <li>
+                                        <a asp-area="administration" asp-controller="Category" asp-action="Index">Category</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="administration" asp-controller="Section" asp-action="Index">Section</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="administration" asp-controller="RiskSetting" asp-action="Index">Risk</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span>Users</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a asp-area="administration" asp-controller="Users" asp-action="Index">Manage User</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- sidebar-menu  -->
+            </div>
+            <!-- sidebar-content  -->
+        </nav>
+        <!-- sidebar-wrapper  -->
+        <main class="page-content">
+            <div id="pagecontent" style="overflow-y: hidden">
+                <div class="riskContent Opacity70">
+                    <div class="row relativeFromBoxTop" style="display: inline;">
+                        <div class="topUserDiv alignLeftTopDiv fontUser">
+                            Risk Assement Configuration
+                        </div>
+                        <div class="topUserDiv alignRightTopDiv" style="margin-right: 45px;">
+                            <button id="btnNewRiskTemplate" data-toggle="modal" data-target="#modal-risktemplate" data-backdrop="static" data-keyboard="false" class="btn btn-lg btn-light" onclick="getViewForAddRiskTemplate()"><i class="fal fa-clipboard-list-check newButton"></i> Create New Template</button>
+                        </div>
+                    </div>
+
+                    <div class="row relativeFromBoxMid">
+                        <div id="risktemplate-content" class="wCal5 pb10">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+        <!-- page-content" -->
     </div>
 
-    <div class="centeredBG Opacity70">
-        <div class="row relativeFromBoxTop">
-            <div class="topUserDiv alignLeftTopDiv fontUser">
-                Risk Assement Configuration
-            </div>
-            <div class="topUserDiv alignRightTopDiv">
-                <a id="category" class="btn btn-lg btn-default" onclick="getAllCategory()"><i class="glyphicon glyphicon-file"></i> Category</a>
-                <a id="section" class="btn btn-lg btn-default" onclick="getAllSection()"><i class="glyphicon glyphicon-file"></i> Section</a>
-                <a id="riskTemplate" class="btn btn-lg btn-default" onclick="getAllRiskTemplate()"><i class="glyphicon glyphicon-file"></i> Template</a>
-            </div>
-        </div>
-
-        <div class="row relativeFromBoxMid">
-            <div id="Setting-container">
-
-            </div>
-        </div>
-    </div>
-
-    <div tabindex="-1" class="modal fade" id="modal-category" role="dialog" aria-hidden="true" aria-labelledby="modal-action-category-label">
-        <div class="modal-dialog">
-            <div class="modal-content" id="modal-content-Category">
-
-            </div>
-        </div>
-    </div>
-
-    <div tabindex="-1" class="modal fade" id="modal-section" role="dialog" aria-hidden="true" aria-labelledby="modal-action-section-label">
-        <div class="modal-dialog">
-            <div class="modal-content" id="modal-content-Section">
-
-            </div>
-        </div>
-    </div>
-
-    <div tabindex="-1" class="modal fade" id="modal-riskTemplate" role="dialog" aria-hidden="true" aria-labelledby="modal-action-riskTemplate-label">
-        <div class="modal-dialog">
-            <div class="modal-content" id="modal-content-riskTemplate" style="width: 650px">
+    <div tabindex="-1" class="modal fade" id="modal-risktemplate" role="dialog" aria-hidden="true" aria-labelledby="modal-action-risktemplate">
+        <div class="modal-dialog ">
+            <div class="modal-content" id="modal-content-risktemplate" style="width: 650px">
 
             </div>
         </div>
@@ -77,14 +180,13 @@
 </div>
 
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_DataTablesScriptsPartial"); }
-    
-    <script type="text/javascript" src="~/js/Category.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="~/js/RiskTemplate.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="~/js/Section.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/lib/datatables/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/lib/datatables/js/dataTables.jqueryui.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/bootstrap.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/MainPage.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/custom.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/jquery.mCustomScrollbar.concat.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/RiskTemplate.js" asp-append-version="true"></script>
 }
-
 
 

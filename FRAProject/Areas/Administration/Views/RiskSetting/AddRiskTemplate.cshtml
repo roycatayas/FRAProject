@@ -3,87 +3,78 @@
 
 <form name="form">
     @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Add Template" })
-    <div class="modal-body form-horizontal userModalForm">
-        <div class="row">
-            <div class="form-group userModalForm">
-                <label asp-for="CategoryList" class="col-lg-3 col-sm-3 control-label">Select Category</label>
-                <div class="col-lg-6">
-                    <!-- Category list -->
-                    <select class="old-select-category" id="oldSelectionCategory">
-                        @foreach (var item in Model.CategoryList)
-                        {
-                            <option value="@item.Key">@item.Value</option>
-                        }
-                    </select>
 
-                    <!-- Bouton Select -->
-                    <div class="new-select-category RiskComboBoxCustom" id="newSelectCategory">
-                        <div class="selection" onclick="onSelectionCategory()" id="selectionBoxCategory">
-                            <p style="margin: 0">
-                                <span id="selectionBoxSpanCategory"></span>
-                                <i></i>
-                            </p>
-                            <span></span>
-                        </div>
-                    </div>
-                    <!-- End Category list -->
-                </div>
-            </div>
-            <div class="form-group userModalForm">
-                <label asp-for="SectionList" class="col-lg-3 col-sm-3 control-label">Select Section</label>
-                <div class="col-lg-6">
-                    <!-- Section list -->
-                    <div id="sectionList">
-                        <select class="old-select-section" id="oldSelectionSection">
-                            <option value="1">Select Category 1st</option>
+    <div class="modal-body userModalForm">
+        <!-- Begin Template input -->
+        <div class="form">
+
+            <!-- Category list -->
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <div id="categoryList">
+                        <label class="textFWith120">Select Category</label>
+                        <select class="custom-select textFWith483" id="CategoryId" onchange="getSectionBasedOnCategory()">
+                            <option value="Choose" selected="selected">Choose...</option>
+                            @foreach (var item in Model.CategoryList)
+                            {
+                                <option value="@item.Key">@item.Value</option>
+                            }
+
                         </select>
-
-                        <!-- Bouton Select -->
-                        <div class="new-select-section RiskComboBoxCustom" id="newSelectSection">
-                            <div class="selection" onclick="onSelectionSection()" id="selectionBoxSection">
-                                <p style="margin: 0; white-space: nowrap">
-                                    <span id="selectionBoxSpanSection"></span>
-                                    <i></i>
-                                </p>
-                                <span></span>
-                            </div>
-                        </div>
                     </div>
-                    <!-- End Section list -->
+                    
                 </div>
             </div>
-            <div class="form-group userModalForm">
-                <label asp-for="TempNumber" class="col-lg-3 col-sm-3 control-label">Number</label>
-                <div class="col-lg-2">
-                    <input asp-for="TempNumber" class="form-control" />
+            <!-- End Category list -->
+            <!-- Section list -->
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <div id="sectionList">
+                        <label class="textFWith120">Select Section</label>
+                        <select class="custom-select textFWith483" id="SectionId">
+                            <option selected="selected" value="1">Select Category 1st</option>
+                        </select>
+                    </div>                    
                 </div>
             </div>
-            <div class="form-group userModalForm">
-                <label asp-for="Impact" class="col-lg-3 col-sm-3 control-label"></label>
-                <div class="col-lg-2">
-                    <input asp-for="Impact" class="form-control" />
+            <!-- End Section list -->
+
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <label asp-for="TempNumber" class="textFWith120"> Number</label>
+                    <input id="idTempNumber" asp-for="TempNumber" class="form-control textWith150" />
                 </div>
             </div>
-            <div class="form-group userModalForm">
-                <label asp-for="Questions" class="col-lg-3 col-sm-3 control-label"></label>
-                <div class="col-lg-9">
-                    <textarea asp-for="Questions" class="form-control" style="height: 110px"></textarea>
+
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <label asp-for="Impact" class="textFWith120"> Impact</label>
+                    <input id="idImpact" asp-for="Impact" class="form-control textWith150" />
                 </div>
             </div>
-            <div class="form-group userModalForm">
-                <label asp-for="ControlGuidelines" class="col-lg-3 col-sm-3 control-label">Guidelines</label>
-                <div class="col-lg-9">
-                    <textarea asp-for="ControlGuidelines" class="form-control" style="height: 110px"></textarea>
+
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <label asp-for="Questions" class="textFWith120"> Questions</label>
+                    <input id="idQuestions" asp-for="Questions" class="form-control textWith150" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="inlineForm">
+                    <label asp-for="ControlGuidelines" class="textFWith120"> Guidelines</label>
+                    <textarea id="idControlGuidelines" asp-for="ControlGuidelines" class="form-control textWith150" style="height: 110px"></textarea>
                 </div>
             </div>
 
         </div>
+        <!-- End Template input -->
     </div>
 </form>
 
 <div class="modal-footer">
-    <button data-dismiss="modal" id="Cancel" class="btn btn-default" type="button">Cancel</button>
     <button class="btn btn-success" id="AddTemplate" onclick="AddRiskTemplate()">Submit</button>
+    <button id="CancelRisk" class="btn btn-secondary" type="button" onclick="cancelTemplate()">Cancel</button>   
 </div>
 
 @section Scripts {

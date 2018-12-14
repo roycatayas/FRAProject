@@ -3,18 +3,18 @@
 
 <form role="form">
     <input type="hidden" asp-for="TemplateID" />
-    
-    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Delete Category" })
 
-    <div class="modal-body form-horizontal">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Delete Template" })
+
+    <div class="modal-body">
         Are you sure you want to delete <b>@Model.Questions</b>?
-        <br/>
+        <br />
         with Guidelines <b>@Model.ControlGuidelines</b>?
     </div>
 
 </form>
 
 <div class="modal-footer">
-    <button data-dismiss="modal" id="Cancel" class="btn btn-default" type="button">Cancel</button>
-    <button class="btn btn-success" id="deleteMDSection" onclick="DeleteRiskTemplate()">Submit</button>
+    <button class="btn btn-success" id="deleteTemplate" onclick="DeleteRiskTemplate()">Submit</button>
+    <button id="Cancel" class="btn btn-secondary" type="button" onclick="cancelTemplate()">Cancel</button>
 </div>

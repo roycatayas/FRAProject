@@ -163,6 +163,10 @@
     width: 150px;
 }
 
+.textFWith170 {
+    width: 170px;
+}
+
 .textFWith180 {
     width: 180px;
 }
@@ -196,6 +200,10 @@
 .textFWith400 {
     width: 400px;
     margin-right: 24px;
+}
+
+.textFWith483 {
+    width: 483px;
 }
 
 .topPadding10 {

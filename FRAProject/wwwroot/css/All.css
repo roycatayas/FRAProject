@@ -1,8 +1,7 @@
 ﻿/*!
- * Font Awesome Pro 5.4.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Pro 5.5.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Commercial License)
  */
-
 .fa, .fab, .fal, .far, .fas {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -173,7 +172,7 @@
     line-height: 2em;
     position: relative;
     vertical-align: middle;
-    width: 2em
+    width: 2.5em
 }
 
 .fa-stack-1x, .fa-stack-2x {
@@ -699,6 +698,14 @@
     content: "\f516"
 }
 
+.fa-ballot:before {
+    content: "\f732"
+}
+
+.fa-ballot-check:before {
+    content: "\f733"
+}
+
 .fa-ban:before {
     content: "\f05e"
 }
@@ -951,6 +958,10 @@
     content: "\f5db"
 }
 
+.fa-booth-curtain:before {
+    content: "\f734"
+}
+
 .fa-bow-arrow:before {
     content: "\f6b9"
 }
@@ -969,6 +980,10 @@
 
 .fa-box-alt:before {
     content: "\f49a"
+}
+
+.fa-box-ballot:before {
+    content: "\f735"
 }
 
 .fa-box-check:before {
@@ -1137,6 +1152,10 @@
 
 .fa-calendar-plus:before {
     content: "\f271"
+}
+
+.fa-calendar-star:before {
+    content: "\f736"
 }
 
 .fa-calendar-times:before {
@@ -1559,6 +1578,10 @@
     content: "\f46d"
 }
 
+.fa-clipboard-list-check:before {
+    content: "\f737"
+}
+
 .fa-clipboard-prescription:before {
     content: "\f5e8"
 }
@@ -1587,12 +1610,60 @@
     content: "\f381"
 }
 
+.fa-cloud-drizzle:before {
+    content: "\f738"
+}
+
+.fa-cloud-hail:before {
+    content: "\f739"
+}
+
+.fa-cloud-hail-mixed:before {
+    content: "\f73a"
+}
+
+.fa-cloud-meatball:before {
+    content: "\f73b"
+}
+
 .fa-cloud-moon:before {
     content: "\f6c3"
 }
 
+.fa-cloud-moon-rain:before {
+    content: "\f73c"
+}
+
+.fa-cloud-rain:before {
+    content: "\f73d"
+}
+
+.fa-cloud-rainbow:before {
+    content: "\f73e"
+}
+
+.fa-cloud-showers:before {
+    content: "\f73f"
+}
+
+.fa-cloud-showers-heavy:before {
+    content: "\f740"
+}
+
+.fa-cloud-sleet:before {
+    content: "\f741"
+}
+
+.fa-cloud-snow:before {
+    content: "\f742"
+}
+
 .fa-cloud-sun:before {
     content: "\f6c4"
+}
+
+.fa-cloud-sun-rain:before {
+    content: "\f743"
 }
 
 .fa-cloud-upload:before {
@@ -1601,6 +1672,18 @@
 
 .fa-cloud-upload-alt:before {
     content: "\f382"
+}
+
+.fa-clouds:before {
+    content: "\f744"
+}
+
+.fa-clouds-moon:before {
+    content: "\f745"
+}
+
+.fa-clouds-sun:before {
+    content: "\f746"
 }
 
 .fa-cloudscale:before {
@@ -2023,6 +2106,10 @@
     content: "\f1a5"
 }
 
+.fa-democrat:before {
+    content: "\f747"
+}
+
 .fa-deploydog:before {
     content: "\f38e"
 }
@@ -2045,6 +2132,10 @@
 
 .fa-deviantart:before {
     content: "\f1bd"
+}
+
+.fa-dewpoint:before {
+    content: "\f748"
 }
 
 .fa-dharmachakra:before {
@@ -2301,6 +2392,14 @@
 
 .fa-ebay:before {
     content: "\f4f4"
+}
+
+.fa-eclipse:before {
+    content: "\f749"
+}
+
+.fa-eclipse-alt:before {
+    content: "\f74a"
 }
 
 .fa-edge:before {
@@ -2707,6 +2806,10 @@
     content: "\f134"
 }
 
+.fa-fire-smoke:before {
+    content: "\f74b"
+}
+
 .fa-firefox:before {
     content: "\f269"
 }
@@ -2739,8 +2842,16 @@
     content: "\f024"
 }
 
+.fa-flag-alt:before {
+    content: "\f74c"
+}
+
 .fa-flag-checkered:before {
     content: "\f11e"
+}
+
+.fa-flag-usa:before {
+    content: "\f74d"
 }
 
 .fa-flame:before {
@@ -2773,6 +2884,10 @@
 
 .fa-fly:before {
     content: "\f417"
+}
+
+.fa-fog:before {
+    content: "\f74e"
 }
 
 .fa-folder:before {
@@ -3507,6 +3622,10 @@
     content: "\f6f1"
 }
 
+.fa-house-flood:before {
+    content: "\f74f"
+}
+
 .fa-houzz:before {
     content: "\f27c"
 }
@@ -3521,6 +3640,14 @@
 
 .fa-hubspot:before {
     content: "\f3b2"
+}
+
+.fa-humidity:before {
+    content: "\f750"
+}
+
+.fa-hurricane:before {
+    content: "\f751"
 }
 
 .fa-i-cursor:before {
@@ -3765,6 +3892,10 @@
 
 .fa-landmark:before {
     content: "\f66f"
+}
+
+.fa-landmark-alt:before {
+    content: "\f752"
 }
 
 .fa-language:before {
@@ -4235,6 +4366,10 @@
     content: "\f223"
 }
 
+.fa-meteor:before {
+    content: "\f753"
+}
+
 .fa-microchip:before {
     content: "\f2db"
 }
@@ -4361,6 +4496,14 @@
 
 .fa-moon:before {
     content: "\f186"
+}
+
+.fa-moon-cloud:before {
+    content: "\f754"
+}
+
+.fa-moon-stars:before {
+    content: "\f755"
 }
 
 .fa-mortar-pestle:before {
@@ -4695,6 +4838,10 @@
     content: "\f3da"
 }
 
+.fa-person-booth:before {
+    content: "\f756"
+}
+
 .fa-person-carry:before {
     content: "\f4cf"
 }
@@ -4705,6 +4852,10 @@
 
 .fa-person-dolly-empty:before {
     content: "\f4d1"
+}
+
+.fa-person-sign:before {
+    content: "\f757"
 }
 
 .fa-phabricator:before {
@@ -4859,6 +5010,10 @@
     content: "\f680"
 }
 
+.fa-podium-star:before {
+    content: "\f758"
+}
+
 .fa-poll:before {
     content: "\f681"
 }
@@ -4867,8 +5022,16 @@
     content: "\f682"
 }
 
+.fa-poll-people:before {
+    content: "\f759"
+}
+
 .fa-poo:before {
     content: "\f2fe"
+}
+
+.fa-poo-storm:before {
+    content: "\f75a"
 }
 
 .fa-poop:before {
@@ -5007,6 +5170,14 @@
     content: "\f45a"
 }
 
+.fa-rainbow:before {
+    content: "\f75b"
+}
+
+.fa-raindrops:before {
+    content: "\f75c"
+}
+
 .fa-ram:before {
     content: "\f70a"
 }
@@ -5025,6 +5196,10 @@
 
 .fa-react:before {
     content: "\f41b"
+}
+
+.fa-reacteurope:before {
+    content: "\f75d"
 }
 
 .fa-readme:before {
@@ -5083,10 +5258,6 @@
     content: "\f25d"
 }
 
-.fa-rendact:before {
-    content: "\f3e4"
-}
-
 .fa-renren:before {
     content: "\f18b"
 }
@@ -5117,6 +5288,10 @@
 
 .fa-replyd:before {
     content: "\f3e6"
+}
+
+.fa-republican:before {
+    content: "\f75e"
 }
 
 .fa-researchgate:before {
@@ -5603,6 +5778,14 @@
     content: "\f4da"
 }
 
+.fa-smog:before {
+    content: "\f75f"
+}
+
+.fa-smoke:before {
+    content: "\f760"
+}
+
 .fa-smoking:before {
     content: "\f48d"
 }
@@ -5625,6 +5808,10 @@
 
 .fa-snapchat-square:before {
     content: "\f2ad"
+}
+
+.fa-snow-blowing:before {
+    content: "\f761"
 }
 
 .fa-snowflake:before {
@@ -5795,6 +5982,10 @@
     content: "\f621"
 }
 
+.fa-stars:before {
+    content: "\f762"
+}
+
 .fa-staylinked:before {
     content: "\f3f5"
 }
@@ -5917,6 +6108,26 @@
 
 .fa-sun:before {
     content: "\f185"
+}
+
+.fa-sun-cloud:before {
+    content: "\f763"
+}
+
+.fa-sun-dust:before {
+    content: "\f764"
+}
+
+.fa-sun-haze:before {
+    content: "\f765"
+}
+
+.fa-sunrise:before {
+    content: "\f766"
+}
+
+.fa-sunset:before {
+    content: "\f767"
 }
 
 .fa-superpowers:before {
@@ -6095,6 +6306,22 @@
     content: "\f3fe"
 }
 
+.fa-temperature-frigid:before {
+    content: "\f768"
+}
+
+.fa-temperature-high:before {
+    content: "\f769"
+}
+
+.fa-temperature-hot:before {
+    content: "\f76a"
+}
+
+.fa-temperature-low:before {
+    content: "\f76b"
+}
+
 .fa-tencent-weibo:before {
     content: "\f1d5"
 }
@@ -6171,6 +6398,10 @@
     content: "\f69e"
 }
 
+.fa-think-peaks:before {
+    content: "\f731"
+}
+
 .fa-thumbs-down:before {
     content: "\f165"
 }
@@ -6181,6 +6412,18 @@
 
 .fa-thumbtack:before {
     content: "\f08d"
+}
+
+.fa-thunderstorm:before {
+    content: "\f76c"
+}
+
+.fa-thunderstorm-moon:before {
+    content: "\f76d"
+}
+
+.fa-thunderstorm-sun:before {
+    content: "\f76e"
 }
 
 .fa-ticket:before {
@@ -6285,6 +6528,10 @@
 
 .fa-torii-gate:before {
     content: "\f6a1"
+}
+
+.fa-tornado:before {
+    content: "\f76f"
 }
 
 .fa-tractor:before {
@@ -6763,6 +7010,10 @@
     content: "\f40b"
 }
 
+.fa-volcano:before {
+    content: "\f770"
+}
+
 .fa-volleyball-ball:before {
     content: "\f45f"
 }
@@ -6789,6 +7040,14 @@
 
 .fa-volume-up:before {
     content: "\f028"
+}
+
+.fa-vote-nay:before {
+    content: "\f771"
+}
+
+.fa-vote-yea:before {
+    content: "\f772"
 }
 
 .fa-vr-cardboard:before {
@@ -6829,6 +7088,18 @@
 
 .fa-watch-fitness:before {
     content: "\f63e"
+}
+
+.fa-water:before {
+    content: "\f773"
+}
+
+.fa-water-lower:before {
+    content: "\f774"
+}
+
+.fa-water-rise:before {
+    content: "\f775"
 }
 
 .fa-weebly:before {
@@ -6903,6 +7174,10 @@
     content: "\f72e"
 }
 
+.fa-wind-warning:before {
+    content: "\f776"
+}
+
 .fa-window:before {
     content: "\f40e"
 }
@@ -6929,6 +7204,10 @@
 
 .fa-windows:before {
     content: "\f17a"
+}
+
+.fa-windsock:before {
+    content: "\f777"
 }
 
 .fa-wine-bottle:before {
@@ -6977,6 +7256,10 @@
 
 .fa-wpforms:before {
     content: "\f298"
+}
+
+.fa-wpressr:before {
+    content: "\f3e4"
 }
 
 .fa-wrench:before {
@@ -7045,7 +7328,7 @@
 
 .sr-only {
     border: 0;
-    clip: rect(0, 0, 0, 0);
+    clip: rect(0,0,0,0);
     height: 1px;
     margin: -1px;
     overflow: hidden;
@@ -7068,7 +7351,7 @@
     font-style: normal;
     font-weight: normal;
     src: url(../fonts/fa-brands-400.eot);
-    src: url(../fonts/fa-brands-400.eot?#iefix) format("embedded-opentype"), url(../fonts/fa-brands-400.woff2) format("woff2"), url(../fonts/fa-brands-400.woff) format("woff"), url(../fonts/fa-brands-400.ttf) format("truetype"), url(../fonts/fa-brands-400.svg#fontawesome) format("svg")
+    src: url(../fonts/fa-brands-400.eot?#iefix) format("embedded-opentype"),url(../fonts/fa-brands-400.woff2) format("woff2"),url(../fonts/fa-brands-400.woff) format("woff"),url(../fonts/fa-brands-400.ttf) format("truetype"),url(../fonts/fa-brands-400.svg#fontawesome) format("svg")
 }
 
 .fab {
@@ -7080,7 +7363,7 @@
     font-style: normal;
     font-weight: 300;
     src: url(../fonts/fa-light-300.eot);
-    src: url(../fonts/fa-light-300.eot?#iefix) format("embedded-opentype"), url(../fonts/fa-light-300.woff2) format("woff2"), url(../fonts/fa-light-300.woff) format("woff"), url(../fonts/fa-light-300.ttf) format("truetype"), url(../fonts/fa-light-300.svg#fontawesome) format("svg")
+    src: url(../fonts/fa-light-300.eot?#iefix) format("embedded-opentype"),url(../fonts/fa-light-300.woff2) format("woff2"),url(../fonts/fa-light-300.woff) format("woff"),url(../fonts/fa-light-300.ttf) format("truetype"),url(../fonts/fa-light-300.svg#fontawesome) format("svg")
 }
 
 .fal {
@@ -7092,7 +7375,7 @@
     font-style: normal;
     font-weight: 400;
     src: url(../fonts/fa-regular-400.eot);
-    src: url(../fonts/fa-regular-400.eot?#iefix) format("embedded-opentype"), url(../fonts/fa-regular-400.woff2) format("woff2"), url(../fonts/fa-regular-400.woff) format("woff"), url(../fonts/fa-regular-400.ttf) format("truetype"), url(../fonts/fa-regular-400.svg#fontawesome) format("svg")
+    src: url(../fonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(../fonts/fa-regular-400.woff2) format("woff2"),url(../fonts/fa-regular-400.woff) format("woff"),url(../fonts/fa-regular-400.ttf) format("truetype"),url(../fonts/fa-regular-400.svg#fontawesome) format("svg")
 }
 
 .fal, .far {
@@ -7108,7 +7391,7 @@
     font-style: normal;
     font-weight: 900;
     src: url(../fonts/fa-solid-900.eot);
-    src: url(../fonts/fa-solid-900.eot?#iefix) format("embedded-opentype"), url(../fonts/fa-solid-900.woff2) format("woff2"), url(../fonts/fa-solid-900.woff) format("woff"), url(../fonts/fa-solid-900.ttf) format("truetype"), url(../fonts/fa-solid-900.svg#fontawesome) format("svg")
+    src: url(../fonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(../fonts/fa-solid-900.woff2) format("woff2"),url(../fonts/fa-solid-900.woff) format("woff"),url(../fonts/fa-solid-900.ttf) format("truetype"),url(../fonts/fa-solid-900.svg#fontawesome) format("svg")
 }
 
 .fa, .fas {

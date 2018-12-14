@@ -1,20 +1,16 @@
 ﻿@model FRA.Data.View.RiskTemplateView
-<!-- Section list -->
-<select class="old-select-section" id="oldSelectionSection">
+
+<label class="textFWith120">Select Section</label>
+<select class="custom-select textFWith483" id="SectionId">
     @foreach (var item in Model.SectionList)
-    {
-        <option value="@item.Key">@item.Value</option>
+    {        
+        if (Model.FirstSectionRecordId == item.Key)
+        {                                    
+            <option selected="selected" value="@item.Key">@item.Value</option>
+        }
+        else
+        {
+            <option value="@item.Key">@item.Value</option>
+        }
     }
 </select>
-
-<!-- Bouton Select -->
-<div class="new-select-section RiskComboBoxCustom" id="newSelectSection">
-    <div class="selection" onclick="onSelectionSection()" id="selectionBoxSection">
-        <p style="margin: 0; white-space: nowrap">
-            <span id="selectionBoxSpanSection"></span>
-            <i></i>
-        </p>
-        <span></span>
-    </div>
-</div>
-<!-- End Section list -->

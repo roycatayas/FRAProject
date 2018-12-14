@@ -120,7 +120,7 @@
                                         <a asp-area="administration" asp-controller="Section" asp-action="Index">Section</a>
                                     </li>
                                     <li>
-                                        <a href="#">Risk</a>
+                                        <a asp-area="administration" asp-controller="RiskSetting" asp-action="Index">Risk</a>
                                     </li>
                                 </ul>
                             </div>
@@ -130,7 +130,7 @@
                                 <i class="fa fa-user"></i>
                                 <span>Users</span>
                             </a>
-                            <div class="sidebar-submenu">
+                            <div class="sidebar-submenu" style="display: block;">
                                 <ul>
                                     <li>
                                         <a asp-area="administration" asp-controller="Users" asp-action="Index">Manage User</a>
