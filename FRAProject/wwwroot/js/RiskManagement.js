@@ -3,7 +3,7 @@
     $.ajaxSetup({ cache: false });
     getAllRiskAssessment();
 
-    $("#date-container1 .input-group.date").datepicker({
+    $("#date-container .input-group.date").datepicker({
         autoclose: true
     });
 
@@ -20,8 +20,8 @@ function getViewForAddRisk() {
             $("#modal-content-riskManagement").empty().html(data);
             $("#SurveyDate").val("");
             $("#EntryDate").val("");
-
-            $("#date-container1 .input-group.date").datepicker({
+           
+            $("#date-container .input-group.date").datepicker({
                 autoclose: true
             });
 
@@ -68,16 +68,17 @@ function AddRiskAssessment() {
         success: function (data) {
 
             getAllRiskAssessment();
-            $("#modal-riskManagement").modal("hide");
-            $("#modal-content-riskManagement").empty();
+            //$("#modal-riskManagement").modal("hide");
+            //$("#modal-content-riskManagement").empty();
+            ClearRiskManagementDOM();
         },
         error: function (e) {
-            alert("error " + e.responseText + " -- " + e.message);
+            alert("error " );
         }
     });
 };
 
-function GetToEditRiskAssessment(dataId) {
+function getRiskAssessmentToEdit(dataId) {
     $.ajax({
         url: "/administration/riskmanagement/EditRisk",
         type: "GET",
@@ -87,7 +88,7 @@ function GetToEditRiskAssessment(dataId) {
         success: function (data) {
             $("#modal-content-riskManagement").empty().html(data);                           
 
-            $("#date-container1 .input-group.date").datepicker({
+            $("#date-container .input-group.date").datepicker({
                 autoclose: true
             });
 
@@ -97,6 +98,45 @@ function GetToEditRiskAssessment(dataId) {
         },
         error: function (e) {
             alert("error " + e.message);
+        }
+    });
+}
+
+function getRiskAssessmentToDelete(dataId) {    
+    $.ajax({
+        url: "/administration/riskmanagement/DeleteRisk",
+        type: "GET",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        data: { RiskAssessmentID: dataId },
+        success: function (data) {
+            $("#modal-content-riskDetail").empty().html(data);
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function deleteRiskAssessment() {
+
+    var dataModel = {        
+        RiskAssessmentID: $("#RiskAssessmentID").val()
+    };
+
+    $.ajax({
+        url: "/administration/riskmanagement/DeleteRisk",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(dataModel),
+        success: function (data) {
+            $("#modal-riskDetail").modal("hide");
+            getAllRiskAssessment();
+
+        },
+        error: function (e) {
+            alert("error ");
         }
     });
 }
@@ -178,7 +218,7 @@ function getRiskDetailScore(dataModel) {
     });
 }
 
-function EditRiskDetial(param) {
+function getRiskDetailToEdit(param) {
     
     var detectValueId = param.split("_");
 
@@ -205,6 +245,60 @@ function EditRiskDetial(param) {
             alert("error");
         }
     });
+}
+
+function getRiskDetailToDelete(param) {
+
+    var detectValueId = param.split("_");
+
+    $.ajax({
+        url: "/administration/riskmanagement/DeleteRiskDeitailScore",
+        type: "GET",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        data: { RiskDetailsID: detectValueId[1], RiskAssessmentID: detectValueId[0] },        
+        success: function (data) {
+            $("#modal-content-riskDetail").empty().html(data);
+            
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function deleteRiskDetail() {
+
+    var dataModel = {
+        RiskDetailsID: $("#RiskDetailsID").val(),
+        RiskAssessmentID: $("#RiskAssessmentID").val()
+    };
+
+    $.ajax({
+        url: "/administration/riskmanagement/DeleteRiskDeitailScore",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(dataModel),
+        success: function (data) {
+            $("#modal-riskDetail").modal("hide");
+            getAllRiskAssessment();
+
+        },
+        error: function (e) {
+            alert("error ");
+        }
+    });
+}
+
+function ClearRiskDetailDOM() {
+    $("#modal-riskDetail").modal("hide");
+    $("#modal-content-riskDetail").empty();
+}
+
+function ClearRiskManagementDOM() {
+    $("#modal-riskManagement").modal("hide");
+    $("#modal-content-riskManagement").empty();
 }
 
 function ClearRiskGuideLineDOM() {

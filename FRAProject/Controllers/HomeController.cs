@@ -35,9 +35,9 @@ namespace FRAProject.Controllers
             //// If the user is already authenticated we do not need to display the login page, so we redirect to the landing page.
             //if (User.Identity.IsAuthenticated)
             //{
-            //    return RedirectToAction("index", "home");
+            //    return View();                
             //}
-            
+
             //return RedirectToAction("Login", "Account");
             return View();
         }

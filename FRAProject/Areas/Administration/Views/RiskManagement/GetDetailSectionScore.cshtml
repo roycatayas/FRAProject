@@ -1,6 +1,5 @@
 ﻿@using FRA.Data.View
-@using FRA.Web.Models
-@model FRA.Data.View.RiskDetailSectionScoreListView
+@model RiskDetailSectionScoreListView
 
 <div class="accordionBody">
     <div class="accordion w-100">
@@ -21,8 +20,8 @@
                                         @{
                                             var paramEdit = scoreView.RiskAssessmentID + "_" + scoreView.RiskDetailsID;
                                             var id = scoreView.RiskAssessmentID + "_" + scoreView.RiskDetailsID;
-                                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-riskGuideLine" data-backdrop="static" data-keyboard="false" onclick="EditRiskDetial('@paramEdit')"><i class="far fa-edit f25"></i> Edit</button>
-                                            <button type="button" class="btn btn-danger"><i class="far fa-trash-alt f25"></i> Delete</button>
+                                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-riskGuideLine" data-backdrop="static" data-keyboard="false" onclick="getRiskDetailToEdit('@paramEdit')"><i class="far fa-edit f25"></i> Edit</button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getRiskDetailToDelete('@paramEdit')"><i class="far fa-trash-alt f25"></i> Delete</button>
 
                                             var hiddenTotalSectionRecord = "SectionTotalRecord_" + id;
                                             var hiddenRiskDetailsId = "RiskDetailsID_" + id;

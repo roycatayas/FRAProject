@@ -23,5 +23,8 @@ namespace FRA.Data.Abstract
         Task<OperationResult> UpdateRiskParticipantsScoreAsync(RiskParticipantsScoreView data);
         Task<OperationResult> UpdateRiskGuidelinesScoreAsync(RiskGuidelinesScoreView data);
         Task<OperationResult> UpdateRiskGuidelinesScoreAsync(string riskGuidelinesScoreId, string comment);
+        Task<RiskDetailScoreView> FindByIdRiskDetailScoreAsync(string riskDetailsId, string riskAssessmentId);
+        Task<OperationResult> DeleteRiskDetailScoreAsync(RiskDetailScoreView data);
+        Task<OperationResult> DeleteRiskAssessmentAsync(RiskAssessmentView data);
     }
 }

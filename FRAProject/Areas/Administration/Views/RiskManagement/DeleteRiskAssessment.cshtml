@@ -1,0 +1,32 @@
+﻿@using FRA.Data.View
+@using FRA.Web.Models
+@model RiskAssessmentView
+
+<form role="form">    
+    <input type="hidden" asp-for="RiskAssessmentID" />
+
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Delete Risk" })
+
+    <div class="modal-body">
+        Are you sure you want to delete this data:
+        <br />
+        DocumentNo: <b>@Model.DocumentNo</b>
+        <br />
+        Subject: <b>@Model.SubjectTitle</b>
+        <br />
+        Organization: <b>@Model.Organization</b>
+        <br />
+        Owner: <b>@Model.Owner</b>
+        <br />
+        Revision no: <b>@Model.RevisionNo</b>
+        <br />
+        EntryDate no: <b>@Model.EntryDate.ToString("d")</b>
+        <br />
+    </div>
+
+</form>
+
+<div class="modal-footer">
+    <button class="btn btn-success" id="deleteRisk" onclick="deleteRiskAssessment()">Submit</button>
+    <button id="Cancel" class="btn btn-secondary" type="button" onclick="ClearRiskDetailDOM()">Cancel</button>
+</div>

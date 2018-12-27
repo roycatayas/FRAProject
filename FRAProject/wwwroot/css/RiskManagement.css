@@ -212,8 +212,9 @@
 
 
 .dateButton{
-    position: absolute;
+    position: inherit;
     padding-top: 6px;
+    padding-right: 10px;
     min-width: 16px;
     line-height: 1.42857143;
     margin-left: -30px;    

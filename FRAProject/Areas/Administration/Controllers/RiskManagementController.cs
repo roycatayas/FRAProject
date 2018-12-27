@@ -34,6 +34,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public JsonResult AddRisk([FromBody]RiskAssessmentView model)
         {
             _riskAssessmentRepository.AddRiskAsync(model);
@@ -41,6 +42,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> EditRisk(string RiskAssessmentID)
         {
             if (string.IsNullOrEmpty(RiskAssessmentID)) return PartialView("GetRiskAssessment");
@@ -63,6 +65,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public JsonResult EditRisk([FromBody]RiskAssessmentView model)
         {
             if (string.IsNullOrEmpty(model.RiskAssessmentID.ToString())) return Json("Fail");
@@ -71,7 +74,42 @@ namespace FRA.Web.Areas.Administration.Controllers
             return Json("success");
         }
 
+        [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<ActionResult> DeleteRisk(string RiskAssessmentID)
+        {
+            if (!string.IsNullOrEmpty(RiskAssessmentID))
+            {
+                RiskAssessmentView riskAssessment = await _riskAssessmentRepository.FindByIdAsync(RiskAssessmentID);
+                if (riskAssessment != null)
+                {
+                    return PartialView("DeleteRiskAssessment", riskAssessment);
+                }
+            }
+            return PartialView("DeleteRiskAssessment");
+        }
+
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<JsonResult> DeleteRisk([FromBody]RiskAssessmentView model)
+        {
+            if (!string.IsNullOrEmpty(model.RiskAssessmentID.ToString()))
+            {
+                RiskAssessmentView riskAssessment = await _riskAssessmentRepository.FindByIdAsync(model.RiskAssessmentID.ToString());
+                if (riskAssessment != null)
+                {
+                    OperationResult result = await _riskAssessmentRepository.DeleteRiskAssessmentAsync(riskAssessment);
+                    if (result.Succeeded)
+                    {
+                        return Json("Success");
+                    }
+                }
+            }
+            return Json("Failed");
+        }
+
+        [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [ActionName("GetRiskAssessment")]
         public async Task<ActionResult> GetAllRiskAssessmentList()
         {            
@@ -113,13 +151,48 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public JsonResult AddRiskDeitailScore([FromBody]RiskDetailScoreView model)
         {
             _riskAssessmentRepository.AddRiskDetailScoreAsync(model);           
             return Json("success");
         }
 
+        [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<ActionResult> DeleteRiskDeitailScore(string RiskDetailsID, string RiskAssessmentID)
+        {
+            if (string.IsNullOrEmpty(RiskAssessmentID)) return PartialView("DeleteRiskDetailScore");
+
+            RiskDetailScoreView riskDetailScore = await _riskAssessmentRepository.FindByIdRiskDetailScoreAsync(RiskDetailsID, RiskAssessmentID);
+            if (riskDetailScore != null)
+            {
+                return PartialView("DeleteRiskDetailScore", riskDetailScore);
+            }
+            return PartialView("DeleteRiskDetailScore");
+        }
+
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<JsonResult> DeleteRiskDeitailScore([FromBody]RiskDetailScoreView model)
+        {
+            if (!string.IsNullOrEmpty(model.RiskDetailsID.ToString()))
+            {
+                RiskDetailScoreView riskDetailScore = await _riskAssessmentRepository.FindByIdRiskDetailScoreAsync(model.RiskDetailsID.ToString(), model.RiskAssessmentID.ToString());
+                if (riskDetailScore != null)
+                {
+                    OperationResult result = await _riskAssessmentRepository.DeleteRiskDetailScoreAsync(riskDetailScore);
+                    if (result.Succeeded)
+                    {
+                        return Json("Success");
+                    }
+                }
+            }
+            return Json("Failed");
+        }
+
+        [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [ActionName("GetRiskDetailScore")]
         public async Task<ActionResult> GetAllRiskScoreList([FromBody]RiskDetailScoreView model)
         {
@@ -151,6 +224,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [ActionName("GetRiskGuidelinesScoreEdit")]
         public async Task<ActionResult> GetRiskGuidelinesScoreList([FromBody]RiskDetailScoreView model)
         {
@@ -194,6 +268,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<JsonResult> UpdateRiskSectionScore([FromBody]RiskSectionScoreView model)
         {
             if (string.IsNullOrEmpty(model.RiskSectionScoreID.ToString())) return Json("Fail");
@@ -204,6 +279,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }        
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<JsonResult> UpdateRiskParticipantsScore([FromBody]RiskParticipantsScoreView model)
         {
             if (string.IsNullOrEmpty(model.RiskParticipantsID)) return Json("Fail");
@@ -214,6 +290,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<JsonResult> UpdateRiskGuidelinesScore([FromBody]RiskGuidelinesScoreView model)
         {
             if (string.IsNullOrEmpty(model.RiskGuidelinesScoreID.ToString())) return Json("Fail");
@@ -224,6 +301,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<JsonResult> UpdateRiskGuidelinesComment([FromBody]RiskGuidelinesScoreView model)
         {
             if (string.IsNullOrEmpty(model.RiskGuidelinesScoreID.ToString())) return Json("Fail");
@@ -234,6 +312,7 @@ namespace FRA.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<JsonResult> UpdateRiskDetailScore([FromBody]RiskDetailScoreView model)
         {
             if (string.IsNullOrEmpty(model.RiskDetailsID.ToString())) return Json("Fail");

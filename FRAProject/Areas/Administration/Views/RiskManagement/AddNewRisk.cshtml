@@ -27,11 +27,12 @@
                         <input asp-for="Organization" id="Organization" class="form-control textFWith400" />
 
                         <label asp-for="EntryDate" class="textFWith110">Date</label>
-                        <div id="date-container1" style="width: 300px">
+                        <div id="date-container" style="width: 300px">
                             <div class="input-group date">
-                                <input asp-for="EntryDate" type="text" id="EntryDate" class="form-control textFWith300"><span class="input-group-addon dateButton"><i class="fal fa-calendar-alt" style="font-size: 25px"></i></span>
-                            </div> 
-                        </div>                                               
+                                <input asp-for="EntryDate" type="text" id="EntryDate" data-provide="datepicker" class="form-control textFWith300"><span class="input-group-addon dateButton"><i class="fal fa-calendar-alt" style="font-size: 25px"></i></span>
+                            </div>
+                        </div>
+                        
                     </div>
 
                 </div>
@@ -66,12 +67,12 @@
                         <label asp-for="SurveyorEmail" class="textFWith110">Email</label>
                         <input asp-for="SurveyorEmail" id="SurveyorEmail" class="form-control textFWith400" />
 
-                        <label asp-for="SurveyDate" class="textFWith110">Date </label>                        
+                        <label asp-for="SurveyDate" class="textFWith110">Date </label>
                         <div id="date-container2" style="width: 300px">
                             <div class="input-group date">
-                                <input asp-for="SurveyDate" id="SurveyDate" class="form-control textFWith300" /><span class="input-group-addon dateButton"><i class="fal fa-calendar-alt" style="font-size: 25px"></i></span>
+                                <input asp-for="SurveyDate" type="text" id="SurveyDate" class="form-control textFWith300" /><span class="input-group-addon dateButton"><i class="fal fa-calendar-alt" style="font-size: 25px"></i></span>
                             </div>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
                 <!-- End Site Surveyor input -->

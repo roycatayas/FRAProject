@@ -297,5 +297,55 @@ namespace FRA.Repo.Risk
                 Description = $"The Comments with ID {RiskGuidelinesScoreID} could not be updated in the dbo.RiskGuidelinesScore table."
             }));
         }
+
+        public Task<RiskDetailScoreView> FindByIdRiskDetailScoreAsync(string riskDetailsId, string riskAssessmentId)
+        {
+            const string command = "select RiskDetailsID,RiskAssessmentID,Maturity,Efficiency,RiskLevel,CategoryName,ParticipantsNo from RiskDetailScore where RiskAssessmentID = @RiskAssessmentID and RiskDetailsID = @RiskDetailsID;";
+
+            return _sqlConnection.QuerySingleOrDefaultAsync<RiskDetailScoreView>(command, new
+            {
+                RiskDetailsID = riskDetailsId,
+                RiskAssessmentID = riskAssessmentId
+            });
+        }
+
+        public Task<OperationResult> DeleteRiskDetailScoreAsync(RiskDetailScoreView data)
+        {
+            DynamicParameters param = new DynamicParameters();
+            param.Add("RiskAssessmentID", data.RiskAssessmentID);
+            param.Add("RiskDetailsID", data.RiskDetailsID);           
+
+            param.Add("RetVal", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
+
+            _sqlConnection.Execute("DeleteRiskDetailScore", param, commandType: CommandType.StoredProcedure);
+            int rowsAdded = param.Get<int>("RetVal");
+
+            return Task.FromResult(rowsAdded.Equals(1)
+                ? OperationResult.Success
+                : OperationResult.Failed(new OperationResultError
+                {
+                    Code = string.Empty,
+                    Description = $"The data your trying to delete have an error please try again."
+                }));
+        }
+
+        public Task<OperationResult> DeleteRiskAssessmentAsync(RiskAssessmentView data)
+        {
+            DynamicParameters param = new DynamicParameters();
+            param.Add("RiskAssessmentID", data.RiskAssessmentID);            
+
+            param.Add("RetVal", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
+
+            _sqlConnection.Execute("DeleteRiskAssessment", param, commandType: CommandType.StoredProcedure);
+            int rowsAdded = param.Get<int>("RetVal");
+
+            return Task.FromResult(rowsAdded.Equals(1)
+                ? OperationResult.Success
+                : OperationResult.Failed(new OperationResultError
+                {
+                    Code = string.Empty,
+                    Description = $"The data your trying to delete have an error please try again."
+                }));
+        }
     }
 }

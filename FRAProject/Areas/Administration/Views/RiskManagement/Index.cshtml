@@ -56,7 +56,7 @@
                             </a>
                             <div class="sidebar-submenu" style="display: block;">
                                 <ul>
-                                    <li>                                        
+                                    <li>
                                         <a asp-area="administration" asp-controller="RiskManagement" asp-action="Index">Risk Assessment</a>
                                     </li>
                                     <li>
@@ -186,6 +186,13 @@
         </div>
     </div>
 
+    <div tabindex="-1" class="modal fade" id="modal-riskDetail" role="dialog" aria-hidden="true" aria-labelledby="modal-action-riskManagement-label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="modal-content-riskDetail" style="width: 650px">
+
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
