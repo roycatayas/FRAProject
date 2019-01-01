@@ -118,6 +118,10 @@ img {
     font-size: 25px;
 }
 
+.f20 {
+    font-size: 20px;
+}
+
 /*table design*/
 .rTable {
     border-collapse: collapse;
@@ -240,6 +244,14 @@ img {
 
 .w350 {
     width: 350px;
+}
+
+.w600 {
+    width: 600px;
+}
+
+.h18 {
+    height: 18px;
 }
 
 .h25 {

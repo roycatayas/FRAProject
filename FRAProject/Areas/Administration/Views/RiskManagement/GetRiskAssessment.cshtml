@@ -42,295 +42,383 @@
                             <div class="collapse" id="detailsRow_@item.RiskAssessmentID"> 
                             <h4>Additional information</h4>
                             <div style="margin-left: 15px;">
-                            <div class="row">
-                                <div class="form-inline">
-                                    <label class="my-1 mr-2">Select a category to add in this assessment</label>
-                                    <select class="custom-select my-1 mr-sm-2" id="riskSelect_@item.RiskAssessmentID">
-                                        <option value="0" selected="selected">Choose...</option>
-                                        @foreach (var iCategory in Model.ListCategory)
-                                        {
-                                            <option value="@iCategory.CategoryID">@iCategory.CategoryName</option>
-                                        }
-                                    </select>
-                                    <label class="my-1 mr-2">Indicate number of Paticipant</label>
-                                    <input id="riskParticipant_@item.RiskAssessmentID" class="form-control my-1 mr-sm-2" style="width: 50px" value="0"/>
-                                    <button class="btn btn-primary my-1" onclick="AddRiskDeitailScore(@item.RiskAssessmentID)">Submit</button>
-                                </div>
-                            </div>
-                            <!-- Begin detail score for asessment -->
-                            <div class="row topPadding10" id="ContainerDetailScore_@item.RiskAssessmentID">
-
-                            </div>
-                            <div class="accordionBody">
-                            <div class="accordion w-100">
-                            @if (item.ListRiskDetailScoreViews.Any())
-                            {
-                                foreach (var scoreView in item.ListRiskDetailScoreViews)
-                                {
-                                    <div class="accordion-item">
-                                    <a>@scoreView.CategoryName</a>
-                                    <div class="content">
-                                    <!--Data-->
-                                    <div class="row topPadding10" id="riskSectionDetailScore_@item.RiskAssessmentID">
-                                    <div id="collapse-collapsed" aria-labelledby="heading-collapsed">
-                                    <div class="card-body">
-                                    <div class="row">
-                                        <div class="displayInline">
-                                            <div class="float-left">
-                                                <h5 style="margin-left: 15px"> Number of Participant(s): <span class="badge badge-secondary badgePaticipant">@scoreView.ParticipantsNo</span></h5>
-                                            </div>
-                                            <div class="float-right">
-                                                @{
-                                                    var paramEdit = scoreView.RiskAssessmentID + "_" + scoreView.RiskDetailsID;
-                                                    var id = scoreView.RiskAssessmentID + "_" + scoreView.RiskDetailsID;
-                                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-riskGuideLine" data-backdrop="static" data-keyboard="false" onclick="getRiskDetailToEdit('@paramEdit')"><i class="far fa-edit f25"></i> Edit</button>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getRiskDetailToDelete('@paramEdit')"><i class="far fa-trash-alt f25"></i> Delete</button>
-
-                                                    var hiddenTotalSectionRecord = "SectionTotalRecord_" + id;
-                                                    var hiddenRiskDetailsId = "RiskDetailsID_" + id;
-                                                    var hiddenMinRecord = "SectionMinRecord_" + id;
-                                                    var hiddenMaxRecord = "SectionMaxRecord_" + id;
-
-                                                    <div class="hideDiv" id="@hiddenTotalSectionRecord">@scoreView.SectionDataCount</div>
-                                                    <div class="hideDiv" id="@hiddenRiskDetailsId">@scoreView.RiskDetailsID</div>
-                                                    <div class="hideDiv" id="@hiddenMinRecord">@scoreView.MinRecordNo</div>
-                                                    <div class="hideDiv" id="@hiddenMaxRecord">@scoreView.MaxRecordNo</div>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <!--Maturity-->
-                                        <div class="card-marginleft">
-                                            <div class="card card-width150">
-                                                <div class="card-content">
-                                                    @{
-                                                        var maturityId = "Maturity" + id;
-                                                        var divmaturityId = "divMaturity" + id;
-
-                                                        var riskMaturity = scoreView.Maturity;
-                                                        var cssClassRiskMaturity = "red";
-
-                                                        if (riskMaturity >= 0 && riskMaturity <= 1)
-                                                        {
-                                                            cssClassRiskMaturity = "red";
-                                                        }
-                                                        else if (riskMaturity > 1 && riskMaturity <= 2)
-                                                        {
-                                                            cssClassRiskMaturity = "orange";
-                                                        }
-                                                        else if (riskMaturity > 2 && riskMaturity <= 3)
-                                                        {
-                                                            cssClassRiskMaturity = "yellow";
-                                                        }
-                                                        else if (riskMaturity > 3 && riskMaturity <= 3.8)
-                                                        {
-                                                            cssClassRiskMaturity = "green lighten-2";
-                                                        }
-                                                        else if (riskMaturity > 3.8 && riskMaturity <= 5)
-                                                        {
-                                                            cssClassRiskMaturity = "green";
-                                                        }
-
-                                                        <div id="@divmaturityId" class="card-title white-text card-box150x150 @cssClassRiskMaturity">
-                                                            <h5 id="@maturityId" class="card-score">@scoreView.Maturity</h5>
-                                                        </div>
-                                                    }
-                                                    <div class="card-textDesc">
-                                                        Maturity
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--End Maturity-->
-                                        <!--Efficiency-->
-                                        <div class="card-marginleft">
-                                            <div class="card card-width150">
-                                                <div class="card-content">
-                                                    @{
-                                                        var efficiencyId = "Efficiency" + id;
-                                                        var divefficiencyId = "divEfficiency" + id;
-
-                                                        var riskEfficiency = scoreView.Efficiency;
-                                                        var cssClassRiskEfficiency = "red";
-                                                        if (riskEfficiency >= 0 && riskEfficiency <= 20)
-                                                        {
-                                                            cssClassRiskEfficiency = "red";
-                                                        }
-                                                        else if (riskEfficiency > 20 && riskEfficiency <= 40)
-                                                        {
-                                                            cssClassRiskEfficiency = "orange";
-                                                        }
-                                                        else if (riskEfficiency > 40 && riskEfficiency <= 60)
-                                                        {
-                                                            cssClassRiskEfficiency = "yellow";
-                                                        }
-                                                        else if (riskEfficiency > 60 && riskEfficiency <= 80)
-                                                        {
-                                                            cssClassRiskEfficiency = "green lighten-2";
-                                                        }
-                                                        else if (riskEfficiency > 80 && riskEfficiency <= 100)
-                                                        {
-                                                            cssClassRiskEfficiency = "green";
-                                                        }
-
-                                                        var percentEfficiency = scoreView.Efficiency + "%";
-                                                        <div id="@divefficiencyId" class="card-title white-text card-box150x150 @cssClassRiskEfficiency">
-                                                            <h5 id="@efficiencyId" class="card-score">@percentEfficiency</h5>
-                                                        </div>
-                                                    }
-                                                    <div class="card-textDesc">
-                                                        Efficiency
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--End Efficiency-->
-                                        <!--Risk Level-->
-                                        <div class="card-marginleft">
-                                            <div class="card card-width200">
-                                                <div class="card-content">
-                                                    @{
-                                                        var riskLevelId = "RiskLevel" + id;
-                                                        var divriskLevelId = "divRiskLevel" + id;
-
-                                                        var cssClassRiskDetailLevel = "red";
-                                                        if (scoreView.RiskLevel == "HIGH")
-                                                        {
-                                                            cssClassRiskDetailLevel = "red";
-                                                        }
-                                                        else if (scoreView.RiskLevel == "MEDIUM")
-                                                        {
-                                                            cssClassRiskDetailLevel = "yellow";
-                                                        }
-                                                        else if (scoreView.RiskLevel == "LOW")
-                                                        {
-                                                            cssClassRiskDetailLevel = "green";
-                                                        }
-
-                                                        <div id="@divriskLevelId" class="card-title white-text card-box150x200 @cssClassRiskDetailLevel">
-                                                            <h5 id="@riskLevelId" class="card-score">@scoreView.RiskLevel</h5>
-                                                        </div>
-                                                    }
-                                                    <div class="card-textDesc">
-                                                        Risk Level
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--End Risk Level-->
-                                    </div>
-                                    <div class="row">
-                                        <!--Table-->
-                                        <div class="rTable">
-                                            <div class="rTableRow">
-                                                <div class="rTableHead rTableHeadWith">
-                                                    <strong>Assessment sections</strong>
-                                                </div>
-                                                <div class="rTableHead centerCell">
-                                                    <strong>Maturity</strong>
-                                                </div>
-                                                <div class="rTableHead centerCell">
-                                                    <strong>Efficiency</strong>
-                                                </div>
-                                                <div class="rTableHead centerCell">
-                                                    <strong>Risk Level</strong>
-                                                </div>
-                                            </div>
-                                            @foreach (var iSectionItem in scoreView.ListRiskSectionScore)
+                                <div class="row">
+                                    <div class="form-inline">
+                                        <label class="my-1 mr-2">Select a category to add in this assessment</label>
+                                        <select class="custom-select my-1 mr-sm-2" id="riskSelect_@item.RiskAssessmentID">
+                                            <option value="0" selected="selected">Choose...</option>
+                                            @foreach (var iCategory in Model.ListCategory)
                                             {
-                                                var sectionMaturityId = "sectionMaturity_" + id + "_" + iSectionItem.RiskSectionScoreID;
-                                                var sectionEfficiencyId = "sectionEfficiency_" + id + "_" + iSectionItem.RiskSectionScoreID;
-                                                var sectionRiskLevelId = "sectionRiskLevel_" + id + "_" + iSectionItem.RiskSectionScoreID;
-
-                                                var scoreMaturity = iSectionItem.Maturity;
-                                                var cssClass = "red";
-
-                                                if (scoreMaturity >= 0 && scoreMaturity <= 1)
-                                                {
-                                                    cssClass = "red";
-                                                }
-                                                else if (scoreMaturity > 1 && scoreMaturity <= 2)
-                                                {
-                                                    cssClass = "orange";
-                                                }
-                                                else if (scoreMaturity > 2 && scoreMaturity <= 3)
-                                                {
-                                                    cssClass = "yellow";
-                                                }
-                                                else if (scoreMaturity > 3 && scoreMaturity <= 3.8)
-                                                {
-                                                    cssClass = "green lighten-2";
-                                                }
-                                                else if (scoreMaturity > 3.8 && scoreMaturity <= 5)
-                                                {
-                                                    cssClass = "green";
-                                                }
-
-                                                var scoreEfficiency = 0;
-                                                var outscoreEfficiency = 0;
-                                                scoreEfficiency = int.TryParse(iSectionItem.Efficiency, out outscoreEfficiency) ? int.Parse(iSectionItem.Efficiency) : 0;
-
-                                                var cssClassEfficiency = "red";
-                                                if (scoreEfficiency >= 0 && scoreEfficiency <= 20)
-                                                {
-                                                    cssClassEfficiency = "red";
-                                                }
-                                                else if (scoreEfficiency > 20 && scoreEfficiency <= 40)
-                                                {
-                                                    cssClassEfficiency = "orange";
-                                                }
-                                                else if (scoreEfficiency > 40 && scoreEfficiency <= 60)
-                                                {
-                                                    cssClassEfficiency = "yellow";
-                                                }
-                                                else if (scoreEfficiency > 60 && scoreEfficiency <= 80)
-                                                {
-                                                    cssClassEfficiency = "green lighten-2";
-                                                }
-                                                else if (scoreEfficiency > 80 && scoreEfficiency <= 100)
-                                                {
-                                                    cssClassEfficiency = "green";
-                                                }
-
-                                                var cssClassRiskLevel = "red";
-                                                if (iSectionItem.RiskLevel == "HIGH")
-                                                {
-                                                    cssClassRiskLevel = "red";
-                                                }
-                                                else if (iSectionItem.RiskLevel == "MEDIUM")
-                                                {
-                                                    cssClassRiskLevel = "yellow";
-                                                }
-                                                else if (iSectionItem.RiskLevel == "LOW")
-                                                {
-                                                    cssClassRiskLevel = "green";
-                                                }
-
-                                                var percent = iSectionItem.Efficiency + "%";
-                                                <div class="rTableRow">
-                                                    <div class="rTableCell rTableHeadWith">@iSectionItem.SectionName</div>
-                                                    <div id="@sectionMaturityId" class="rTableCell centerCell @cssClass">@iSectionItem.Maturity</div>
-                                                    <div id="@sectionEfficiencyId" class="rTableCell centerCell @cssClassEfficiency">@percent</div>
-                                                    <div id="@sectionRiskLevelId" class="rTableCell centerCell @cssClassRiskLevel">@iSectionItem.RiskLevel</div>
+                                                <option value="@iCategory.CategoryID">@iCategory.CategoryName</option>
+                                            }
+                                        </select>
+                                        <label class="my-1 mr-2">Indicate number of Paticipant</label>
+                                        <input id="riskParticipant_@item.RiskAssessmentID" class="form-control my-1 mr-sm-2" style="width: 50px" value="0" />
+                                        <button class="btn btn-primary my-1" onclick="AddRiskDeitailScore(@item.RiskAssessmentID)">Submit</button>
+                                    </div>
+                                </div>
+                                <!-- Begin document details -->
+                                <div class="row topPadding10" id="DocumentDetail_@item.RiskAssessmentID">
+                                    <div class="accordionBody">
+                                        <div class="accordion w-100">
+                                            <div class="accordion-item">
+                                                <a>Document Invitory</a>
+                                                <div class="content">
+                                                    <!--Table-->
+                                                    <div class="rTable">
+                                                        <div class="rTableRow">
+                                                            <div class="rTableHead w25 h40 blackBorderRight">
+                                                                <strong>#</strong>
+                                                            </div>
+                                                            <div class="rTableHead w600 h40 blackBorderRight">
+                                                                <strong>Document Name</strong>
+                                                            </div>
+                                                            <div class="rTableHead w250 h40 blackBorderRight">
+                                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getFileToUpload(@item.RiskAssessmentID)"><i class="far fa-cloud-upload f20"></i> Upload a new document</button>
+                                                            </div>
+                                                        </div>
+                                                        @if (item.ListDocuments.Any())
+                                                        {
+                                                            foreach (var document in item.ListDocuments)
+                                                            {
+                                                                var paramdocument = document.RiskAssessmentID + "_" + document.DocId;
+                                                                <div class="rTableRow">
+                                                                    <div class="rTableCell w25 h40 blackBorderRight">@document.DocId</div>
+                                                                    <div class="rTableCell w600 h40 blackBorderRight">@document.DocumentName</div>
+                                                                    <div class="rTableCell w250 h40 blackBorderRight">
+                                                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getDocumentToDownload('@paramdocument')"><i class="far fa-cloud-download f20"></i> Download</button>
+                                                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getDocumentToDelete('@paramdocument')"><i class="far fa-trash-alt f20"></i> Delete</button>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        
+                                                    </div>
+                                                    <!--End Table-->
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End document details -->
+                                <!-- Begin detail for additional contact person -->
+                                <div class="row topPadding10" id="ContactDetail_@item.RiskAssessmentID">
+                                    <div class="accordionBody">
+                                        <div class="accordion w-100">
+                                            <div class="accordion-item">
+                                                <a>Additional contact person</a>
+                                                <div class="content">
+                                                    <!--Table-->
+                                                    <div class="rTable">
+                                                        <div class="rTableRow">
+                                                            <div class="rTableHead w25 h40 blackBorderRight">
+                                                                <strong>#</strong>
+                                                            </div>
+                                                            <div class="rTableHead w300 h40 blackBorderRight">
+                                                                <strong>Name</strong>
+                                                            </div>
+                                                            <div class="rTableHead w300 h40 blackBorderRight">
+                                                                <strong>Contact No</strong>
+                                                            </div>
+                                                            <div class="rTableHead w250 h40 blackBorderRight">
+                                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getViewForAddContactPerson('@item.RiskAssessmentID')"><i class="far fa-user-alt f20"></i> New contact person</button>
+                                                            </div>
+                                                        </div>
+                                                        @if (item.ListContactPersons.Any())
+                                                        {
+                                                            foreach (var contactPerson in item.ListContactPersons)
+                                                            {
+                                                                var paramContactPerson = contactPerson.RiskAssessmentID + "_" + contactPerson.ContactPersonID;
+                                                                <div class="rTableRow">
+                                                                    <div class="rTableCell w25 h40 blackBorderRight">@contactPerson.ContactPersonID</div>
+                                                                    <div class="rTableCell w300 h40 blackBorderRight">@contactPerson.FullName</div>
+                                                                    <div class="rTableCell w300 h40 blackBorderRight">@contactPerson.PhoneNumber</div>
+                                                                    <div class="rTableCell w250 h40 blackBorderRight">
+                                                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getContactPersonToDelete('@paramContactPerson')"><i class="far fa-trash-alt f20"></i> Delete</button>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                    <!--End Table-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End detail for additional contact person -->
+                                <!-- Begin detail score for asessment -->
+                                <div class="row topPadding10" id="ContainerDetailScore_@item.RiskAssessmentID">
+                                    <div class="accordionBody">
+                                        <div class="accordion w-100">
+                                            @if (item.ListRiskDetailScoreViews.Any())
+                                            {
+                                                foreach (var scoreView in item.ListRiskDetailScoreViews)
+                                                {
+                                                    <div class="accordion-item">
+                                                        <a>@scoreView.CategoryName</a>
+                                                        <div class="content">
+                                                            <!--Data-->
+                                                            <div class="row topPadding10" id="riskSectionDetailScore_@item.RiskAssessmentID">
+                                                                <div id="collapse-collapsed" aria-labelledby="heading-collapsed">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="displayInline">
+                                                                                <div class="float-left">
+                                                                                    <h5 style="margin-left: 15px"> Number of Participant(s): <span class="badge badge-secondary badgePaticipant">@scoreView.ParticipantsNo</span></h5>
+                                                                                </div>
+                                                                                <div class="float-right">
+                                                                                    @{
+                                                                                        var paramEdit = scoreView.RiskAssessmentID + "_" + scoreView.RiskDetailsID;
+                                                                                        var id = scoreView.RiskAssessmentID + "_" + scoreView.RiskDetailsID;
+                                                                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-riskGuideLine" data-backdrop="static" data-keyboard="false" onclick="getRiskDetailToEdit('@paramEdit')"><i class="far fa-edit f25"></i> Edit</button>
+                                                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getRiskDetailToDelete('@paramEdit')"><i class="far fa-trash-alt f25"></i> Delete</button>
+
+                                                                                        var hiddenTotalSectionRecord = "SectionTotalRecord_" + id;
+                                                                                        var hiddenRiskDetailsId = "RiskDetailsID_" + id;
+                                                                                        var hiddenMinRecord = "SectionMinRecord_" + id;
+                                                                                        var hiddenMaxRecord = "SectionMaxRecord_" + id;
+
+                                                                                        <div class="hideDiv" id="@hiddenTotalSectionRecord">@scoreView.SectionDataCount</div>
+                                                                                        <div class="hideDiv" id="@hiddenRiskDetailsId">@scoreView.RiskDetailsID</div>
+                                                                                        <div class="hideDiv" id="@hiddenMinRecord">@scoreView.MinRecordNo</div>
+                                                                                        <div class="hideDiv" id="@hiddenMaxRecord">@scoreView.MaxRecordNo</div>
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <!--Maturity-->
+                                                                            <div class="card-marginleft">
+                                                                                <div class="card card-width150">
+                                                                                    <div class="card-content">
+                                                                                        @{
+                                                                                            var maturityId = "Maturity" + id;
+                                                                                            var divmaturityId = "divMaturity" + id;
+
+                                                                                            var riskMaturity = scoreView.Maturity;
+                                                                                            var cssClassRiskMaturity = "red";
+
+                                                                                            if (riskMaturity >= 0 && riskMaturity <= 1)
+                                                                                            {
+                                                                                                cssClassRiskMaturity = "red";
+                                                                                            }
+                                                                                            else if (riskMaturity > 1 && riskMaturity <= 2)
+                                                                                            {
+                                                                                                cssClassRiskMaturity = "orange";
+                                                                                            }
+                                                                                            else if (riskMaturity > 2 && riskMaturity <= 3)
+                                                                                            {
+                                                                                                cssClassRiskMaturity = "yellow";
+                                                                                            }
+                                                                                            else if (riskMaturity > 3 && riskMaturity <= 3.8)
+                                                                                            {
+                                                                                                cssClassRiskMaturity = "green lighten-2";
+                                                                                            }
+                                                                                            else if (riskMaturity > 3.8 && riskMaturity <= 5)
+                                                                                            {
+                                                                                                cssClassRiskMaturity = "green";
+                                                                                            }
+
+                                                                                            <div id="@divmaturityId" class="card-title white-text card-box150x150 @cssClassRiskMaturity">
+                                                                                                <h5 id="@maturityId" class="card-score">@scoreView.Maturity</h5>
+                                                                                            </div>
+                                                                                        }
+                                                                                        <div class="card-textDesc">
+                                                                                            Maturity
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--End Maturity-->
+                                                                            <!--Efficiency-->
+                                                                            <div class="card-marginleft">
+                                                                                <div class="card card-width150">
+                                                                                    <div class="card-content">
+                                                                                        @{
+                                                                                            var efficiencyId = "Efficiency" + id;
+                                                                                            var divefficiencyId = "divEfficiency" + id;
+
+                                                                                            var riskEfficiency = scoreView.Efficiency;
+                                                                                            var cssClassRiskEfficiency = "red";
+                                                                                            if (riskEfficiency >= 0 && riskEfficiency <= 20)
+                                                                                            {
+                                                                                                cssClassRiskEfficiency = "red";
+                                                                                            }
+                                                                                            else if (riskEfficiency > 20 && riskEfficiency <= 40)
+                                                                                            {
+                                                                                                cssClassRiskEfficiency = "orange";
+                                                                                            }
+                                                                                            else if (riskEfficiency > 40 && riskEfficiency <= 60)
+                                                                                            {
+                                                                                                cssClassRiskEfficiency = "yellow";
+                                                                                            }
+                                                                                            else if (riskEfficiency > 60 && riskEfficiency <= 80)
+                                                                                            {
+                                                                                                cssClassRiskEfficiency = "green lighten-2";
+                                                                                            }
+                                                                                            else if (riskEfficiency > 80 && riskEfficiency <= 100)
+                                                                                            {
+                                                                                                cssClassRiskEfficiency = "green";
+                                                                                            }
+
+                                                                                            var percentEfficiency = scoreView.Efficiency + "%";
+                                                                                            <div id="@divefficiencyId" class="card-title white-text card-box150x150 @cssClassRiskEfficiency">
+                                                                                                <h5 id="@efficiencyId" class="card-score">@percentEfficiency</h5>
+                                                                                            </div>
+                                                                                        }
+                                                                                        <div class="card-textDesc">
+                                                                                            Efficiency
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--End Efficiency-->
+                                                                            <!--Risk Level-->
+                                                                            <div class="card-marginleft">
+                                                                                <div class="card card-width200">
+                                                                                    <div class="card-content">
+                                                                                        @{
+                                                                                            var riskLevelId = "RiskLevel" + id;
+                                                                                            var divriskLevelId = "divRiskLevel" + id;
+
+                                                                                            var cssClassRiskDetailLevel = "red";
+                                                                                            if (scoreView.RiskLevel == "HIGH")
+                                                                                            {
+                                                                                                cssClassRiskDetailLevel = "red";
+                                                                                            }
+                                                                                            else if (scoreView.RiskLevel == "MEDIUM")
+                                                                                            {
+                                                                                                cssClassRiskDetailLevel = "yellow";
+                                                                                            }
+                                                                                            else if (scoreView.RiskLevel == "LOW")
+                                                                                            {
+                                                                                                cssClassRiskDetailLevel = "green";
+                                                                                            }
+
+                                                                                            <div id="@divriskLevelId" class="card-title white-text card-box150x200 @cssClassRiskDetailLevel">
+                                                                                                <h5 id="@riskLevelId" class="card-score">@scoreView.RiskLevel</h5>
+                                                                                            </div>
+                                                                                        }
+                                                                                        <div class="card-textDesc">
+                                                                                            Risk Level
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--End Risk Level-->
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <!--Table-->
+                                                                            <div class="rTable">
+                                                                                <div class="rTableRow">
+                                                                                    <div class="rTableHead rTableHeadWith">
+                                                                                        <strong>Assessment sections</strong>
+                                                                                    </div>
+                                                                                    <div class="rTableHead centerCell">
+                                                                                        <strong>Maturity</strong>
+                                                                                    </div>
+                                                                                    <div class="rTableHead centerCell">
+                                                                                        <strong>Efficiency</strong>
+                                                                                    </div>
+                                                                                    <div class="rTableHead centerCell">
+                                                                                        <strong>Risk Level</strong>
+                                                                                    </div>
+                                                                                </div>
+                                                                                @foreach (var iSectionItem in scoreView.ListRiskSectionScore)
+                                                                                {
+                                                                                    var sectionMaturityId = "sectionMaturity_" + id + "_" + iSectionItem.RiskSectionScoreID;
+                                                                                    var sectionEfficiencyId = "sectionEfficiency_" + id + "_" + iSectionItem.RiskSectionScoreID;
+                                                                                    var sectionRiskLevelId = "sectionRiskLevel_" + id + "_" + iSectionItem.RiskSectionScoreID;
+
+                                                                                    var scoreMaturity = iSectionItem.Maturity;
+                                                                                    var cssClass = "red";
+
+                                                                                    if (scoreMaturity >= 0 && scoreMaturity <= 1)
+                                                                                    {
+                                                                                        cssClass = "red";
+                                                                                    }
+                                                                                    else if (scoreMaturity > 1 && scoreMaturity <= 2)
+                                                                                    {
+                                                                                        cssClass = "orange";
+                                                                                    }
+                                                                                    else if (scoreMaturity > 2 && scoreMaturity <= 3)
+                                                                                    {
+                                                                                        cssClass = "yellow";
+                                                                                    }
+                                                                                    else if (scoreMaturity > 3 && scoreMaturity <= 3.8)
+                                                                                    {
+                                                                                        cssClass = "green lighten-2";
+                                                                                    }
+                                                                                    else if (scoreMaturity > 3.8 && scoreMaturity <= 5)
+                                                                                    {
+                                                                                        cssClass = "green";
+                                                                                    }
+
+                                                                                    var scoreEfficiency = 0;
+                                                                                    var outscoreEfficiency = 0;
+                                                                                    scoreEfficiency = int.TryParse(iSectionItem.Efficiency, out outscoreEfficiency) ? int.Parse(iSectionItem.Efficiency) : 0;
+
+                                                                                    var cssClassEfficiency = "red";
+                                                                                    if (scoreEfficiency >= 0 && scoreEfficiency <= 20)
+                                                                                    {
+                                                                                        cssClassEfficiency = "red";
+                                                                                    }
+                                                                                    else if (scoreEfficiency > 20 && scoreEfficiency <= 40)
+                                                                                    {
+                                                                                        cssClassEfficiency = "orange";
+                                                                                    }
+                                                                                    else if (scoreEfficiency > 40 && scoreEfficiency <= 60)
+                                                                                    {
+                                                                                        cssClassEfficiency = "yellow";
+                                                                                    }
+                                                                                    else if (scoreEfficiency > 60 && scoreEfficiency <= 80)
+                                                                                    {
+                                                                                        cssClassEfficiency = "green lighten-2";
+                                                                                    }
+                                                                                    else if (scoreEfficiency > 80 && scoreEfficiency <= 100)
+                                                                                    {
+                                                                                        cssClassEfficiency = "green";
+                                                                                    }
+
+                                                                                    var cssClassRiskLevel = "red";
+                                                                                    if (iSectionItem.RiskLevel == "HIGH")
+                                                                                    {
+                                                                                        cssClassRiskLevel = "red";
+                                                                                    }
+                                                                                    else if (iSectionItem.RiskLevel == "MEDIUM")
+                                                                                    {
+                                                                                        cssClassRiskLevel = "yellow";
+                                                                                    }
+                                                                                    else if (iSectionItem.RiskLevel == "LOW")
+                                                                                    {
+                                                                                        cssClassRiskLevel = "green";
+                                                                                    }
+
+                                                                                    var percent = iSectionItem.Efficiency + "%";
+                                                                                    <div class="rTableRow">
+                                                                                        <div class="rTableCell rTableHeadWith">@iSectionItem.SectionName</div>
+                                                                                        <div id="@sectionMaturityId" class="rTableCell centerCell @cssClass">@iSectionItem.Maturity</div>
+                                                                                        <div id="@sectionEfficiencyId" class="rTableCell centerCell @cssClassEfficiency">@percent</div>
+                                                                                        <div id="@sectionRiskLevelId" class="rTableCell centerCell @cssClassRiskLevel">@iSectionItem.RiskLevel</div>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                            <!--End Table-->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--End Data-->
+                                                        </div>
+                                                    </div>
+                                                }
+
                                             }
                                         </div>
-                                        <!--End Table-->
                                     </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    <!--End Data-->
-                                    </div>
-                                    </div>
-                                }
-
-                            }
-                            </div>
-                            </div>
-
-                            <!-- End detail score for asessment -->
+                                </div>
+                                <!-- End detail score for asessment -->
                             </div>
                             </div>                    
                         </td>

@@ -1,0 +1,42 @@
+﻿@using FRA.Data.View
+@model RiskDetailSectionScoreListView
+
+<div class="accordionBody">
+    <div class="accordion w-100">
+        <div class="accordion-item">
+            <a>Document Invitory</a>
+            <div class="content">
+                <!--Table-->
+                <div class="rTable">
+                    <div class="rTableRow">
+                        <div class="rTableHead w25 h40 blackBorderRight">
+                            <strong>#</strong>
+                        </div>
+                        <div class="rTableHead w600 h40 blackBorderRight">
+                            <strong>Document Name</strong>
+                        </div>
+                        <div class="rTableHead w250 h40 blackBorderRight">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getFileToUpload('@Model.RiskAssessmentID')"><i class="far fa-cloud-upload f20"></i> Upload a new document</button>
+                        </div>
+                    </div>
+                    @{
+                        foreach (var document in Model.ListDocuments)
+                        {
+                            var paramdocument = document.RiskAssessmentID + "_" + document.DocId;
+                            <div class="rTableRow">
+                                <div class="rTableCell w25 h40 blackBorderRight">@document.DocId</div>
+                                <div class="rTableCell w600 h40 blackBorderRight">@document.DocumentName</div>
+                                <div class="rTableCell w250 h40 blackBorderRight">
+                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getDocumentToDownload('@paramdocument')"><i class="far fa-cloud-download f20"></i> Download</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getDocumentToDelete('@paramdocument')"><i class="far fa-trash-alt f20"></i> Delete</button>
+                                </div>
+                            </div>
+                        }
+                    }
+                    
+                </div>
+                <!--End Table-->
+            </div>
+        </div>
+    </div>
+</div>

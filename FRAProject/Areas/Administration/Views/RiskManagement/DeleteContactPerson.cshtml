@@ -1,0 +1,25 @@
+﻿@using FRA.Data.Models
+@using FRA.Web.Models
+@model ContactPerson
+
+<form role="form">
+    <input type="hidden" asp-for="ContactPersonID" />
+    <input type="hidden" asp-for="RiskAssessmentID" />
+
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Delete Contact Person" })
+
+    <div class="modal-body">
+        Are you sure you want to delete this data:
+        <br />
+        Name: <b>@Model.FullName</b>
+        <br />
+        Contact no: <b>@Model.PhoneNumber</b>
+        <br />
+    </div>
+
+</form>
+
+<div class="modal-footer">
+    <button class="btn btn-success" id="deleteContactPerson" onclick="deleteContactPerson()">Submit</button>
+    <button id="Cancel" class="btn btn-secondary" type="button" onclick="ClearRiskDetailDOM()">Cancel</button>
+</div>

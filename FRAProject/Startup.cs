@@ -3,8 +3,9 @@ using FRA.Data.Abstract;
 using FRA.Data.Models;
 using FRA.IdentityProvider.Entities;
 using FRA.IdentityProvider.Stores;
-using FRA.IdentityProvider.Tables;
 using FRA.Repo.Category;
+using FRA.Repo.ContactPerson;
+using FRA.Repo.Document;
 using FRA.Repo.Risk;
 using FRA.Repo.Section;
 using FRA.Repo.User;
@@ -16,6 +17,7 @@ using FRA.Web.Infrastructure.Services;
 using FRA.Web.Infrastructure.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -105,6 +107,8 @@ namespace FRA.Web
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IRiskAssessmentRepository, RiskAssessmentRepository>();
             services.AddTransient<IUserRoleRepository, UserRoleRepository>();
+            services.AddTransient<IContactPersonRepository, ContactPersonRepository>();
+            services.AddTransient<IDocumentRepository, DocumentRepository>();
 
             services.AddTransient<IEmailService>(e => new EmailService(new SmtpSettings
             {
@@ -121,7 +125,7 @@ namespace FRA.Web
             //{
             //    CustomViewLocator expandViews = new CustomViewLocator();
             //    option.ViewLocationExpanders.Add(expandViews);
-            //});
+            //});            
 
             // Add and configure MVC services.
             services.AddMvc()
@@ -131,6 +135,18 @@ namespace FRA.Web
                     // Configure the contract resolver that is used when serializing .NET objects to JSON and vice versa.
                     setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
+
+            services.Configure<FormOptions>(x =>
+            {
+                x.ValueLengthLimit = 209715200;
+                x.MultipartBodyLengthLimit = 209715200;
+            });            
+
+            services.AddDistributedMemoryCache();            
+            services.AddSession(options =>
+            {                
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -160,8 +176,10 @@ namespace FRA.Web
 
             //applicationBuilder.UseIdentity();
             applicationBuilder.UseAuthentication();
-            applicationBuilder.UseStatusCodePagesWithRedirects("/error/index?errorCode={0}");            
+            applicationBuilder.UseStatusCodePagesWithRedirects("/error/index?errorCode={0}");
 
+            applicationBuilder.UseSession();
+            
             applicationBuilder.UseMvc(routes =>
             {                
                 routes.MapRoute("administrationAreaRoute", "{area:exists}/{controller=home}/{action=index}/{id?}");

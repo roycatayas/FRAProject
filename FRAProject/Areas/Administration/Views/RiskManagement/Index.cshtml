@@ -5,13 +5,14 @@
 @section Css {
 
     <link rel="stylesheet" type="text/css" href="~/css/jquery.mCustomScrollbar.min.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/loader.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="~/css/All.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="~/css/custom.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="~/css/custom-themes.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="~/css/UserSetting.css" asp-append-version="true" />
-    <link rel="stylesheet" type="text/css" href="~/css/RiskManagement.css" asp-append-version="true" />    
+    <link rel="stylesheet" type="text/css" href="~/css/RiskManagement.css" asp-append-version="true" />
     <link rel="stylesheet" type="text/css" href="~/css/materialize.css" asp-append-version="true" />
-    <link rel="stylesheet" type="text/css" href="~/css/Main.css" asp-append-version="true" />    
+    <link rel="stylesheet" type="text/css" href="~/css/Main.css" asp-append-version="true" />
 
     @*@{ await Html.RenderPartialAsync("_DataTablesStylesPartial"); }*@
 }
@@ -196,11 +197,12 @@
 </div>
 
 @section Scripts {
+    @*<script type="text/javascript" src="~/js/dropzone.js" asp-append-version="true"></script>*@
     <script type="text/javascript" src="~/js/custom.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/jquery.mCustomScrollbar.concat.min.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/MainPage.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/RiskManagement.js" asp-append-version="true"></script>
-    
+
     @*<script type="text/javascript" src="~/js/bootstrap-table-expandable.js" asp-append-version="true"></script>*@
-    @*<script type="text/javascript" src="~/js/accordion.js" asp-append-version="true"></script>*@    
+    @*<script type="text/javascript" src="~/js/accordion.js" asp-append-version="true"></script>*@
 }

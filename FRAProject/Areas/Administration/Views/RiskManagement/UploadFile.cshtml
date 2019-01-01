@@ -1,0 +1,69 @@
+﻿@using FRA.Data.View
+@using FRA.Web.Models
+@model UploadFileView
+
+<div class="modal-header">
+    <h4 class="modal-title" style="color: #bc8b0a; font-weight: 900">Upload Document</h4>
+</div>
+
+<form name="form">
+    @*@await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Upload Document" })*@
+    <input type="hidden" asp-for="DataId" />
+
+    <div class="modal-body userModalForm">
+        <!-- Begin file input -->
+        <div class="form">
+            <div id="inputControl" style="display: inline">
+                <div class="form-group row">
+                    <div class="inlineForm">
+                        <label asp-for="DocumentName" class="textFWith120"> Name</label>
+                        <input id="idDocumentName" asp-for="DocumentName" class="form-control textWith150"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="inlineForm">
+                        <label for="FormControlFile" class="textFWith120">Select a file to upload</label>
+                        <input type="file" class="form-control-file textWith150" id="FormControlFile">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-top: 20px;">
+                <div id="loader" style="display: none">
+
+                    <ul class="loading">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                    <br/>
+                    <label style="margin-left: 10px">Please wait while file is being upload, this form will automatically close once job is finish</label>
+                </div>
+            </div>
+
+        </div>
+        <!-- End file input -->
+    </div>
+
+</form>
+
+<div id="modelFooterControl" style="display: inline">
+    <div class="modal-footer">
+        <button class="btn btn-success" onclick="uploadFile()">Submit</button>
+        <button id="Cancel" class="btn btn-secondary" type="button" onclick="ClearRiskDetailDOM()">Cancel</button>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    
+}

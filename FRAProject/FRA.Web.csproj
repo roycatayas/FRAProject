@@ -23,6 +23,13 @@
     <Folder Include="wwwroot\lib\jquery-highlight\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\lib\bootstrap-V4\" />
+    <Folder Include="wwwroot\FileLocation\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="FluentFTP">
+      <HintPath>..\FRA.Service\FTP\FluentFTP.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,52 @@
+﻿@using FRA.Data.Models
+@using FRA.Web.Models
+@model Document
+
+<div class="modal-header">
+    <h4 class="modal-title" style="color: #bc8b0a; font-weight: 900">Delete Document</h4>
+</div>
+
+<form role="form">
+    <input type="hidden" asp-for="DocId" />
+    <input type="hidden" asp-for="RiskAssessmentID" />
+
+    @*@await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Delete Document" })*@
+
+    <div class="modal-body">
+        <div id="deleteMessage" style="display: inline">
+            Are you sure you want to delete this file on the server:
+            <br/>
+            Document: <b>@Model.DocumentName</b>
+            <br/>
+            File: <b>@Model.FileName</b>
+            <br/> 
+        </div>        
+
+        <div class="form-group row" style="margin-top: 20px;">
+            <div id="loader" style="display: none">
+
+                <ul class="loading">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <br/>
+                <label style="margin-left: 10px">Please wait while file is being deleted, this form will automatically close once job is finish</label>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+<div id="modelFooterControl" style="display: inline">
+    <div class="modal-footer">
+        <button class="btn btn-success" id="deleteContactPerson" onclick="deleteDocument()">Submit</button>
+        <button id="Cancel" class="btn btn-secondary" type="button" onclick="ClearRiskDetailDOM()">Cancel</button>
+    </div>
+</div>
+    

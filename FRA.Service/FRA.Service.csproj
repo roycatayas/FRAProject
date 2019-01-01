@@ -10,4 +10,15 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="FTP\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="FluentFTP">
+      <HintPath>FTP\FluentFTP.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
 </Project>

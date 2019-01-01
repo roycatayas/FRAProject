@@ -1,0 +1,46 @@
+﻿@using FRA.Data.View
+@model RiskDetailSectionScoreListView
+
+<div class="accordionBody">
+    <div class="accordion w-100">
+        <div class="accordion-item">
+            <a>Additional contact person</a>
+            <div class="content">
+                <!--Table-->
+                <div class="rTable">
+                    <div class="rTableRow">
+                        <div class="rTableHead w25 h40 blackBorderRight">
+                            <strong>#</strong>
+                        </div>
+                        <div class="rTableHead w300 h40 blackBorderRight">
+                            <strong>Name</strong>
+                        </div>
+                        <div class="rTableHead w300 h40 blackBorderRight">
+                            <strong>Contact No</strong>
+                        </div>        
+                        <div class="rTableHead w250 h40 blackBorderRight">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getViewForAddContactPerson('@Model.RiskAssessmentID')"><i class="far fa-user-alt f20"></i> New contact person</button>
+                        </div>
+                    </div>
+                    @{
+                        foreach (var contactPerson in Model.ListContactPersons)
+                        {
+                            var paramContactPerson = contactPerson.RiskAssessmentID + "_" + contactPerson.ContactPersonID;
+                            <div class="rTableRow">
+                                <div class="rTableCell w25 h40 blackBorderRight">@contactPerson.ContactPersonID</div>
+                                <div class="rTableCell w300 h40 blackBorderRight">@contactPerson.FullName</div>
+                                <div class="rTableCell w300 h40 blackBorderRight">@contactPerson.PhoneNumber</div>
+                                <div class="rTableCell w250 h40 blackBorderRight">                                                            
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-riskDetail" data-backdrop="static" data-keyboard="false" onclick="getContactPersonToDelete('@paramContactPerson')"><i class="far fa-trash-alt f20"></i> Delete</button>
+                                </div>        
+                            </div>
+                        } 
+                    }
+                                                    
+                </div>
+                <!--End Table-->
+            </div>
+        </div>
+    </div>
+</div>
+

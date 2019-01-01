@@ -10,7 +10,8 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    width: calc(100% - 5px);
+    /*width: calc(100% - 5px);*/
+    width: 1000px;
 }
 
 

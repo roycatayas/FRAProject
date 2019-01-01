@@ -3,7 +3,7 @@
     $.ajaxSetup({ cache: false });
     getAllRiskAssessment();
 
-    $("#date-container .input-group.date").datepicker({
+    $("#date-container1 .input-group.date").datepicker({
         autoclose: true
     });
 
@@ -21,7 +21,7 @@ function getViewForAddRisk() {
             $("#SurveyDate").val("");
             $("#EntryDate").val("");
            
-            $("#date-container .input-group.date").datepicker({
+            $("#date-container1 .input-group.date").datepicker({
                 autoclose: true
             });
 
@@ -88,7 +88,7 @@ function getRiskAssessmentToEdit(dataId) {
         success: function (data) {
             $("#modal-content-riskManagement").empty().html(data);                           
 
-            $("#date-container .input-group.date").datepicker({
+            $("#date-container1 .input-group.date").datepicker({
                 autoclose: true
             });
 
@@ -205,7 +205,7 @@ function getRiskDetailScore(dataModel) {
         contentType: "application/json; charset=utf-8",
         success: function (data) {            
             $(sectionDetailScore).empty().html(data);
-
+            
             const items = document.querySelectorAll(".accordion a");
 
             for (var i = 0, len = items.length; i < len; i++) {
@@ -234,11 +234,11 @@ function getRiskDetailToEdit(param) {
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             $("#modal-content-riskGuideLine").empty().html(data);
-
+            
             const items = document.querySelectorAll(".accordion a");
 
             for (var i = 0, len = items.length; i < len; i++) {
-                items[i].addEventListener('click', toggleAccordion);
+                items[i].addEventListener("click", toggleAccordion);
             }
         },
         error: function () {
@@ -291,6 +291,305 @@ function deleteRiskDetail() {
     });
 }
 
+function getViewForAddContactPerson(param) {
+
+    $.ajax({
+        url: "/administration/riskmanagement/AddContactPerson",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        data: { RiskAssessmentID: param },
+        success: function (data) {
+            $("#modal-content-riskDetail").empty().html(data);
+            
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function AddContactPerson() {
+    var dataModel = {
+        RiskAssessmentID: $("#RiskAssessmentID").val(),
+        FullName: $("#idFullName").val(),
+        PhoneNumber: $("#idPhoneNumber").val()
+    };
+
+    $.ajax({
+        url: "/administration/riskmanagement/AddContactPerson",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(dataModel),
+        success: function (data) {
+            getContactPerson(dataModel);
+
+            ClearRiskDetailDOM();
+        },
+        error: function (e) {
+            alert("error ");
+        }
+    });
+};
+
+function getContactPerson(dataModel) {
+    var contactDetail = "#ContactDetail_" + dataModel.RiskAssessmentID;
+    $.ajax({
+        url: "/administration/riskmanagement/GetContactPersonList",
+        type: "POST",
+        data: JSON.stringify(dataModel),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            $(contactDetail).empty().html(data);
+            
+            const items = document.querySelectorAll(".accordion a");
+
+            for (var i = 0, len = items.length; i < len; i++) {
+                items[i].addEventListener("click", toggleAccordion);
+            }
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function getContactPersonToDelete(param) {
+
+    var detectValueId = param.split("_");
+
+    $.ajax({
+        url: "/administration/riskmanagement/DeleteContactPerson",
+        type: "GET",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        data: { RiskAssessmentID: detectValueId[0], ContactPersonID: detectValueId[1] },
+        success: function (data) {
+            $("#modal-content-riskDetail").empty().html(data);
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function deleteContactPerson() {
+
+    var dataModel = {
+        ContactPersonID: $("#ContactPersonID").val(),
+        RiskAssessmentID: $("#RiskAssessmentID").val()
+    };
+
+    $.ajax({
+        url: "/administration/riskmanagement/DeleteContactPerson",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(dataModel),
+        success: function (data) {
+            
+            var personModel = {
+                RiskAssessmentID: $("#RiskAssessmentID").val()
+            };
+            getContactPerson(personModel);
+
+            ClearRiskDetailDOM();
+
+        },
+        error: function (e) {
+            alert("error ");
+        }
+    });
+}
+
+function getFileToUpload(param) {    
+
+    $.ajax({
+        url: "/administration/riskmanagement/Upload",
+        type: "GET",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        data: { dataId: param },
+        success: function (data) {
+            $("#modal-content-riskDetail").empty().html(data);
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function uploadFile() {
+
+    var detectValueId = $("#DataId").val();
+    var documentName = $("#idDocumentName").val(); 
+    var fileToUpload = $("#FormControlFile")[0].files[0];
+
+    var dataModel = {
+        RiskAssessmentID: $("#DataId").val()
+    };
+
+    var formData = new FormData();
+    formData.append("file", fileToUpload);
+    formData.append("RiskId", detectValueId);
+    formData.append("documentName", documentName);
+
+    $("#loader").show();
+    $("#inputControl").hide();
+    $("#modelFooterControl").hide();
+    $.ajax({
+            url: "/administration/riskmanagement/Upload",
+            type: "POST",
+            contentType: false,
+            data: formData,
+            cache: false,
+            processData: false,
+            success: function(file) {
+                //alert("Uploading is done");
+                //$("#loader").hide();
+                getDocument(dataModel);
+
+                ClearRiskDetailDOM();
+            },
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress",
+                    function(evt) {
+                        if (evt.lengthComputable) {                                                        
+                            
+                        }
+                    },
+                    false);
+                return xhr;
+            }
+        })
+        .fail(function(jqXhr, textStatus, errorThrown) {
+            if (errorThrown === "abort") {
+                alert("Uploading was aborted");
+            } else {
+                alert("Uploading failed");
+            }
+        });
+}
+
+function getDocument(dataModel) {
+    var documentDetail = "#DocumentDetail_" + dataModel.RiskAssessmentID;
+    $.ajax({
+        url: "/administration/riskmanagement/GetDocumentList",
+        type: "POST",
+        data: JSON.stringify(dataModel),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            $(documentDetail).empty().html(data);
+
+            const items = document.querySelectorAll(".accordion a");
+
+            for (var i = 0, len = items.length; i < len; i++) {
+                items[i].addEventListener("click", toggleAccordion);
+            }
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function getDocumentToDelete(param) {
+
+    var detectValueId = param.split("_");
+
+    $.ajax({
+        url: "/administration/riskmanagement/DeleteDocument",
+        type: "GET",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        data: { RiskAssessmentID: detectValueId[0], DocId: detectValueId[1] },
+        success: function (data) {
+            $("#modal-content-riskDetail").empty().html(data);
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function deleteDocument() {
+
+    var dataModel = {
+        DocId: $("#DocId").val(),
+        RiskAssessmentID: $("#RiskAssessmentID").val()
+    };
+
+    $("#loader").show();
+    $("#modelFooterControl").hide();
+    $("#deleteMessage").hide();
+
+    $.ajax({
+        url: "/administration/riskmanagement/DeleteDocument",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(dataModel),
+        success: function (data) {
+
+            var docModel = {
+                RiskAssessmentID: $("#RiskAssessmentID").val()
+            };
+            getDocument(docModel);
+
+            ClearRiskDetailDOM();
+
+        },
+        error: function (e) {
+            alert("error ");
+        }
+    });
+}
+
+function getDocumentToDownload(param) {
+
+    var detectValueId = param.split("_");
+
+    $.ajax({
+        url: "/administration/riskmanagement/DownloadFile",
+        type: "GET",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        data: { RiskAssessmentID: detectValueId[0], DocId: detectValueId[1] },
+        success: function (data) {
+            $("#modal-content-riskDetail").empty().html(data);
+
+            downloadDocument();
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function downloadDocument() {
+
+    var dataModel = {
+        DocId: $("#DocId").val(),
+        RiskAssessmentID: $("#RiskAssessmentID").val()
+    };
+
+    $.ajax({
+        url: "/administration/riskmanagement/DownloadFile",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(dataModel),
+        success: function (data) {            
+
+            ClearRiskDetailDOM();
+        },
+        error: function (e) {
+            alert("error ");
+        }
+    });
+}
+
 function ClearRiskDetailDOM() {
     $("#modal-riskDetail").modal("hide");
     $("#modal-content-riskDetail").empty();
@@ -309,6 +608,20 @@ function ClearRiskGuideLineDOM() {
 function toggleAccordion() {
     this.classList.toggle('active');
     this.nextElementSibling.classList.toggle('active');
+}
+
+function toggleCaret() {
+    //this.classList.toggle('active');
+    //this.nextElementSibling.classList.toggle('active');
+    console("clik");
+    this.on("hidden.bs.collapse", function (event) {
+        event.stopPropagation();
+        $(".fas").addClass("fa-caret-up").removeClass("fa-caret-down");
+    });
+    this.on("show.bs.collapse", function (event) {
+        event.stopPropagation();
+        $(".fas").addClass("fa-caret-down").removeClass("fa-caret-up");
+    });
 }
 
 function calculateMaturityOnly(sectionImpactParam) {

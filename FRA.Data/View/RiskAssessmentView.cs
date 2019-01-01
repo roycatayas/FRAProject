@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using FRA.Data.Models;
 
 namespace FRA.Data.View
 {
@@ -39,5 +40,7 @@ namespace FRA.Data.View
         public string EmailAdress { get; set; }
         public string URLAdress { get; set; }
         public IEnumerable<RiskDetailScoreView> ListRiskDetailScoreViews { get; set; }
+        public IEnumerable<ContactPerson> ListContactPersons { get; set; }
+        public IEnumerable<Document> ListDocuments { get; set; }
     }
 }

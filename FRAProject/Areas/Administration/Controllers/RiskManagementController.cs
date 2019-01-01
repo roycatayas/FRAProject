@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using FluentFTP;
 using FRA.Data.Abstract;
 using FRA.Data.Models;
 using FRA.Data.View;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FRA.Web.Areas.Administration.Controllers
@@ -15,17 +20,24 @@ namespace FRA.Web.Areas.Administration.Controllers
     {
         private readonly IRiskAssessmentRepository _riskAssessmentRepository;
         private readonly ITableDataRepository<Catergory> _categoryRepository;
+        private readonly IContactPersonRepository _contactPersonRepository;
+        //private readonly IHostingEnvironment _environment;
+        private readonly IDocumentRepository _documentRepository;
 
-        public RiskManagementController(IRiskAssessmentRepository riskAssessmentRepository, ITableDataRepository<Catergory> categoryRepository)
+        public RiskManagementController(IRiskAssessmentRepository riskAssessmentRepository, ITableDataRepository<Catergory> categoryRepository, IContactPersonRepository contactPersonRepositor, IDocumentRepository documentRepository)
         {
             _riskAssessmentRepository = riskAssessmentRepository;
             _categoryRepository = categoryRepository;
+            _contactPersonRepository = contactPersonRepositor;
+            //_environment = environment;
+            _documentRepository = documentRepository;
         }
 
         [HttpGet]
         public ViewResult Index() => View();
 
         [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public ActionResult AddRisk()
         {
             RiskAssessmentView model = new RiskAssessmentView();
@@ -121,6 +133,9 @@ namespace FRA.Web.Areas.Administration.Controllers
             foreach (RiskAssessmentView riskListView in riskListViews)
             {
                 RiskDetailScoreView[] riskDetailScore = (await _riskAssessmentRepository.GetRiskDetailScoreRecordsByRiskId(riskListView.RiskAssessmentID)).ToArray();
+                ContactPerson[] contactPerson = (await _contactPersonRepository.GetContactPersonById(riskListView.RiskAssessmentID.ToString())).ToArray();
+                Document[] fileDocument = (await _documentRepository.GetDocumentById(riskListView.RiskAssessmentID.ToString())).ToArray();
+
                 List<string> currentCategory = new List<string>();
 
                 foreach (var iDetailScore in riskDetailScore)
@@ -145,6 +160,8 @@ namespace FRA.Web.Areas.Administration.Controllers
 
                 currentCategory.AddRange(riskDetailScore.Select(iData => iData.CategoryName));
                 riskListView.ListRiskDetailScoreViews = riskDetailScore;
+                riskListView.ListContactPersons = contactPerson;
+                riskListView.ListDocuments = fileDocument;
             }            
 
             return PartialView("GetRiskAssessment", model);
@@ -197,6 +214,8 @@ namespace FRA.Web.Areas.Administration.Controllers
         public async Task<ActionResult> GetAllRiskScoreList([FromBody]RiskDetailScoreView model)
         {
             RiskDetailScoreView[] riskDetailScore = (await _riskAssessmentRepository.GetRiskDetailScoreRecordsByRiskId(model.RiskAssessmentID)).ToArray();
+            ContactPerson[] contactPerson = (await _contactPersonRepository.GetContactPersonById(model.RiskAssessmentID.ToString())).ToArray();
+            Document[] fileDocument = (await _documentRepository.GetDocumentById(model.RiskAssessmentID.ToString())).ToArray();
 
             foreach (var iDetailScore in riskDetailScore)
             {
@@ -218,7 +237,12 @@ namespace FRA.Web.Areas.Administration.Controllers
                 }
             }
 
-            RiskDetailSectionScoreListView data = new RiskDetailSectionScoreListView {ListRiskDetailScoreViews = riskDetailScore};
+            RiskDetailSectionScoreListView data = new RiskDetailSectionScoreListView
+            {
+                ListRiskDetailScoreViews = riskDetailScore,
+                ListContactPersons = contactPerson,
+                ListDocuments = fileDocument
+            };
 
             return PartialView("GetDetailSectionScore", data);
         }
@@ -320,6 +344,266 @@ namespace FRA.Web.Areas.Administration.Controllers
             var dataResult = await _riskAssessmentRepository.UpdateRiskDetailScoreAsync(model);
 
             return Json("success");
+        }
+
+        [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public ActionResult AddContactPerson(string RiskAssessmentID)
+        {
+            ContactPersonView model = new ContactPersonView();
+            model.RiskAssessmentID = RiskAssessmentID;
+
+            return PartialView("AddNewContactPerson", model);
+        }
+
+        [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<JsonResult> AddContactPerson([FromBody]ContactPersonView model)
+        {
+            ContactPerson person = new ContactPerson
+            {
+                RiskAssessmentID = model.RiskAssessmentID,
+                FullName = model.FullName,
+                PhoneNumber = model.PhoneNumber
+            };
+            await _contactPersonRepository.AddToContactPersonAsync(person);
+
+            return Json("success");
+        }
+
+        [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]      
+        public async Task<ActionResult> GetContactPersonList([FromBody]RiskDetailScoreView model)
+        {            
+            ContactPerson[] contactPerson = (await _contactPersonRepository.GetContactPersonById(model.RiskAssessmentID.ToString())).ToArray();            
+
+            RiskDetailSectionScoreListView data = new RiskDetailSectionScoreListView { RiskAssessmentID = model.RiskAssessmentID.ToString(), ListContactPersons = contactPerson };
+
+            return PartialView("GetContactPerson", data);
+        }
+
+        [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<ActionResult> DeleteContactPerson(string ContactPersonID, string RiskAssessmentID)
+        {
+            if (string.IsNullOrEmpty(RiskAssessmentID)) return PartialView("DeleteRiskDetailScore");
+            ContactPerson model = new ContactPerson();
+            model.RiskAssessmentID = RiskAssessmentID;
+            model.ContactPersonID = ContactPersonID;
+
+            ContactPerson contactPerson = await _contactPersonRepository.GetContactPersonById(model);
+            if (contactPerson != null)
+            {
+                return PartialView("DeleteContactPerson", contactPerson);
+            }
+            return PartialView("DeleteContactPerson");
+        }
+
+        [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<JsonResult> DeleteContactPerson([FromBody]ContactPerson model)
+        {
+            if (!string.IsNullOrEmpty(model.ContactPersonID))
+            {
+                ContactPerson contactPerson = await _contactPersonRepository.GetContactPersonById(model);
+                if (contactPerson != null)
+                {
+                    OperationResult result = await _contactPersonRepository.RemoveFromContactPersonAsync(contactPerson);
+                    if (result.Succeeded)
+                    {
+                        return Json("Success");
+                    }
+                }
+            }
+            return Json("Failed");
+        }
+
+        [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public ActionResult Upload(string dataId)
+        {
+            UploadFileView fileUpload = new UploadFileView();
+            fileUpload.DataId = dataId;
+            return PartialView("UploadFile", fileUpload);
+        }
+
+        [HttpPost]
+        [RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
+        [RequestSizeLimit(209715200)]
+        public async Task<ActionResult> Upload(IFormFile file, string RiskId, string documentName)
+        {            
+            try
+            {
+                if (file.Length > 0)
+                {
+                    string[] detectFileName = file.FileName.Split('\\');
+                    //remove space on filename or special characters
+                    string fileNameOnly = detectFileName[detectFileName.Length - 1].Replace(" ","");
+                    string originalFileName = fileNameOnly;
+                    #region clear file name for any special characters
+                    fileNameOnly = fileNameOnly.Replace("'", "");
+                    fileNameOnly = fileNameOnly.Replace("-", "");
+                    fileNameOnly = fileNameOnly.Replace("_", "");
+                    fileNameOnly = fileNameOnly.Replace("$", "");
+                    fileNameOnly = fileNameOnly.Replace("%", "");
+                    fileNameOnly = fileNameOnly.Replace("@", "");
+                    fileNameOnly = fileNameOnly.Replace("*", "");
+                    fileNameOnly = fileNameOnly.Replace("#", "");
+                    #endregion
+
+                    Guid ramdomId = Guid.NewGuid();
+                    fileNameOnly = RiskId + "_" + ramdomId + "_" +fileNameOnly;
+                    string remoteDirectory = "/document/" + fileNameOnly;
+
+                    using (FtpClient client = new FtpClient())
+                    {
+                        client.Host = "fraweb.iweb-storage.com";
+                        client.Port = 21;
+                        client.Credentials = new NetworkCredential("fraweb-admin", "P@$$word123");                        
+
+                        client.UploadFile(file.FileName, remoteDirectory);
+                        client.RetryAttempts = 1;
+                        client.UploadFile(file.FileName, remoteDirectory, FtpExists.Overwrite, false, FtpVerify.Retry);
+
+                        client.Disconnect();
+                    }
+
+                    Document fileDocument = new Document
+                    {
+                        RiskAssessmentID = RiskId,
+                        DocumentName = documentName,
+                        FileName = originalFileName,
+                        FTPLink = remoteDirectory,
+                        DocumentGUID = ramdomId.ToString()
+                    };
+                    await _documentRepository.AddToDocumentAsync(fileDocument);
+                }
+            }
+            catch (Exception exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    response = exception.Message
+                });
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<ActionResult> GetDocumentList([FromBody]RiskDetailScoreView model)
+        {
+            Document[] fileDocument = (await _documentRepository.GetDocumentById(model.RiskAssessmentID.ToString())).ToArray();
+
+            RiskDetailSectionScoreListView data = new RiskDetailSectionScoreListView { RiskAssessmentID = model.RiskAssessmentID.ToString(), ListDocuments = fileDocument };
+
+            return PartialView("GetDocument", data);
+        }
+
+        [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<ActionResult> DeleteDocument(string DocId, string RiskAssessmentID)
+        {
+            if (string.IsNullOrEmpty(RiskAssessmentID)) return PartialView("DeleteDocument");
+            Document model = new Document
+            {
+                RiskAssessmentID = RiskAssessmentID,
+                DocId = DocId
+            };
+
+            Document fileDocument = await _documentRepository.GetDocumentById(model);
+            if (fileDocument != null)
+            {
+                return PartialView("DeleteDocument", fileDocument);
+            }
+            return PartialView("DeleteDocument");
+        }
+
+        [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<JsonResult> DeleteDocument([FromBody]Document model)
+        {
+            if (!string.IsNullOrEmpty(model.DocId))
+            {
+                Document fileDocument = await _documentRepository.GetDocumentById(model);
+                if (fileDocument != null)
+                {
+                    using (FtpClient client = new FtpClient())
+                    {
+                        client.Host = "fraweb.iweb-storage.com";
+                        client.Port = 21;
+                        client.Credentials = new NetworkCredential("fraweb-admin", "P@$$word123");
+
+                        client.DeleteFile(fileDocument.FTPLink);
+
+                        client.Disconnect();
+                    }
+
+                    OperationResult result = await _documentRepository.RemoveFromDocumentAsync(fileDocument);
+                    if (result.Succeeded)
+                    {
+                        return Json("Success");
+                    }
+                }
+            }
+            return Json("Failed");
+        }
+
+        [HttpGet]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<ActionResult> DownloadFile(string DocId, string RiskAssessmentID)
+        {
+            if (string.IsNullOrEmpty(RiskAssessmentID)) return PartialView("DownloadFile");
+            string downloadPath = @"C:\RiskDocuments";
+            //Check if not exists then create the folder else do nothing
+            if (!Directory.Exists(downloadPath))
+            {
+                Directory.CreateDirectory(downloadPath);
+            }
+
+            Document model = new Document
+            {
+                RiskAssessmentID = RiskAssessmentID,
+                DocId = DocId                
+            };
+
+            Document fileDocument = await _documentRepository.GetDocumentById(model);
+            if (fileDocument != null)
+            {
+                fileDocument.DownloadLocation = downloadPath;
+                return PartialView("DownloadFile", fileDocument);
+            }
+            return PartialView("DownloadFile");            
+        }
+
+        [HttpPost]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<JsonResult> DownloadFile([FromBody]Document model)
+        {
+            if (!string.IsNullOrEmpty(model.DocId))
+            {
+                Document fileDocument = await _documentRepository.GetDocumentById(model);
+                if (fileDocument != null)
+                {
+                    string downloadPath = @"C:\RiskDocuments";
+                    using (FtpClient client = new FtpClient())
+                    {
+                        downloadPath = downloadPath + @"\" + fileDocument.FileName;
+                        client.Host = "fraweb.iweb-storage.com";
+                        client.Port = 21;
+                        client.Credentials = new NetworkCredential("fraweb-admin", "P@$$word123");
+
+                        client.DownloadFile(downloadPath, fileDocument.FTPLink);
+
+                        client.Disconnect();
+                    }
+                }
+
+                return Json("Success");
+            }
+            return Json("Failed");
         }
     }
 }
